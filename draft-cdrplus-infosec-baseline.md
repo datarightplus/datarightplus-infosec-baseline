@@ -5,7 +5,7 @@ workgroup = "cdrplus-core"
 
 [seriesInfo]
 name = "Internet-Draft"
-value = "cdrplus-infosec-baseline-00"
+value = "draft-cdrplus-infosec-baseline-latest"
 stream = "IETF"
 status = "experimental"
 
