@@ -14,3 +14,11 @@ Once you have created your own repository, start work by:
 
 2. Rename the `draft-todo-yourname-protocol.md` file
    [here](../../edit/main/draft-todo-yourname-protocol.md).
+
+
+
+# Working notes
+
+`brew install ruby`
+`gem install kramdown-rfc`
+
