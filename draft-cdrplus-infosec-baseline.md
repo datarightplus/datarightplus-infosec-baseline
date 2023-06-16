@@ -9,7 +9,7 @@ value = "draft-cdrplus-infosec-baseline-latest"
 stream = "IETF"
 status = "experimental"
 
-date = 2022-06-27T00:00:00Z
+date = 2023-06-16T00:00:00Z
 
 [[author]]
 initials="S."
