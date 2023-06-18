@@ -8,7 +8,7 @@
 <meta content="Stuart Low" name="author">
 <meta content="Ben Kolera" name="author">
 <meta content="
-       The CDR+ Security Profile: Baseline is intended to be a like-for-like profile of the Data Standards presented as a profile of  [Financial-grade API Security Profile 1.0 Part 2: Advanced]( https://openid.net/specs/openid-financial-api-part-2-1 0.html)_. This profile focuses primarily on the obligations between OP and RP with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of permitted arrangement types within the CDR (currently one, the CDR Sharing Arrangement V1). It does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the  Data Standards: Security Profile . 
+       The CDR+ Security Profile: Baseline is intended to be a compatible profile of the   presented as a profile of  [Financial-grade API Security Profile 1.0 Part 2: Advanced]( https://openid.net/specs/openid-financial-api-part-2-1 0.html)_. This profile focuses primarily on the obligations between OP and RP with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of permitted arrangement types within the CDR (currently one, the CDR Sharing Arrangement V1). It does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the  Data Standards: Security Profile . 
     " name="description">
 <meta content="xml2rfc 3.17.3" name="generator">
 <meta content="draft-authors-cdrplus-infosec-baseline-latest" name="ietf.draft">
@@ -1086,7 +1086,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">CDR+ Security Profile: Baseline</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">The CDR+ Security Profile: Baseline is intended to be a like-for-like profile of the Data Standards presented as a profile of <em>[Financial-grade API Security Profile 1.0 Part 2: Advanced](<a href="https://openid.net/specs/openid-financial-api-part-2-1">https://openid.net/specs/openid-financial-api-part-2-1</a></em>0.html)_. This profile focuses primarily on the obligations between OP and RP with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of permitted arrangement types within the CDR (currently one, the CDR Sharing Arrangement V1). It does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the <em><a href="https://consumerdatastandardsaustralia.github.io/standards/#security-profile">Data Standards: Security Profile</a></em>.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">The CDR+ Security Profile: Baseline is intended to be a compatible profile of the <span>[<a href="#CDS" class="cite xref">CDS</a>]</span> presented as a profile of <em>[Financial-grade API Security Profile 1.0 Part 2: Advanced](<a href="https://openid.net/specs/openid-financial-api-part-2-1">https://openid.net/specs/openid-financial-api-part-2-1</a></em>0.html)_. This profile focuses primarily on the obligations between OP and RP with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of permitted arrangement types within the CDR (currently one, the CDR Sharing Arrangement V1). It does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the <em><a href="https://consumerdatastandardsaustralia.github.io/standards/#security-profile">Data Standards: Security Profile</a></em>.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note" id="section-note.1">
       <h2 id="name-notational-conventions">
@@ -1212,11 +1212,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-scope" class="section-name selfRef">Scope</a>
       </h2>
 <p id="section-1-1">This document specifies methods for the following:
-  - method of obtaining OAuth2 tokens in th designated manner under the CDR Rules and Data Standards;
+  - method of obtaining OAuth2 tokens in th designated manner under the CDR Rules and <span>[<a href="#CDS" class="cite xref">CDS</a>]</span>;
   - requirements related to participants for initiating authorisations and obtaining ongoing authorisation credentials<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">This document does not seek to:
-- specify correlation elements between technical and the legal obligations contained within documents such as the CDR Rules;
-- restate unchanged requirements from upstream specifications<a href="#section-1-2" class="pilcrow">¶</a></p>
+  - specify correlation elements between technical and the legal obligations contained within documents such as the CDR Rules;
+  - restate unchanged requirements from upstream specifications
+  - incorporate components which are headed towards retirement, notably at the time of drafting, the inclusion of Hybrid authorisation flow<a href="#section-1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="terminology">
@@ -1231,16 +1232,16 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <dd style="margin-left: 1.5em" id="section-2-3.2">Refers to the <a href="https://www.legislation.gov.au/Series/F2020L00094">Competition and Consumer (Consumer Data Right) Rules 2020</a><a href="#section-2-3.2" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-3.3">Data Holder</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.4">A Data Holder is a party that holds consumer data for which sharing is to be conducted and for which their customer, the Consumer, participates in the authorisation process initiated by a Data Recipient. Please refer to the expanded description of Data Holder within this document.<a href="#section-2-3.4" class="pilcrow">¶</a>
+<dt id="section-2-3.3">Consumer</dt>
+        <dd style="margin-left: 1.5em" id="section-2-3.4">A Consumer is a business or individual who authorises the sharing of data stored by a Data Holder on their behalf to a Software Product with their permission. Beyond having access an individual to their own data a User may also have access to zero or more non-individual Consumer's, for instance businesses that they have permission to make sharing decisions for.<a href="#section-2-3.4" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-3.5">Data Recipient</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.6">A Data Recipient is a party that receives consumer data from a Data Holder. This occurs by way of a Software Product.<a href="#section-2-3.6" class="pilcrow">¶</a>
+<dt id="section-2-3.5">Data Holder</dt>
+        <dd style="margin-left: 1.5em" id="section-2-3.6">A Data Holder is a party that holds consumer data for which sharing is to be conducted and for which their customer, the Consumer, participates in the authorisation process initiated by a Data Recipient. Please refer to the expanded description of Data Holder within this document.<a href="#section-2-3.6" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-3.7">Consumer</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.8">A Consumer is a business or individual who authorises the sharing of data stored by a Data Holder on their behalf to a Software Product with their permission. Beyond having access an individual to their own data a User may also have access to zero or more non-individual Consumer's, for instance businesses that they have permission to make sharing decisions for.<a href="#section-2-3.8" class="pilcrow">¶</a>
+<dt id="section-2-3.7">Data Recipient</dt>
+        <dd style="margin-left: 1.5em" id="section-2-3.8">A Data Recipient is a party that receives consumer data from a Data Holder. This occurs by way of a Software Product.<a href="#section-2-3.8" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 <dt id="section-2-3.9">Personally Identifiable Information (PII)</dt>
@@ -1271,7 +1272,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-data-holder">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-data-holder" class="section-name selfRef">Data Holder</a>
       </h2>
-<p id="section-3-1">TODO: Explanation about DH<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">For the purposes of this specification a Data Holder is described as the party who is offering or has offered services to the Consumer and/or holds relevant data related to those services on behalf of the Consumer.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">The types and format of that data is outside the scope of this particular specification but traditionally includes:
+- specific customer information such as name, addresses and phone numbers;
+- information related to services such as account numbers, pricing information and balances;
+- transaction/ledger information pertaining to services provided<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">Within the CDR ecosystem the mandated Data Holders are ostensible Banking and Energy providers. Additional sectors can be designated by way of a legally binding Designation Instrument coupled with changes to the CDR Rules.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-4">A Software Product assumes the role of an <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span> OpenID Provider.<a href="#section-3-4" class="pilcrow">¶</a></p>
 <div id="authorisation-server">
 <section id="section-3.1">
         <h3 id="name-authorisation-server">
@@ -1279,9 +1286,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
         </h3>
 <p id="section-3.1-1">The authorisation server <span class="bcp14">MUST</span> support the provisions specified in clause 5.2.2 of <span>[<a href="#FAPI-1.0-Advanced" class="cite xref">FAPI-1.0-Advanced</a>]</span> with the following sections changed as follows:
 1. Section 5.2.2-1: <span class="bcp14">SHALL</span> accept only PAR issued request object passed by reference using the <code>request_uri</code> parameter
-2. Section 5.2.2-2: <span class="bcp14">SHALL</span> require the <code>response_type</code> value <code>code</code> in conjunction with the <code>response_mode</code> value <code>jwt</code>;
-2. Section 5.2.2-11: <span class="bcp14">MUST</span> support the pushed authorization request endpoint as described in PAR;
-3. Section 5.2.2-14: <span class="bcp14">SHALL</span> authenticate the confidential client using <code>private_key_jwt</code> specified in section 9 of <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span><a href="#section-3.1-1" class="pilcrow">¶</a></p>
+1. Section 5.2.2-2: <span class="bcp14">SHALL</span> require the <code>response_type</code> value <code>code</code> in conjunction with the <code>response_mode</code> value <code>jwt</code>;
+1. Section 5.2.2-11: <span class="bcp14">MUST</span> support the pushed authorization request endpoint as described in PAR;
+1. Section 5.2.2-14: <span class="bcp14">SHALL</span> authenticate the confidential client using <code>private_key_jwt</code> specified in section 9 of <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span><a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">In addition, the authorisation server:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3.1-3">
 <li id="section-3.1-3.1">
@@ -1483,7 +1490,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-software-product">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-software-product" class="section-name selfRef">Software Product</a>
       </h2>
-<p id="section-4-1">TODO: Explanation about DR<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">For the purposes of this specification, a Software Product is a piece of technology infrastructure managed by a Data Recipient for a specific value proposition. That valuate proposition, following the request of consent from the Consumer, initiates authorisation requests to Data Holders and processes these responses for the purposes of obtaining access credentials (tokens) to utilise at various resource server endpoints.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">Within a legal context there are a variety of Data Recipient engagement approaches however this specification seeks to avoid a variety of ambiguity and instead focus on the Software Product itself.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-3">A Software Product assumes the role of an <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span> Relying Party (Client).<a href="#section-4-3" class="pilcrow">¶</a></p>
 <div id="authorisation-client">
 <section id="section-4.1">
         <h3 id="name-authorisation-client">
@@ -1521,15 +1530,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-6-1">Section 8.5 of <span>[<a href="#FAPI-1.0-Advanced" class="cite xref">FAPI-1.0-Advanced</a>]</span> <span class="bcp14">SHALL</span> apply.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">In addition:<a href="#section-6-2" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-6-3">
-<li id="section-6-3.1">Use of TLS 1.2 or higher is <span class="bcp14">REQUIRED</span><a href="#section-6-3.1" class="pilcrow">¶</a>
+<li id="section-6-3.1">Use of Mutual TLS is <span class="bcp14">REQUIRED</span> at all Authenticated Resource Server endpoints<a href="#section-6-3.1" class="pilcrow">¶</a>
 </li>
-        <li id="section-6-3.2">Use of Mutual TLS is <span class="bcp14">REQUIRED</span> at all Authenticated Resource Server endpoints<a href="#section-6-3.2" class="pilcrow">¶</a>
+        <li id="section-6-3.2">Use of Mutual TLS is <span class="bcp14">REQUIRED</span> at all OAuth2 endpoints except where required for Discovery or Consumer browser access (ie. Authorisation endpoint)<a href="#section-6-3.2" class="pilcrow">¶</a>
 </li>
-        <li id="section-6-3.3">Use of Mutual TLS is <span class="bcp14">REQUIRED</span> at all OAuth2 endpoints except where required for Discovery or Consumer browser access (ie. Authorisation endpoint)<a href="#section-6-3.3" class="pilcrow">¶</a>
-</li>
-        <li id="section-6-3.4">All parties <span class="bcp14">SHALL</span> utilise certificates issued by the Ecosystem Authority<a href="#section-6-3.4" class="pilcrow">¶</a>
-</li>
-        <li id="section-6-3.5">All sender constrained tokens <span class="bcp14">SHALL</span> be issued in accordance with <span>[<a href="#RFC8705" class="cite xref">RFC8705</a>]</span> Part 3<a href="#section-6-3.5" class="pilcrow">¶</a>
+        <li id="section-6-3.3">All parties <span class="bcp14">SHALL</span> utilise certificates issued by the Ecosystem Authority as specified in Section X.X in <span>[<a href="#CDRPLUS-ADMISSION-CONTROL" class="cite xref">CDRPLUS-ADMISSION-CONTROL</a>]</span><a href="#section-6-3.3" class="pilcrow">¶</a>
 </li>
       </ol>
 </section>
@@ -1539,7 +1544,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-implementation-consideratio">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-implementation-consideratio" class="section-name selfRef">Implementation Considerations</a>
       </h2>
-<p id="section-7-1">Note: For non-individual consumers, claims available via the profile scope will only return the details of the authenticated End-User and not the organisation or non-individual consumer. Data Holders SHOULD explicitly capture Claims requested by the Data Recipient. If the data cluster or [OIDC] profile scope changes meaning in future this ensures the Data Holder only returns what the consumer initially authorised to disclose.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">Claims available via the profile scope will only return the details of the User which may be different to the Consumer.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">Data Holders SHOULD explicitly capture Claims requested by the Data Recipient. If the data cluster or [OIDC] profile scope changes meaning in future this ensures the Data Holder only returns what the Consumer initially authorised to disclose.<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-3">Software Products SHOULD record the following information each time an authorisation flow is executed: username (consumer’s ID at the Data Recipient Software Product), timestamp, IP, consent scopes and duration.<a href="#section-7-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -1547,19 +1554,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-security-considerations">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<ol start="5" type="1" class="normal type-1" id="section-8-1">
-<li id="section-8-1.1">SHOULD implement additional controls to minimise the risk of interception of the OTP through the selected delivery mechanism<a href="#section-8-1.1" class="pilcrow">¶</a>
-</li>
-        <li id="section-8-1.2">Data Recipient Software Products SHOULD record the following information each time an authorisation flow is executed: username (consumer's ID at the Data Recipient Software Product), timestamp, IP, consent scopes and duration.<a href="#section-8-1.2" class="pilcrow">¶</a>
-</li>
-        <li id="section-8-1.3">Data Holders SHOULD implement additional controls to minimise the risk of enumeration attacks via the redirect page<a href="#section-8-1.3" class="pilcrow">¶</a>
-</li>
-      </ol>
-<p id="section-8-2">In line with CDR Rule 4.24 on restrictions when asking CDR consumers to authorise disclosure of CDR data, unwarranted friction for OTP delivery is considered to include:<a href="#section-8-2" class="pilcrow">¶</a></p>
-<p id="section-8-3">the addition of any requirements beyond normal data holder practices for verification code delivery
-providing or requesting additional information beyond normal data holder practices for verification code delivery
-offering additional or alternative services
-reference or inclusion of other documents<a href="#section-8-3" class="pilcrow">¶</a></p>
+<p id="section-8-1">Data Holders SHOULD implement additional controls to minimise the risk of interception of the OTP through the selected delivery mechanism.<a href="#section-8-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="acknowledgement">
@@ -1574,7 +1569,7 @@ reference or inclusion of other documents<a href="#section-8-3" class="pilcrow">
         <li class="normal" id="section-9-2.2">Ben Kolera (Biza.io)<a href="#section-9-2.2" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-9-3">This document relies upon the CDR Data Standards and we therefore acknowledge the contribution of the following individuals:
+<p id="section-9-3">This document relies heavily upon the <span>[<a href="#CDS" class="cite xref">CDS</a>]</span> and we therefore acknowledge the contribution of the following individuals:
 - James Bligh (Data Standards Body) - Lead Architect for the Consumer Data Right
 - Mark Verstege (Data Standards Body) - Lead Architect, Banking &amp; Information Security for the Consumer Data Right
 - Ivan Hosgood (Data Standards Body &amp; ACCC) - Solutions Architect<a href="#section-9-3" class="pilcrow">¶</a></p>
@@ -1585,9 +1580,17 @@ reference or inclusion of other documents<a href="#section-8-3" class="pilcrow">
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
       </h2>
 <dl class="references">
+<dt id="CDRPLUS-ADMISSION-CONTROL">[CDRPLUS-ADMISSION-CONTROL]</dt>
+      <dd>
+<span class="refAuthor">Low, S.</span>, <span class="refTitle">"CDR: Admission Control"</span>, <span>&lt;<a href="https://cdrplus.github.io/cdrplus-specs/main/cdrplus-admission-control.html">https://cdrplus.github.io/cdrplus-specs/main/cdrplus-admission-control.html</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="CDRPLUS-INFOSEC-SHARING-V1">[CDRPLUS-INFOSEC-SHARING-V1]</dt>
       <dd>
 <span class="refAuthor">Low, S.</span>, <span class="refTitle">"CDR: Sharing Arrangement V1"</span>, <span>&lt;<a href="https://cdrplus.github.io/cdrplus-specs/main/cdrplus-infosec-sharing-v1.html">https://cdrplus.github.io/cdrplus-specs/main/cdrplus-infosec-sharing-v1.html</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="CDS">[CDS]</dt>
+      <dd>
+<span class="refAuthor">Data Standards Body (Treasury)</span>, <span class="refTitle">"Consumer Data Standards (CDS)"</span>, <span>&lt;<a href="https://consumerdatastandardsaustralia.github.io/standards">https://consumerdatastandardsaustralia.github.io/standards</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="FAPI-1.0-Advanced">[FAPI-1.0-Advanced]</dt>
       <dd>
@@ -1624,10 +1627,6 @@ reference or inclusion of other documents<a href="#section-8-3" class="pilcrow">
 <dt id="RFC8414">[RFC8414]</dt>
       <dd>
 <span class="refAuthor">Jones, M.</span>, <span class="refAuthor">Sakimura, N.</span>, and <span class="refAuthor">J. Bradley</span>, <span class="refTitle">"OAuth 2.0 Authorization Server Metadata"</span>, <time datetime="2018-06" class="refDate">June 2018</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc8414">https://datatracker.ietf.org/doc/html/rfc8414</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC8705">[RFC8705]</dt>
-      <dd>
-<span class="refAuthor">Campbell, B.</span>, <span class="refAuthor">Bradley, J.</span>, <span class="refAuthor">Sakimura, N.</span>, and <span class="refAuthor">T. L. Ed.</span>, <span class="refTitle">"OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens"</span>, <time datetime="2020-02" class="refDate">February 2020</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc8705">https://datatracker.ietf.org/doc/html/rfc8705</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9126">[RFC9126]</dt>
       <dd>
