@@ -31,7 +31,7 @@ organization="Biza.io"
 
 .# Abstract
 
-The CDR+ Security Profile: Baseline is intended to be a compatible profile of the [@!CDS] presented as a profile of _[Financial-grade API Security Profile 1.0 Part 2: Advanced](https://openid.net/specs/openid-financial-api-part-2-1_0.html)_. This profile focuses primarily on the obligations between OP and RP with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of permitted arrangement types within the CDR (currently one, the CDR Sharing Arrangement V1). It does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the _[Data Standards: Security Profile](https://consumerdatastandardsaustralia.github.io/standards/#security-profile)_.
+The CDR+ Security Profile: Baseline is intended to be a compatible profile of the [@!CDS] presented as a profile of [@!FAPI-1.0-Advanced]. This profile focuses primarily on the obligations between OP and RP with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of permitted arrangement types within the CDR (currently one, the CDR Sharing Arrangement V1). It does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the _[Data Standards: Security Profile](https://consumerdatastandardsaustralia.github.io/standards/#security-profile)_.
 
 .# Notational Conventions
 
