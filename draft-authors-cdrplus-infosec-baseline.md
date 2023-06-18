@@ -31,7 +31,7 @@ organization="Biza.io"
 
 .# Abstract
 
-The CDR+ Security Profile: Baseline is intended to be a like-for-like profile of the Data Standards presented as a profile of _[Financial-grade API Security Profile 1.0 Part 2: Advanced](https://openid.net/specs/openid-financial-api-part-2-1_0.html)_. This profile focuses primarily on the obligations between OP and RP with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of permitted arrangement types within the CDR (currently one, the CDR Sharing Arrangement V1). It does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the _[Data Standards: Security Profile](https://consumerdatastandardsaustralia.github.io/standards/#security-profile)_.
+The CDR+ Security Profile: Baseline is intended to be a compatible profile of the [@!CDS] presented as a profile of _[Financial-grade API Security Profile 1.0 Part 2: Advanced](https://openid.net/specs/openid-financial-api-part-2-1_0.html)_. This profile focuses primarily on the obligations between OP and RP with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of permitted arrangement types within the CDR (currently one, the CDR Sharing Arrangement V1). It does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the _[Data Standards: Security Profile](https://consumerdatastandardsaustralia.github.io/standards/#security-profile)_.
 
 .# Notational Conventions
 
@@ -42,12 +42,13 @@ The keywords "**MUST**", "**MUST NOT**", "**REQUIRED**", "**SHALL**", "**SHALL N
 # Scope
 
 This document specifies methods for the following:
-  - method of obtaining OAuth2 tokens in th designated manner under the CDR Rules and Data Standards;
+  - method of obtaining OAuth2 tokens in th designated manner under the CDR Rules and [@!CDS];
   - requirements related to participants for initiating authorisations and obtaining ongoing authorisation credentials
 
 This document does not seek to:
-- specify correlation elements between technical and the legal obligations contained within documents such as the CDR Rules;
-- restate unchanged requirements from upstream specifications
+  - specify correlation elements between technical and the legal obligations contained within documents such as the CDR Rules;
+  - restate unchanged requirements from upstream specifications
+  - incorporate components which are headed towards retirement, notably at the time of drafting, the inclusion of Hybrid authorisation flow
 
 # Terminology
 
@@ -58,14 +59,14 @@ The specification also defines the following terms:
 CDR Rules
 : Refers to the [Competition and Consumer (Consumer Data Right) Rules 2020](https://www.legislation.gov.au/Series/F2020L00094)
 
+Consumer
+: A Consumer is a business or individual who authorises the sharing of data stored by a Data Holder on their behalf to a Software Product with their permission. Beyond having access an individual to their own data a User may also have access to zero or more non-individual Consumer's, for instance businesses that they have permission to make sharing decisions for.
+
 Data Holder
 : A Data Holder is a party that holds consumer data for which sharing is to be conducted and for which their customer, the Consumer, participates in the authorisation process initiated by a Data Recipient. Please refer to the expanded description of Data Holder within this document.
 
 Data Recipient
 : A Data Recipient is a party that receives consumer data from a Data Holder. This occurs by way of a Software Product.
-
-Consumer
-: A Consumer is a business or individual who authorises the sharing of data stored by a Data Holder on their behalf to a Software Product with their permission. Beyond having access an individual to their own data a User may also have access to zero or more non-individual Consumer's, for instance businesses that they have permission to make sharing decisions for.
 
 Personally Identifiable Information (PII)
 : Information that (a) can be used to identify the natural person to whom such information relates, or (b) is or might be directly or indirectly linked to a natural person to whom such information relates.
@@ -84,15 +85,25 @@ User Identifier
 
 # Data Holder
 
-TODO: Explanation about DH
+For the purposes of this specification a Data Holder is described as the party who is offering or has offered services to the Consumer and/or holds relevant data related to those services on behalf of the Consumer.
+
+The types and format of that data is outside the scope of this particular specification but traditionally includes:
+- specific customer information such as name, addresses and phone numbers;
+- information related to services such as account numbers, pricing information and balances;
+- transaction/ledger information pertaining to services provided
+
+Within the CDR ecosystem the mandated Data Holders are ostensible Banking and Energy providers. Additional sectors can be designated by way of a legally binding Designation Instrument coupled with changes to the CDR Rules.
+
+A Software Product assumes the role of an [@!OIDC-Core] OpenID Provider.
+
 
 ## Authorisation Server
 
 The authorisation server **MUST** support the provisions specified in clause 5.2.2 of [@!FAPI-1.0-Advanced] with the following sections changed as follows:
 1. Section 5.2.2-1: **SHALL** accept only PAR issued request object passed by reference using the `request_uri` parameter
-2. Section 5.2.2-2: **SHALL** require the `response_type` value `code` in conjunction with the `response_mode` value `jwt`;
-2. Section 5.2.2-11: **MUST** support the pushed authorization request endpoint as described in PAR;
-3. Section 5.2.2-14: **SHALL** authenticate the confidential client using `private_key_jwt` specified in section 9 of [@!OIDC-Core]
+1. Section 5.2.2-2: **SHALL** require the `response_type` value `code` in conjunction with the `response_mode` value `jwt`;
+1. Section 5.2.2-11: **MUST** support the pushed authorization request endpoint as described in PAR;
+1. Section 5.2.2-14: **SHALL** authenticate the confidential client using `private_key_jwt` specified in section 9 of [@!OIDC-Core]
 
 In addition, the authorisation server:
 
@@ -178,7 +189,11 @@ The resource server provided by Data Holders:
 
 # Software Product
 
-TODO: Explanation about DR
+For the purposes of this specification, a Software Product is a piece of technology infrastructure managed by a Data Recipient for a specific value proposition. That valuate proposition, following the request of consent from the Consumer, initiates authorisation requests to Data Holders and processes these responses for the purposes of obtaining access credentials (tokens) to utilise at various resource server endpoints.
+
+Within a legal context there are a variety of Data Recipient engagement approaches however this specification seeks to avoid a variety of ambiguity and instead focus on the Software Product itself.
+
+A Software Product assumes the role of an [@!OIDC-Core] Relying Party (Client).
 
 ## Authorisation Client
 
@@ -204,28 +219,21 @@ Section 8.5 of [@!FAPI-1.0-Advanced] **SHALL** apply.
 
 In addition:
 
-1. Use of TLS 1.2 or higher is **REQUIRED**
-2. Use of Mutual TLS is **REQUIRED** at all Authenticated Resource Server endpoints
-3. Use of Mutual TLS is **REQUIRED** at all OAuth2 endpoints except where required for Discovery or Consumer browser access (ie. Authorisation endpoint)
-4. All parties **SHALL** utilise certificates issued by the Ecosystem Authority
-5. All sender constrained tokens **SHALL** be issued in accordance with [@!RFC8705] Part 3
+1. Use of Mutual TLS is **REQUIRED** at all Authenticated Resource Server endpoints
+1. Use of Mutual TLS is **REQUIRED** at all OAuth2 endpoints except where required for Discovery or Consumer browser access (ie. Authorisation endpoint)
+1. All parties **SHALL** utilise certificates issued by the Ecosystem Authority as specified in Section X.X in [@!CDRPLUS-ADMISSION-CONTROL]
 
 # Implementation Considerations
 
-Note: For non-individual consumers, claims available via the profile scope will only return the details of the authenticated End-User and not the organisation or non-individual consumer. Data Holders SHOULD explicitly capture Claims requested by the Data Recipient. If the data cluster or [OIDC] profile scope changes meaning in future this ensures the Data Holder only returns what the consumer initially authorised to disclose.
+Claims available via the profile scope will only return the details of the User which may be different to the Consumer.
+
+Data Holders SHOULD explicitly capture Claims requested by the Data Recipient. If the data cluster or [OIDC] profile scope changes meaning in future this ensures the Data Holder only returns what the Consumer initially authorised to disclose.
+
+Software Products SHOULD record the following information each time an authorisation flow is executed: username (consumer’s ID at the Data Recipient Software Product), timestamp, IP, consent scopes and duration.
 
 # Security Considerations
 
-5. SHOULD implement additional controls to minimise the risk of interception of the OTP through the selected delivery mechanism
-6. Data Recipient Software Products SHOULD record the following information each time an authorisation flow is executed: username (consumer’s ID at the Data Recipient Software Product), timestamp, IP, consent scopes and duration.
-7. Data Holders SHOULD implement additional controls to minimise the risk of enumeration attacks via the redirect page
-
-In line with CDR Rule 4.24 on restrictions when asking CDR consumers to authorise disclosure of CDR data, unwarranted friction for OTP delivery is considered to include:
-
-the addition of any requirements beyond normal data holder practices for verification code delivery
-providing or requesting additional information beyond normal data holder practices for verification code delivery
-offering additional or alternative services
-reference or inclusion of other documents
+Data Holders SHOULD implement additional controls to minimise the risk of interception of the OTP through the selected delivery mechanism.
 
 # Acknowledgement
 
@@ -234,7 +242,7 @@ The following people contributed to this document:
 - Stuart Low (Biza.io) - Editor
 - Ben Kolera (Biza.io)
 
-This document relies upon the CDR Data Standards and we therefore acknowledge the contribution of the following individuals:
+This document relies heavily upon the [@!CDS] and we therefore acknowledge the contribution of the following individuals:
 - James Bligh (Data Standards Body) - Lead Architect for the Consumer Data Right
 - Mark Verstege (Data Standards Body) - Lead Architect, Banking & Information Security for the Consumer Data Right
 - Ivan Hosgood (Data Standards Body & ACCC) - Solutions Architect
@@ -262,10 +270,13 @@ This document relies upon the CDR Data Standards and we therefore acknowledge th
 
 <reference anchor="FAPI-1.0-Advanced" target="https://openid.net/specs/openid-financial-api-part-2-1_0.html"> <front> <title abbrev="FAPI 1.0 Advanced">Financial-grade API Security Profile 1.0 - Part 2: Advanced</title><author initials="N." surname="Sakimura" fullname="Nat Sakimura"><organization>Nat Consulting</organization></author><author initials="J." surname="Bradley" fullname="John Bradley"><organization>Yubico</organization></author> <author initials="E." surname="Jay" fullname="Illumila"><organization>Illumila</organization></author></front> </reference>
 
-
 <reference anchor="FAPI-1.0-Baseline" target="https://openid.net/specs/openid-financial-api-part-1-1_0.html"> <front><title abbrev="FAPI 1.0 Baseline">Financial-grade API Security Profile 1.0 - Part 1: Baseline</title><author initials="N." surname="Sakimura" fullname="Nat Sakimura"><organization>Nat Consulting</organization></author><author initials="J." surname="Bradley" fullname="John Bradley"><organization>Yubico</organization></author><author initials="E." surname="Jay" fullname="Illumila"><organization>Illumila</organization></author></front> </reference>
 
 <reference anchor="CDRPLUS-INFOSEC-SHARING-V1" target="https://cdrplus.github.io/cdrplus-specs/main/cdrplus-infosec-sharing-v1.html"> <front><title>CDR: Sharing Arrangement V1</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
+
+<reference anchor="CDRPLUS-ADMISSION-CONTROL" target="https://cdrplus.github.io/cdrplus-specs/main/cdrplus-admission-control.html"> <front><title>CDR: Admission Control</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
+
+<reference anchor="CDS" target="https://consumerdatastandardsaustralia.github.io/standards"><front><title>Consumer Data Standards (CDS)</title><author><organization>Data Standards Body (Treasury)</organization></author></front> </reference>
 
 <reference anchor="TDIF" target="https://www.digitalidentity.gov.au"><front><title>Trusted Digital Identity Framework (TDIF)</title><author><organization>Commonwealth of
 Australia (Digital Transformation Agency)</organization></author></front> </reference>
