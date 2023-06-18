@@ -168,38 +168,41 @@ Table of Contents
 
    1.   MUST support the [OIDC-Core] scopes openid and profile;
 
-   2.   SHALL issue access tokens with an expiry time of between 2 and
+   2.   SHALL support signed ID Tokens and MAY support signed and
+        encrypted ID Tokens;
+
+   3.   SHALL issue access tokens with an expiry time of between 2 and
         10 minutes;
 
-   3.   SHALL provide the lifetime of an access token as an attribute
+   4.   SHALL provide the lifetime of an access token as an attribute
         named expires_in within the token endpoint response;
 
-   4.   MUST generate the sub as a PPID as described in Section 8 of
+   5.   MUST generate the sub as a PPID as described in Section 8 of
         [OIDC-Core];
 
-   5.   SHALL issue request_uri values which are one-time use and expire
+   6.   SHALL issue request_uri values which are one-time use and expire
         between 10 seconds and 90 seconds (this overrides [RFC9126]
         clause 4);
 
-   6.   MUST NOT specify duplicate kid parameters within the endpoint
+   7.   MUST NOT specify duplicate kid parameters within the endpoint
         advertised at jwks_uri;
 
-   7.   MUST support a Token End Point as specified in Section 3.1.3 of
+   8.   MUST support a Token End Point as specified in Section 3.1.3 of
         [OIDC-Core];
 
-   8.   MUST support a UserInfo Endpoint as specified in Section 5.3 of
+   9.   MUST support a UserInfo Endpoint as specified in Section 5.3 of
         [OIDC-Core];
 
-   9.   MUST utilise a different Issuer as specified in Section 1.2 of
+   10.  MUST utilise a different Issuer as specified in Section 1.2 of
         [OIDC-Core] for each marketable brand of the Data Holder;
 
-   10.  SHALL support discovery, as defined in OpenID Connect Discovery
+   11.  SHALL support discovery, as defined in OpenID Connect Discovery
         1.0 [OIDC-Discovery];
 
-   11.  SHALL support an introspection endpoint, as defined in
+   12.  SHALL support an introspection endpoint, as defined in
         [RFC7662];
 
-   12.  SHALL support a revocation endpoint, as defined in [RFC7009]
+   13.  SHALL support a revocation endpoint, as defined in [RFC7009]
 
 3.1.1.  Authorisation Flow
 
