@@ -102,7 +102,7 @@ A Software Product assumes the role of an [@!OIDC-Core] OpenID Provider.
 
 ## Authorisation Server
 
-The authorisation server **MUST** support the provisions specified in clause 5.2.2 of [@!FAPI-1.0-Advanced] with the following sections changed as follows:
+The authorisation server **MUST** support the provisions specified in clause 5.2.2 of [@!FAPI-1.0-Advanced] with the following sections replaced as follows:
 1. Section 5.2.2-1: **SHALL** accept only PAR issued request object passed by reference using the `request_uri` parameter
 1. Section 5.2.2-2: **SHALL** require the `response_type` value `code` in conjunction with the `response_mode` value `jwt`;
 1. Section 5.2.2-11: **MUST** support the pushed authorization request endpoint as described in PAR;
