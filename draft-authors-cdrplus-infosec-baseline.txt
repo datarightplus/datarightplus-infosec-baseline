@@ -1,0 +1,463 @@
+
+
+
+
+cdrplus-parity                                                    S. Low
+Internet-Draft                                                 B. Kolera
+Intended status: Experimental                                    Biza.io
+Expires: 20 December 2023                                   18 June 2023
+
+
+                    CDR+ Security Profile: Baseline
+             draft-authors-cdrplus-infosec-baseline-latest
+
+Abstract
+
+   The CDR+ Security Profile: Baseline is intended to be a like-for-like
+   profile of the Data Standards presented as a profile of _[Financial-
+   grade API Security Profile 1.0 Part 2:
+   Advanced](https://openid.net/specs/openid-financial-api-part-2-1
+   (https://openid.net/specs/openid-financial-api-part-2-1)_0.html)_.
+   This profile focuses primarily on the obligations between OP and RP
+   with respect to authorisation requests and does so as an overlay on
+   the underlying FAPI profile combined with the inclusion of permitted
+   arrangement types within the CDR (currently one, the CDR Sharing
+   Arrangement V1).  It does not attempt to provide elaboration on
+   registration protocols, certificate profiles, federation or other
+   components specified within the _Data Standards: Security Profile
+   (https://consumerdatastandardsaustralia.github.io/
+   standards/#security-profile)_.
+
+Notational Conventions
+
+   The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [RFC2119].
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 20 December 2023.
+
+Copyright Notice
+
+   Copyright (c) 2023 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Scope
+   2.  Terminology
+   3.  Data Holder
+     3.1.  Authorisation Server
+       3.1.1.  Authorisation Flow
+       3.1.2.  Endpoints
+       3.1.3.  Claims
+       3.1.4.  Authentication Context Class References (ACR)
+     3.2.  Resource Server
+   4.  Software Product
+     4.1.  Authorisation Client
+   5.  Supported Arrangement Types
+   6.  TLS Considerations
+   7.  Implementation Considerations
+   8.  Security Considerations
+   9.  Acknowledgement
+   10. Normative References
+   Authors' Addresses
+
+1.  Scope
+
+   This document specifies methods for the following: - method of
+   obtaining OAuth2 tokens in th designated manner under the CDR Rules
+   and Data Standards; - requirements related to participants for
+   initiating authorisations and obtaining ongoing authorisation
+   credentials
+
+   This document does not seek to: - specify correlation elements
+   between technical and the legal obligations contained within
+   documents such as the CDR Rules; - restate unchanged requirements
+   from upstream specifications
+
+2.  Terminology
+
+   This specification uses the term "JSON Web Token (JWT)" as defined by
+   [JWT].
+
+   The specification also defines the following terms:
+
+   CDR Rules  Refers to the Competition and Consumer (Consumer Data
+      Right) Rules 2020 (https://www.legislation.gov.au/Series/
+      F2020L00094)
+
+   Data Holder  A Data Holder is a party that holds consumer data for
+      which sharing is to be conducted and for which their customer, the
+      Consumer, participates in the authorisation process initiated by a
+      Data Recipient.  Please refer to the expanded description of Data
+      Holder within this document.
+
+   Data Recipient  A Data Recipient is a party that receives consumer
+      data from a Data Holder.  This occurs by way of a Software
+      Product.
+
+   Consumer  A Consumer is a business or individual who authorises the
+      sharing of data stored by a Data Holder on their behalf to a
+      Software Product with their permission.  Beyond having access an
+      individual to their own data a User may also have access to zero
+      or more non-individual Consumer's, for instance businesses that
+      they have permission to make sharing decisions for.
+
+   Personally Identifiable Information (PII)  Information that (a) can
+      be used to identify the natural person to whom such information
+      relates, or (b) is or might be directly or indirectly linked to a
+      natural person to whom such information relates.
+
+   Pairwise Pseudonymous Identifier (PPID)  Identifier that identifies
+      the Consumer to a Data Recipient that cannot be correlated with
+      the Consumer's PPID at another Data Recipient.
+
+   Software Product  A Software Product represents the technology
+      infrastructure, ostensibly a client registration with an
+      authorisation server, operated by a Data Recipient for the
+      purposes of receiving consumer data.
+
+   User  A User is a human who provides an identifier unique to the
+      individual and for which correlates to one or more Consumer
+      relationships.
+
+   User Identifier  A User Identifier is a unique piece of information,
+      typically a username, which identifies the User
+
+3.  Data Holder
+
+   TODO: Explanation about DH
+
+3.1.  Authorisation Server
+
+   The authorisation server MUST support the provisions specified in
+   clause 5.2.2 of [FAPI-1.0-Advanced] with the following sections
+   changed as follows: 1.  Section 5.2.2-1: SHALL accept only PAR issued
+   request object passed by reference using the request_uri parameter 2.
+   Section 5.2.2-2: SHALL require the response_type value code in
+   conjunction with the response_mode value jwt; 2.  Section 5.2.2-11:
+   MUST support the pushed authorization request endpoint as described
+   in PAR; 3.  Section 5.2.2-14: SHALL authenticate the confidential
+   client using private_key_jwt specified in section 9 of [OIDC-Core]
+
+   In addition, the authorisation server:
+
+   1.   MUST support the [OIDC-Core] scopes openid and profile;
+
+   2.   SHALL issue access tokens with an expiry time of between 2 and
+        10 minutes;
+
+   3.   SHALL provide the lifetime of an access token as an attribute
+        named expires_in within the token endpoint response;
+
+   4.   MUST generate the sub as a PPID as described in Section 8 of
+        [OIDC-Core];
+
+   5.   SHALL issue request_uri values which are one-time use and expire
+        between 10 seconds and 90 seconds (this overrides [RFC9126]
+        clause 4);
+
+   6.   MUST NOT specify duplicate kid parameters within the endpoint
+        advertised at jwks_uri;
+
+   7.   MUST support a Token End Point as specified in Section 3.1.3 of
+        [OIDC-Core];
+
+   8.   MUST support a UserInfo Endpoint as specified in Section 5.3 of
+        [OIDC-Core];
+
+   9.   MUST utilise a different Issuer as specified in Section 1.2 of
+        [OIDC-Core] for each marketable brand of the Data Holder;
+
+   10.  SHALL support discovery, as defined in OpenID Connect Discovery
+        1.0 [OIDC-Discovery];
+
+   11.  SHALL support an introspection endpoint, as defined in
+        [RFC7662];
+
+   12.  SHALL support a revocation endpoint, as defined in [RFC7009]
+
+3.1.1.  Authorisation Flow
+
+   During the authorisation flow, the authorisation server:
+
+   1.  MUST request a User Identifier that can identify the relationship
+       between the user and the Consumer;
+
+   2.  MUST request a User Identifier already known by the User;
+
+   3.  MUST use a one-time password (OTP) provided to the Consumer
+       through an existing channel or mechanism;
+
+   4.  MUST NOT request the User to provide a known password;
+
+   5.  MUST NOT introduce friction designed to make the authorisation
+       process more difficult than it needs to be
+
+3.1.1.1.  One-Time Password (OTP)
+
+   The One-Time Password (OTP):
+
+   1.  MUST be delivered using existing and preferred channels
+
+   2.  MUST be numeric digits and be between 4 and 6 digits in length
+
+   3.  MUST only be valid for the purposes of establishing
+       authorisations between Data Holder and Software Products
+
+   4.  MUST be invalidated after a reasonable period of time
+
+   5.  SHOULD incorporate a level of pseudo-randomness appropriate for
+       the use case
+
+   6.  SHOULD incorporate controls, such as retry limits, to minimise
+       the risk of enumeration attacks during the authorisation process
+
+3.1.2.  Endpoints
+
+3.1.2.1.  Discovery Document
+
+   The discovery document from the authorisation server:
+
+   1.  MUST support the require_pushed_authorization_requests parameter
+       as described in [RFC9126] at the OpenID Connect Discovery 1.0
+       [OIDC-Discovery] endpoint;
+
+   2.  SHOULD support the require_pushed_authorization_requests
+       parameter as described in [RFC9126] at the [RFC8414] endpoint;
+
+3.1.2.2.  Introspection Endpoint
+
+   The introspection endpoint:
+
+   1.  MUST include the sub, exp and scope attributes
+
+   2.  MUST NOT include the username attribute
+
+3.1.2.3.  Revocation Endpoint
+
+   The revocation endpoint: 1.  MUST support revocation of Refresh
+   Tokens 1.  MUST support revocation of Access Tokens
+
+3.1.3.  Claims
+
+   The authorisation server:
+
+   1.  MUST support the [OIDC-Core] claims of sub, acr, auth_time, name,
+       given_name family_name and last_updated;
+
+   2.  MAY support the [OIDC-Core] claims of email, email_verified,
+       phone_number and phone_number_verified;
+
+   3.  MUST NOT support any other claims outlined in [OIDC-Core];
+
+3.1.4.  Authentication Context Class References (ACR)
+
+   The authorisation server SHALL support the following ACR values:
+
+   1.  urn:cds.au:cdr:2 where the authentication achieved matches the
+       Credential Level CL1 rules of [TDIF];
+
+   2.  urn:cds.au:cdr:3 where the authentication achieved matches the
+       Credential Level CL2 rules of [TDIF]
+
+   Additionally, the authorisation server MUST ensure all operations
+   meet the requirements of urn:cds.au:cdr:2 ACR value.
+
+3.2.  Resource Server
+
+   The resource server provided by Data Holders: 1.  SHALL support the
+   provisions specified in clause 5.2.2 of [FAPI-1.0-Baseline];
+
+4.  Software Product
+
+   TODO: Explanation about DR
+
+4.1.  Authorisation Client
+
+   The authorisation client: 1.  SHALL support the provisions specified
+   in clause 5.2.3 and 5.2.4 of [FAPI-1.0-Baseline]; 1.  SHALL support
+   pushed authorisation requests as described in [RFC9126]; 1.  SHALL
+   obtain the consent of the Consumer prior to commencing authorisation
+   with the Data Holder; 1.  MUST submit authorisation requests
+   containing a exp claim, in accordance with [JWT] Section 4.1.4; 1.
+   MUST submit authorisation requests containing a exp claim that is
+   less than or equal to 3600; 1.  MUST submit authorisation requests
+   containing a nbf claim in accordance with [JWT] Section 4.1.5
+
+   _Note:_ The form and structure of the consent obtained by the
+   authorisation client is outside the scope of this document.
+
+5.  Supported Arrangement Types
+
+   Data Holders and Software Products MUST support the following:
+
+   1.  CDR Sharing Arrangement V1 as described in
+       [CDRPLUS-INFOSEC-SHARING-V1]
+
+6.  TLS Considerations
+
+   Section 8.5 of [FAPI-1.0-Advanced] SHALL apply.
+
+   In addition:
+
+   1.  Use of TLS 1.2 or higher is REQUIRED
+
+   2.  Use of Mutual TLS is REQUIRED at all Authenticated Resource
+       Server endpoints
+
+   3.  Use of Mutual TLS is REQUIRED at all OAuth2 endpoints except
+       where required for Discovery or Consumer browser access (ie.
+       Authorisation endpoint)
+
+   4.  All parties SHALL utilise certificates issued by the Ecosystem
+       Authority
+
+   5.  All sender constrained tokens SHALL be issued in accordance with
+       [RFC8705] Part 3
+
+7.  Implementation Considerations
+
+   Note: For non-individual consumers, claims available via the profile
+   scope will only return the details of the authenticated End-User and
+   not the organisation or non-individual consumer.  Data Holders SHOULD
+   explicitly capture Claims requested by the Data Recipient.  If the
+   data cluster or [OIDC] profile scope changes meaning in future this
+   ensures the Data Holder only returns what the consumer initially
+   authorised to disclose.
+
+8.  Security Considerations
+
+   5.  SHOULD implement additional controls to minimise the risk of
+       interception of the OTP through the selected delivery mechanism
+
+   6.  Data Recipient Software Products SHOULD record the following
+       information each time an authorisation flow is executed: username
+       (consumer's ID at the Data Recipient Software Product),
+       timestamp, IP, consent scopes and duration.
+
+   7.  Data Holders SHOULD implement additional controls to minimise the
+       risk of enumeration attacks via the redirect page
+
+   In line with CDR Rule 4.24 on restrictions when asking CDR consumers
+   to authorise disclosure of CDR data, unwarranted friction for OTP
+   delivery is considered to include:
+
+   the addition of any requirements beyond normal data holder practices
+   for verification code delivery providing or requesting additional
+   information beyond normal data holder practices for verification code
+   delivery offering additional or alternative services reference or
+   inclusion of other documents
+
+9.  Acknowledgement
+
+   The following people contributed to this document:
+
+   *  Stuart Low (Biza.io) - Editor
+
+   *  Ben Kolera (Biza.io)
+
+   This document relies upon the CDR Data Standards and we therefore
+   acknowledge the contribution of the following individuals: - James
+   Bligh (Data Standards Body) - Lead Architect for the Consumer Data
+   Right - Mark Verstege (Data Standards Body) - Lead Architect, Banking
+   & Information Security for the Consumer Data Right - Ivan Hosgood
+   (Data Standards Body & ACCC) - Solutions Architect
+
+10.  Normative References
+
+   [CDRPLUS-INFOSEC-SHARING-V1]
+              Low, S., "CDR: Sharing Arrangement V1",
+              <https://cdrplus.github.io/cdrplus-specs/main/cdrplus-
+              infosec-sharing-v1.html>.
+
+   [FAPI-1.0-Advanced]
+              Sakimura, N., Bradley, J., and E. Jay, "Financial-grade
+              API Security Profile 1.0 - Part 2: Advanced",
+              <https://openid.net/specs/openid-financial-api-part-
+              2-1_0.html>.
+
+   [FAPI-1.0-Baseline]
+              Sakimura, N., Bradley, J., and E. Jay, "Financial-grade
+              API Security Profile 1.0 - Part 1: Baseline",
+              <https://openid.net/specs/openid-financial-api-part-
+              1-1_0.html>.
+
+   [JWT]      Jones, M., Bradley, J., and N. Sakimura, "JSON Web Token
+              (JWT)", May 2015,
+              <https://datatracker.ietf.org/doc/html/rfc7519>.
+
+   [OIDC-Core]
+              Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and
+              C. Mortimore, "OpenID Connect Core 1.0 incorporating
+              errata set 1", 8 November 2014,
+              <http://openid.net/specs/openid-connect-core-1_0.html>.
+
+   [OIDC-Discovery]
+              Sakimura, N., Bradley, J., Jones, M., and E. Jay, "OpenID
+              Connect Discovery 1.0 incorporating errata set 1", 8
+              November 2014, <https://openid.net/specs/openid-connect-
+              discovery-1_0.html>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels",
+              <https://datatracker.ietf.org/doc/html/rfc2119>.
+
+   [RFC7009]  Ed., T. L. and M. Scurtescu, "OAuth 2.0 Token Revocation",
+              <https://datatracker.ietf.org/doc/html/rfc7009>.
+
+   [RFC7662]  Ed., J. R., "OAuth 2.0 Token Introspection", October 2015,
+              <https://datatracker.ietf.org/doc/html/rfc7662>.
+
+   [RFC8414]  Jones, M., Sakimura, N., and J. Bradley, "OAuth 2.0
+              Authorization Server Metadata", June 2018,
+              <https://datatracker.ietf.org/doc/html/rfc8414>.
+
+   [RFC8705]  Campbell, B., Bradley, J., Sakimura, N., and T. L. Ed.,
+              "OAuth 2.0 Mutual-TLS Client Authentication and
+              Certificate-Bound Access Tokens", February 2020,
+              <https://datatracker.ietf.org/doc/html/rfc8705>.
+
+   [RFC9126]  Ed., T. L., Campbell, B., Sakimura, N., Tonge, D., and F.
+              Skokan, "OAuth 2.0 Pushed Authorization Requests",
+              September 2021,
+              <https://datatracker.ietf.org/doc/html/rfc9126>.
+
+   [TDIF]     Commonwealth of Australia (Digital Transformation Agency),
+              "Trusted Digital Identity Framework (TDIF)",
+              <https://www.digitalidentity.gov.au>.
+
+Authors' Addresses
+
+   Stuart Low
+   Biza.io
+   Email: stuart@biza.io
+
+
+   Ben Kolera
+   Biza.io
+   Email: bkolera@biza.io
