@@ -143,7 +143,8 @@ The discovery document from the authorisation server:
 
 The introspection endpoint:
 
-1. **MUST** include the `sub`, `exp` and `scope` attributes
+1. **MUST NOT** support introspection of Access Tokens
+2. **MUST** include the `sub`, `exp` and `scope` attributes
 1. **MUST NOT** include the `username` attribute
 
 #### Revocation Endpoint
