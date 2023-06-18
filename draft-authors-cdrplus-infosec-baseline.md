@@ -68,6 +68,9 @@ Data Holder
 Data Recipient
 : A Data Recipient is a party that receives consumer data from a Data Holder. This occurs by way of a Software Product.
 
+Ecosystem Authority
+: The Ecosystem Authority represents the designated arbiter of trust between Data Holders, Data Recipients and the Consumer. Within the Australian Consumer Data Right this is the Australian Competition and Consumer Commission. Futher elaboration on the Ecosystem Authority is provided within [@!CDRPLUS-ADMISSION-CONTROL].
+
 Personally Identifiable Information (PII)
 : Information that (a) can be used to identify the natural person to whom such information relates, or (b) is or might be directly or indirectly linked to a natural person to whom such information relates.
 
@@ -218,10 +221,9 @@ Data Holders and Software Products **MUST** support the following:
 Section 8.5 of [@!FAPI-1.0-Advanced] **SHALL** apply.
 
 In addition:
-
-1. Use of Mutual TLS is **REQUIRED** at all Authenticated Resource Server endpoints
-1. Use of Mutual TLS is **REQUIRED** at all OAuth2 endpoints except where required for Discovery or Consumer browser access (ie. Authorisation endpoint)
-1. All parties **SHALL** utilise certificates issued by the Ecosystem Authority as specified in Section X.X in [@!CDRPLUS-ADMISSION-CONTROL]
+1. Use of Mutual TLS is **REQUIRED** at all Authenticated Resource Server endpoints;
+1. Use of Mutual TLS is **REQUIRED** at all OAuth2 endpoints except where required for Discovery or Consumer browser access (ie. Authorisation endpoint);
+1. All parties **SHALL** utilise certificates issued by the Ecosystem Authority
 
 # Implementation Considerations
 
