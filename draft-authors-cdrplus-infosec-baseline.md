@@ -1,11 +1,11 @@
 %%%
-Title = "CDR: Security Baseline"
+Title = "CDR+ Security Profile: Baseline"
 area = "Internet"
-workgroup = "cdrplus-core"
+workgroup = "cdrplus-parity"
 
 [seriesInfo]
 name = "Internet-Draft"
-value = "draft-cdrplus-infosec-baseline-latest"
+value = "draft-authors-cdrplus-infosec-baseline-latest"
 stream = "IETF"
 status = "experimental"
 
@@ -15,32 +15,72 @@ date = 2023-06-16T00:00:00Z
 initials="S."
 surname="Low"
 fullname="Stuart Low"
+organization="Biza.io"
+  [author.address]
+  email = "stuart@biza.io"
+
+[[author]]
+initials="B."
+surname="Kolera"
+fullname="Ben Kolera"
+organization="Biza.io"
+  [author.address]
+  email = "bkolera@biza.io"
+
 %%%
 
 .# Abstract
 
-The Consumer Data Right (CDR) Security Baseline profile is profile of the OAuth 2.0 Authorization Framework built upon the Financial-grade API Security Profile 1.0 Part 1 and Financial-grade API Security Profile 1.0 Part 2.
+The CDR+ Security Profile: Baseline is intended to be a like-for-like profile of the Data Standards presented as a profile of _[Financial-grade API Security Profile 1.0 Part 2: Advanced](https://openid.net/specs/openid-financial-api-part-2-1_0.html)_. This profile focuses primarily on the obligations between OP and RP with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of permitted arrangement types within the CDR (currently one, the CDR Sharing Arrangement V1). It does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the _[Data Standards: Security Profile](https://consumerdatastandardsaustralia.github.io/standards/#security-profile)_.
 
 .# Notational Conventions
 
-The key words "**MUST**", "**MUST NOT**", "**REQUIRED**", "**SHALL**", "**SHALL NOT**", "**SHOULD**", "**SHOULD NOT**", "**RECOMMENDED**",  "**MAY**", and "**OPTIONAL**" in this document are to be interpreted as described in [@!RFC2119].
+The keywords "**MUST**", "**MUST NOT**", "**REQUIRED**", "**SHALL**", "**SHALL NOT**", "**SHOULD**", "**SHOULD NOT**", "**RECOMMENDED**",  "**MAY**", and "**OPTIONAL**" in this document are to be interpreted as described in [@!RFC2119].
 
 {mainmatter}
 
 # Scope
 
 This document specifies methods for the following:
-  - method of obtaining OAuth2 tokens in an appropriately secure manner for protecting data designated under the CDR Rules
+  - method of obtaining OAuth2 tokens in th designated manner under the CDR Rules and Data Standards;
+  - requirements related to participants for initiating authorisations and obtaining ongoing authorisation credentials
 
-# Terms & Definitions
+This document does not seek to:
+- specify correlation elements between technical and the legal obligations contained within documents such as the CDR Rules;
+- restate unchanged requirements from upstream specifications
+
+# Terminology
+
+This specification uses the term "JSON Web Token (JWT)" as defined by [@!JWT].
+
+The specification also defines the following terms:
+
+CDR Rules
+: Refers to the [Competition and Consumer (Consumer Data Right) Rules 2020](https://www.legislation.gov.au/Series/F2020L00094)
 
 Data Holder
+: A Data Holder is a party that holds consumer data for which sharing is to be conducted and for which their customer, the Consumer, participates in the authorisation process initiated by a Data Recipient. Please refer to the expanded description of Data Holder within this document.
+
 Data Recipient
+: A Data Recipient is a party that receives consumer data from a Data Holder. This occurs by way of a Software Product.
+
 Consumer
-CDR Arrangement
+: A Consumer is a business or individual who authorises the sharing of data stored by a Data Holder on their behalf to a Software Product with their permission. Beyond having access an individual to their own data a User may also have access to zero or more non-individual Consumer's, for instance businesses that they have permission to make sharing decisions for.
+
 Personally Identifiable Information (PII)
+: Information that (a) can be used to identify the natural person to whom such information relates, or (b) is or might be directly or indirectly linked to a natural person to whom such information relates.
+
 Pairwise Pseudonymous Identifier (PPID)
+: Identifier that identifies the Consumer to a Data Recipient that cannot be correlated with the Consumer's PPID at another Data Recipient.
+
 Software Product
+: A Software Product represents the technology infrastructure, ostensibly a client registration with an authorisation server, operated by a Data Recipient for the purposes of receiving consumer data.
+
+User
+: A User is a human who provides an identifier unique to the individual and for which correlates to one or more Consumer relationships.
+
+User Identifier
+: A User Identifier is a unique piece of information, typically a username, which identifies the User
 
 # Data Holder
 
@@ -48,86 +88,69 @@ TODO: Explanation about DH
 
 ## Authorisation Server
 
-The authorisation server **SHALL** support the provisions specified in clause 5.2.2 of [@!FAPI-1.0-Advanced].
+The authorisation server **MUST** support the provisions specified in clause 5.2.2 of [@!FAPI-1.0-Advanced] with the following sections changed as follows:
+1. Section 5.2.2-1: **SHALL** accept only PAR issued request object passed by reference using the `request_uri` parameter
+2. Section 5.2.2-2: **SHALL** require the `response_type` value `code` in conjunction with the `response_mode` value `jwt`;
+2. Section 5.2.2-11: **MUST** support the pushed authorization request endpoint as described in PAR;
+3. Section 5.2.2-14: **SHALL** authenticate the confidential client using `private_key_jwt` specified in section 9 of [@!OIDC-Core]
 
-In addition, the authorisation server
+In addition, the authorisation server:
 
-1. **SHALL** support the `response_type` of `code id_token`;
-2. **SHALL** support the `response_type` of `code` in conjunction with the `response_mode` value `jwt`;
-3. **SHALL NOT** accept JWT request objects passed by value (this overrides [@!FAPI-1.0-Advanced] clause 5.2.2-1);
-4. **SHALL** require signed and encrypted ID Tokens (this overrides [@!FAPI-1.0-Advanced] clause 5.2.2.1-3);
-5. **MUST** support the pushed authorisation request endpoint as described in [@!RFC9126] (this overrides [@!FAPI-1.0-Advanced] clause 5.2.2-11);
-6. **SHALL NOT** support JWT request object by reference except when using [@!RFC9126]
-7. **SHALL** authenticate the confidential client using `private_key_jwt` as specified in section 9 of OIDC (this overrides [@!FAPI-1.0-Advanced] clause 5.2.2-14);
-8. **SHALL NOT** return PII from the authorisation endpoint;
-9. **MUST** support the [@!OIDC-Core] scopes `openid` and `profile`;
-10. **SHALL** issue access tokens with a minimum of 2 and a maximum of 10 minute expiry times;
-11. **SHALL** provide the lifetime of an access token as an attribute named `expires_in` within the token endpoint response;
-12. **MUST** generate the `sub` as a PPID as described in Section 8 of [@!OIDC-Core];
-13. **SHALL** issue `request_uri` values which expire between 10 seconds and 90 seconds;
-14. **SHALL** issue `request_uri` which can only be used once;
-15. **MUST NOT** specify duplicate `kid` parameters within the endpoint advertised at `jwks_uri`;
-16. **MUST** support a Token End Point as specified in Section 3.1.3 of [@!OIDC-Core];
-17. **MUST** support a UserInfo Endpoint as specified in Section 5.3 of [@!OIDC-Core];
+1. **MUST** support the [@!OIDC-Core] scopes `openid` and `profile`;
+1. **SHALL** issue access tokens with an expiry time of between 2 and 10 minutes;
+1. **SHALL** provide the lifetime of an access token as an attribute named `expires_in` within the token endpoint response;
+1. **MUST** generate the `sub` as a PPID as described in Section 8 of [@!OIDC-Core];
+1. **SHALL** issue `request_uri` values which are one-time use and expire between 10 seconds and 90 seconds (this overrides [@RFC9126] clause 4);
+1. **MUST NOT** specify duplicate `kid` parameters within the endpoint advertised at `jwks_uri`;
+1. **MUST** support a Token End Point as specified in Section 3.1.3 of [@!OIDC-Core];
+1. **MUST** support a UserInfo Endpoint as specified in Section 5.3 of [@!OIDC-Core];
+1. **MUST** utilise a different Issuer as specified in Section 1.2 of [@!OIDC-Core] for each marketable brand of the Data Holder;
+1. **SHALL** support discovery, as defined in OpenID Connect Discovery 1.0 [@!OIDC-Discovery];
+1. **SHALL** support an introspection endpoint, as defined in [@!RFC7662];
+1. **SHALL** support a revocation endpoint, as defined in [@!RFC7009]
 
 ### Authorisation Flow
 
 During the authorisation flow, the authorisation server:
 
-1. **MUST** request a user identifier that can uniquely identify the Consumer and that is already known by the Consumer;
-2. **MUST** use a one-time password (OTP) provided to the Consumer through an existing channel or mechanism;
-3. **MUST NOT** introduce unwarranted friction into the authentication process
+1. **MUST** request a User Identifier that can identify the relationship between the user and the Consumer;
+1. **MUST** request a User Identifier already known by the User;
+1. **MUST** use a one-time password (OTP) provided to the Consumer through an existing channel or mechanism;
+1. **MUST NOT** request the User to provide a known password;
+1. **MUST NOT** introduce friction designed to make the authorisation process more difficult than it needs to be
 
 #### One-Time Password (OTP)
 
 The One-Time Password (OTP):
 
 1. **MUST** be delivered using existing and preferred channels
-2. **MUST** be numeric digits and be between 4 and 6 digits in length
-3. **MUST** only be valid for CDR authentication purposes
-4. **MUST** be invalidated after a reasonable period of time
-5. **SHOULD** incorporate a level of pseudorandomness appropriate for the use case
+1. **MUST** be numeric digits and be between 4 and 6 digits in length
+1. **MUST** only be valid for the purposes of establishing authorisations between Data Holder and Software Products
+1. **MUST** be invalidated after a reasonable period of time
+1. **SHOULD** incorporate a level of pseudo-randomness appropriate for the use case
+1. **SHOULD** incorporate controls, such as retry limits, to minimise the risk of enumeration attacks during the authorisation process
 
 ### Endpoints
 
 #### Discovery Document
 
-The authorisation server SHALL support discovery, as defined in OpenID Connect Discovery 1.0 [@!OIDC-Discovery].
+The discovery document from the authorisation server:
 
-Additionally, the authorisation server SHOULD support discovery, as defined in [@!RFC8414].
-
-In addition, the authorisation server:
-
-1. **MUST** support the `require_pushed_authorization_requests` parameter as described in [@!RFC9126] at the OpenID Connect Discovery 1.0 [@!OIDC-Discovery] endpoint
-2. **MUST** support the `require_pushed_authorization_requests` parameter as described in [@!RFC9126] at the [@!RFC8414] endpoint
-3. **SHOULD** advertise the `require_pushed_authorization_requests` as `true`
+1. **MUST** support the `require_pushed_authorization_requests` parameter as described in [@!RFC9126] at the OpenID Connect Discovery 1.0 [@!OIDC-Discovery] endpoint;
+1. **SHOULD** support the `require_pushed_authorization_requests` parameter as described in [@!RFC9126] at the [@!RFC8414] endpoint;
 
 #### Introspection Endpoint
 
-The authorisation server SHALL support an introspection endpoint, as defined in [@!RFC7662].
+The introspection endpoint:
 
-In addition, the introspection endpoint response:
-
-1. **MUST** include the `exp` attribute
-2. **MUST** include the `scope` attribute
-3. **MUST NOT** include the `username` attribute
+1. **MUST** include the `sub`, `exp` and `scope` attributes
+1. **MUST NOT** include the `username` attribute
 
 #### Revocation Endpoint
 
-The authorisation server SHALL support an OAuth2 revocation endpoint, as defined in [@!RFC7009].
-
-In addition, the revocation endpoint:
-
+The revocation endpoint:
 1. **MUST** support revocation of Refresh Tokens
-2. **MUST** support revocation of Access Tokens
-
-### Request Object
-
-The request object submitted to the authorisation server:
-
-1. **MUST** contain a `exp` claim, in accordance with [@!JWT] Section 4.1.4
-2. **MUST** ensure the `exp` claim is less than or equal to `3600`
-3. **MUST** contain a `nbf` claim in accordance with [@!JWT] Section 4.1.5
+1. **MUST** support revocation of Access Tokens
 
 ### Claims
 
@@ -148,27 +171,28 @@ Additionally, the authorisation server **MUST** ensure all operations meet the r
 
 ## Resource Server
 
-The resource server shall support the provisions specified in clause 5.2.2 of [@!FAPI-1.0-Baseline].
+The resource server provided by Data Holders:
+1. **SHALL** support the provisions specified in clause 5.2.2 of [@!FAPI-1.0-Baseline];
 
-In addition, the resource server:
-
-1. **SHALL** provide identifiers which are unique per Software Product
-
-# Data Recipient
+# Software Product
 
 TODO: Explanation about DR
 
 ## Authorisation Client
 
-An authorisation client shall support the provisions specified in clause 5.2.3 and 5.2.4 of [@!FAPI-1.0-Baseline].
+The authorisation client:
+1. **SHALL** support the provisions specified in clause 5.2.3 and 5.2.4 of [@!FAPI-1.0-Baseline];
+1. **SHALL** support pushed authorisation requests as described in [@!RFC9126];
+1. **SHALL** obtain the consent of the Consumer prior to commencing authorisation with the Data Holder;
+1. **MUST** submit authorisation requests containing a `exp` claim, in accordance with [@!JWT] Section 4.1.4;
+1. **MUST** submit authorisation requests containing a `exp` claim that is less than or equal to `3600`;
+1. **MUST** submit authorisation requests containing a `nbf` claim in accordance with [@!JWT] Section 4.1.5
 
-In addition, the authorisation client
-
-1. Data Recipient Software Products MUST ONLY use a "request_uri" value once
+_Note:_ The form and structure of the consent obtained by the authorisation client is outside the scope of this document.
 
 # Supported Arrangement Types
 
-Data Holders and Data Recipients **MUST** support the following:
+Data Holders and Software Products **MUST** support the following:
 
 1. CDR Sharing Arrangement V1 as described in [@!CDRPLUS-INFOSEC-SHARING-V1]
 
@@ -200,6 +224,18 @@ the addition of any requirements beyond normal data holder practices for verific
 providing or requesting additional information beyond normal data holder practices for verification code delivery
 offering additional or alternative services
 reference or inclusion of other documents
+
+# Acknowledgement
+
+The following people contributed to this document:
+
+- Stuart Low (Biza.io) - Editor
+- Ben Kolera (Biza.io)
+
+This document relies upon the CDR Data Standards and we therefore acknowledge the contribution of the following individuals:
+- James Bligh (Data Standards Body) - Lead Architect for the Consumer Data Right
+- Mark Verstege (Data Standards Body) - Lead Architect, Banking & Information Security for the Consumer Data Right
+- Ivan Hosgood (Data Standards Body & ACCC) - Solutions Architect
 
 {backmatter}
 
