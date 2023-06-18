@@ -97,6 +97,7 @@ The authorisation server **MUST** support the provisions specified in clause 5.2
 In addition, the authorisation server:
 
 1. **MUST** support the [@!OIDC-Core] scopes `openid` and `profile`;
+2. **SHALL** support signed ID Tokens and **MAY** support signed and encrypted ID Tokens;
 1. **SHALL** issue access tokens with an expiry time of between 2 and 10 minutes;
 1. **SHALL** provide the lifetime of an access token as an attribute named `expires_in` within the token endpoint response;
 1. **MUST** generate the `sub` as a PPID as described in Section 8 of [@!OIDC-Core];
