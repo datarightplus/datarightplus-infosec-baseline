@@ -174,13 +174,14 @@ The revocation endpoint:
 
 The authorisation server:
 
-1. **MUST** support the [@!OIDC-Core] claims of `sub`, `acr`, `auth_time`, `name`, `given_name` `family_name` and `last_updated`;
+1. **MUST** support the [@!OIDC-Core] claims of `sub`, `auth_time`, `name`, `given_name` `family_name` and `last_updated`;
+1. **SHOULD** support the [@!OIDC-Core] `acr` claim;
 2. **MAY** support the [@!OIDC-Core] claims of `email`, `email_verified`, `phone_number` and `phone_number_verified`;
 3. **MUST NOT** support any other claims outlined in [@!OIDC-Core];
 
 ### Authentication Context Class References (ACR)
 
-The authorisation server **SHOULD** support the following ACR values:
+The authorisation server **SHALL** support the following ACR values:
 
 1. `urn:cds.au:cdr:2` where the authentication achieved matches the Credential Level `CL1` rules of [@!TDIF];
 2. `urn:cds.au:cdr:3` where the authentication achieved matches the Credential Level `CL2` rules of [@!TDIF]
