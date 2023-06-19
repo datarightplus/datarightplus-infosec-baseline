@@ -5,7 +5,7 @@
 cdrplus-parity                                                    S. Low
 Internet-Draft                                                 B. Kolera
 Intended status: Experimental                                    Biza.io
-Expires: 20 December 2023                                   18 June 2023
+Expires: 21 December 2023                                   19 June 2023
 
 
                     CDR+ Security Profile: Baseline
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 December 2023.
+   This Internet-Draft will expire on 21 December 2023.
 
 Copyright Notice
 
@@ -306,7 +306,7 @@ Table of Contents
 
 3.1.4.  Authentication Context Class References (ACR)
 
-   The authorisation server SHALL support the following ACR values:
+   The authorisation server SHOULD support the following ACR values:
 
    1.  urn:cds.au:cdr:2 where the authentication achieved matches the
        Credential Level CL1 rules of [TDIF];
