@@ -198,7 +198,7 @@ Table of Contents
    3.   SHALL issue access tokens with an expiry time of between 2 and
         10 minutes;
 
-   4.   MUST NOT support public clients
+   4.   SHALL NOT support public clients
 
    5.   SHALL NOT accept authorisation requests by value
 
