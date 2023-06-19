@@ -178,7 +178,7 @@ The authorisation server:
 
 ### Authentication Context Class References (ACR)
 
-The authorisation server **SHALL** support the following ACR values:
+The authorisation server **SHOULD** support the following ACR values:
 
 1. `urn:cds.au:cdr:2` where the authentication achieved matches the Credential Level `CL1` rules of [@!TDIF];
 2. `urn:cds.au:cdr:3` where the authentication achieved matches the Credential Level `CL2` rules of [@!TDIF]
