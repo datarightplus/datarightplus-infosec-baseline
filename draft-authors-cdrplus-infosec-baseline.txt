@@ -5,7 +5,7 @@
 cdrplus-parity                                                    S. Low
 Internet-Draft                                                 B. Kolera
 Intended status: Experimental                                    Biza.io
-Expires: 20 December 2023                                   18 June 2023
+Expires: 21 December 2023                                   19 June 2023
 
 
                     CDR+ Security Profile: Baseline
@@ -13,11 +13,8 @@ Expires: 20 December 2023                                   18 June 2023
 
 Abstract
 
-   The CDR+ Security Profile: Baseline is intended to be a like-for-like
-   profile of the Data Standards presented as a profile of _[Financial-
-   grade API Security Profile 1.0 Part 2:
-   Advanced](https://openid.net/specs/openid-financial-api-part-2-1
-   (https://openid.net/specs/openid-financial-api-part-2-1)_0.html)_.
+   The CDR+ Security Profile: Baseline is intended to be a compatible
+   profile of the [CDS] presented as a profile of [FAPI-1.0-Advanced].
    This profile focuses primarily on the obligations between OP and RP
    with respect to authorisation requests and does so as an overlay on
    the underlying FAPI profile combined with the inclusion of permitted
@@ -49,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 December 2023.
+   This Internet-Draft will expire on 21 December 2023.
 
 Copyright Notice
 
@@ -90,14 +87,15 @@ Table of Contents
 
    This document specifies methods for the following: - method of
    obtaining OAuth2 tokens in th designated manner under the CDR Rules
-   and Data Standards; - requirements related to participants for
-   initiating authorisations and obtaining ongoing authorisation
-   credentials
+   and [CDS]; - requirements related to participants for initiating
+   authorisations and obtaining ongoing authorisation credentials
 
    This document does not seek to: - specify correlation elements
    between technical and the legal obligations contained within
    documents such as the CDR Rules; - restate unchanged requirements
-   from upstream specifications
+   from upstream specifications - incorporate components which are
+   headed towards retirement, notably at the time of drafting, the
+   inclusion of Hybrid authorisation flow
 
 2.  Terminology
 
@@ -110,6 +108,13 @@ Table of Contents
       Right) Rules 2020 (https://www.legislation.gov.au/Series/
       F2020L00094)
 
+   Consumer  A Consumer is a business or individual who authorises the
+      sharing of data stored by a Data Holder on their behalf to a
+      Software Product with their permission.  Beyond having access an
+      individual to their own data a User may also have access to zero
+      or more non-individual Consumer's, for instance businesses that
+      they have permission to make sharing decisions for.
+
    Data Holder  A Data Holder is a party that holds consumer data for
       which sharing is to be conducted and for which their customer, the
       Consumer, participates in the authorisation process initiated by a
@@ -120,12 +125,12 @@ Table of Contents
       data from a Data Holder.  This occurs by way of a Software
       Product.
 
-   Consumer  A Consumer is a business or individual who authorises the
-      sharing of data stored by a Data Holder on their behalf to a
-      Software Product with their permission.  Beyond having access an
-      individual to their own data a User may also have access to zero
-      or more non-individual Consumer's, for instance businesses that
-      they have permission to make sharing decisions for.
+   Ecosystem Authority  The Ecosystem Authority represents the
+      designated arbiter of trust between Data Holders, Data Recipients
+      and the Consumer.  Within the Australian Consumer Data Right this
+      is the Australian Competition and Consumer Commission.  Futher
+      elaboration on the Ecosystem Authority is provided within
+      [CDRPLUS-ADMISSION-CONTROL].
 
    Personally Identifiable Information (PII)  Information that (a) can
       be used to identify the natural person to whom such information
@@ -150,56 +155,85 @@ Table of Contents
 
 3.  Data Holder
 
-   TODO: Explanation about DH
+   For the purposes of this specification a Data Holder is described as
+   the party who is offering or has offered services to the Consumer
+   and/or holds relevant data related to those services on behalf of the
+   Consumer.
+
+   The types and format of that data is outside the scope of this
+   particular specification but traditionally includes: - specific
+   customer information such as name, addresses and phone numbers; -
+   information related to services such as account numbers, pricing
+   information and balances; - transaction/ledger information pertaining
+   to services provided
+
+   Within the CDR ecosystem the mandated Data Holders are ostensible
+   Banking and Energy providers.  Additional sectors can be designated
+   by way of a legally binding Designation Instrument coupled with
+   changes to the CDR Rules.
+
+   A Software Product assumes the role of an [OIDC-Core] OpenID
+   Provider.
 
 3.1.  Authorisation Server
 
    The authorisation server MUST support the provisions specified in
    clause 5.2.2 of [FAPI-1.0-Advanced] with the following sections
-   changed as follows: 1.  Section 5.2.2-1: SHALL accept only PAR issued
-   request object passed by reference using the request_uri parameter 2.
-   Section 5.2.2-2: SHALL require the response_type value code in
-   conjunction with the response_mode value jwt; 2.  Section 5.2.2-11:
-   MUST support the pushed authorization request endpoint as described
-   in PAR; 3.  Section 5.2.2-14: SHALL authenticate the confidential
-   client using private_key_jwt specified in section 9 of [OIDC-Core]
+   replaced as follows: 1.  Section 5.2.2-1: SHALL accept only PAR
+   issued request object passed by reference using the request_uri
+   parameter 1.  Section 5.2.2-2: SHALL require the response_type value
+   code in conjunction with the response_mode value jwt; 1.
+   Section 5.2.2-11: MUST support the pushed authorization request
+   endpoint as described in PAR; 1.  Section 5.2.2-14: SHALL
+   authenticate the confidential client using private_key_jwt specified
+   in section 9 of [OIDC-Core]
 
    In addition, the authorisation server:
 
    1.   MUST support the [OIDC-Core] scopes openid and profile;
 
-   2.   SHALL issue access tokens with an expiry time of between 2 and
+   2.   SHALL support signed ID Tokens and MAY support signed and
+        encrypted ID Tokens;
+
+   3.   SHALL issue access tokens with an expiry time of between 2 and
         10 minutes;
 
-   3.   SHALL provide the lifetime of an access token as an attribute
+   4.   SHALL NOT accept authorisation request object passed by value
+
+   5.   SHALL provide the lifetime of an access token as an attribute
         named expires_in within the token endpoint response;
 
-   4.   MUST generate the sub as a PPID as described in Section 8 of
+   6.   MUST generate the sub as a PPID as described in Section 8 of
         [OIDC-Core];
 
-   5.   SHALL issue request_uri values which are one-time use and expire
+   7.   SHALL issue request_uri values which are one-time use and expire
         between 10 seconds and 90 seconds (this overrides [RFC9126]
         clause 4);
 
-   6.   MUST NOT specify duplicate kid parameters within the endpoint
+   8.   MUST NOT specify duplicate kid parameters within the endpoint
         advertised at jwks_uri;
 
-   7.   MUST support a Token End Point as specified in Section 3.1.3 of
+   9.   MUST support a Token End Point as specified in Section 3.1.3 of
         [OIDC-Core];
 
-   8.   MUST support a UserInfo Endpoint as specified in Section 5.3 of
+   10.  MUST support a UserInfo Endpoint as specified in Section 5.3 of
         [OIDC-Core];
 
-   9.   MUST utilise a different Issuer as specified in Section 1.2 of
+   11.  MUST utilise a different Issuer as specified in Section 1.2 of
         [OIDC-Core] for each marketable brand of the Data Holder;
 
-   10.  SHALL support discovery, as defined in OpenID Connect Discovery
+   12.  SHALL support discovery, as defined in OpenID Connect Discovery
         1.0 [OIDC-Discovery];
 
-   11.  SHALL support an introspection endpoint, as defined in
+   13.  SHALL support an introspection endpoint, as defined in
         [RFC7662];
 
-   12.  SHALL support a revocation endpoint, as defined in [RFC7009]
+   14.  SHALL support a revocation endpoint, as defined in [RFC7009]
+
+   15.  SHALL not use refresh token rotation unless, in the case a
+        response with a new refresh token is not received and stored by
+        the client, retrying the request (with the previous refresh
+        token) will succeed
 
 3.1.1.  Authorisation Flow
 
@@ -254,30 +288,38 @@ Table of Contents
 
    The introspection endpoint:
 
-   1.  MUST include the sub, exp and scope attributes
+   1.  MUST NOT support introspection of Access Tokens
 
-   2.  MUST NOT include the username attribute
+   2.  MUST include the sub, exp and scope attributes
+
+   3.  MUST NOT include the username attribute
 
 3.1.2.3.  Revocation Endpoint
 
-   The revocation endpoint: 1.  MUST support revocation of Refresh
-   Tokens 1.  MUST support revocation of Access Tokens
+   The revocation endpoint:
+
+   1.  MUST support revocation of Refresh Tokens
+
+   2.  MUST support revocation of Access Tokens
 
 3.1.3.  Claims
 
    The authorisation server:
 
-   1.  MUST support the [OIDC-Core] claims of sub, acr, auth_time, name,
+   1.  MUST support the [OIDC-Core] claims of sub, auth_time, name,
        given_name family_name and last_updated;
 
-   2.  MAY support the [OIDC-Core] claims of email, email_verified,
+   2.  SHOULD support the [OIDC-Core] acr claim;
+
+   3.  MAY support the [OIDC-Core] claims of email, email_verified,
        phone_number and phone_number_verified;
 
-   3.  MUST NOT support any other claims outlined in [OIDC-Core];
+   4.  MUST NOT support any other claims outlined in [OIDC-Core];
 
 3.1.4.  Authentication Context Class References (ACR)
 
-   The authorisation server SHALL support the following ACR values:
+   If the acr claim is supported, the authorisation server SHALL support
+   the following ACR values:
 
    1.  urn:cds.au:cdr:2 where the authentication achieved matches the
        Credential Level CL1 rules of [TDIF];
@@ -295,19 +337,43 @@ Table of Contents
 
 4.  Software Product
 
-   TODO: Explanation about DR
+   For the purposes of this specification, a Software Product is a piece
+   of technology infrastructure managed by a Data Recipient for a
+   specific value proposition.  That valuate proposition, following the
+   request of consent from the Consumer, initiates authorisation
+   requests to Data Holders and processes these responses for the
+   purposes of obtaining access credentials (tokens) to utilise at
+   various resource server endpoints.
+
+   Within a legal context there are a variety of Data Recipient
+   engagement approaches however this specification seeks to avoid a
+   variety of ambiguity and instead focus on the Software Product
+   itself.
+
+   A Software Product assumes the role of an [OIDC-Core] Relying Party
+   (Client).
 
 4.1.  Authorisation Client
 
-   The authorisation client: 1.  SHALL support the provisions specified
-   in clause 5.2.3 and 5.2.4 of [FAPI-1.0-Baseline]; 1.  SHALL support
-   pushed authorisation requests as described in [RFC9126]; 1.  SHALL
-   obtain the consent of the Consumer prior to commencing authorisation
-   with the Data Holder; 1.  MUST submit authorisation requests
-   containing a exp claim, in accordance with [JWT] Section 4.1.4; 1.
-   MUST submit authorisation requests containing a exp claim that is
-   less than or equal to 3600; 1.  MUST submit authorisation requests
-   containing a nbf claim in accordance with [JWT] Section 4.1.5
+   The authorisation client:
+
+   1.  SHALL support the provisions specified in clause 5.2.3 and 5.2.4
+       of [FAPI-1.0-Baseline];
+
+   2.  SHALL support pushed authorisation requests as described in
+       [RFC9126];
+
+   3.  SHALL obtain the consent of the Consumer prior to commencing
+       authorisation with the Data Holder;
+
+   4.  MUST submit authorisation requests containing a exp claim, in
+       accordance with [JWT] Section 4.1.4;
+
+   5.  MUST submit authorisation requests containing a exp claim that is
+       less than or equal to 3600;
+
+   6.  MUST submit authorisation requests containing a nbf claim in
+       accordance with [JWT] Section 4.1.5
 
    _Note:_ The form and structure of the consent obtained by the
    authorisation client is outside the scope of this document.
@@ -325,53 +391,36 @@ Table of Contents
 
    In addition:
 
-   1.  Use of TLS 1.2 or higher is REQUIRED
+   1.  Use of Mutual TLS is REQUIRED at all Authenticated Resource
+       Server endpoints;
 
-   2.  Use of Mutual TLS is REQUIRED at all Authenticated Resource
-       Server endpoints
-
-   3.  Use of Mutual TLS is REQUIRED at all OAuth2 endpoints except
+   2.  Use of Mutual TLS is REQUIRED at all OAuth2 endpoints except
        where required for Discovery or Consumer browser access (ie.
-       Authorisation endpoint)
+       Authorisation endpoint);
 
-   4.  All parties SHALL utilise certificates issued by the Ecosystem
+   3.  All parties SHALL utilise certificates issued by the Ecosystem
        Authority
-
-   5.  All sender constrained tokens SHALL be issued in accordance with
-       [RFC8705] Part 3
 
 7.  Implementation Considerations
 
-   Note: For non-individual consumers, claims available via the profile
-   scope will only return the details of the authenticated End-User and
-   not the organisation or non-individual consumer.  Data Holders SHOULD
-   explicitly capture Claims requested by the Data Recipient.  If the
-   data cluster or [OIDC] profile scope changes meaning in future this
-   ensures the Data Holder only returns what the consumer initially
-   authorised to disclose.
+   Claims available via the profile scope will only return the details
+   of the User which may be different to the Consumer.
+
+   Data Holders SHOULD explicitly capture Claims requested by the Data
+   Recipient.  If the data cluster or [OIDC] profile scope changes
+   meaning in future this ensures the Data Holder only returns what the
+   Consumer initially authorised to disclose.
+
+   Software Products SHOULD record the following information each time
+   an authorisation flow is executed: username (consumer’s ID at the
+   Data Recipient Software Product), timestamp, IP, consent scopes and
+   duration.
 
 8.  Security Considerations
 
-   5.  SHOULD implement additional controls to minimise the risk of
-       interception of the OTP through the selected delivery mechanism
-
-   6.  Data Recipient Software Products SHOULD record the following
-       information each time an authorisation flow is executed: username
-       (consumer's ID at the Data Recipient Software Product),
-       timestamp, IP, consent scopes and duration.
-
-   7.  Data Holders SHOULD implement additional controls to minimise the
-       risk of enumeration attacks via the redirect page
-
-   In line with CDR Rule 4.24 on restrictions when asking CDR consumers
-   to authorise disclosure of CDR data, unwarranted friction for OTP
-   delivery is considered to include:
-
-   the addition of any requirements beyond normal data holder practices
-   for verification code delivery providing or requesting additional
-   information beyond normal data holder practices for verification code
-   delivery offering additional or alternative services reference or
-   inclusion of other documents
+   Data Holders SHOULD implement additional controls to minimise the
+   risk of interception of the OTP through the selected delivery
+   mechanism.
 
 9.  Acknowledgement
 
@@ -381,7 +430,7 @@ Table of Contents
 
    *  Ben Kolera (Biza.io)
 
-   This document relies upon the CDR Data Standards and we therefore
+   This document relies heavily upon the [CDS] and we therefore
    acknowledge the contribution of the following individuals: - James
    Bligh (Data Standards Body) - Lead Architect for the Consumer Data
    Right - Mark Verstege (Data Standards Body) - Lead Architect, Banking
@@ -390,10 +439,19 @@ Table of Contents
 
 10.  Normative References
 
+   [CDRPLUS-ADMISSION-CONTROL]
+              Low, S., "CDR Plus: Admission Control",
+              <https://cdrplus.github.io/cdrplus-admission-control/
+              draft-authors-cdrplus-admission-control.html>.
+
    [CDRPLUS-INFOSEC-SHARING-V1]
               Low, S., "CDR: Sharing Arrangement V1",
               <https://cdrplus.github.io/cdrplus-specs/main/cdrplus-
               infosec-sharing-v1.html>.
+
+   [CDS]      Data Standards Body (Treasury), "Consumer Data Standards
+              (CDS)", <https://consumerdatastandardsaustralia.github.io/
+              standards>.
 
    [FAPI-1.0-Advanced]
               Sakimura, N., Bradley, J., and E. Jay, "Financial-grade
@@ -436,11 +494,6 @@ Table of Contents
    [RFC8414]  Jones, M., Sakimura, N., and J. Bradley, "OAuth 2.0
               Authorization Server Metadata", June 2018,
               <https://datatracker.ietf.org/doc/html/rfc8414>.
-
-   [RFC8705]  Campbell, B., Bradley, J., Sakimura, N., and T. L. Ed.,
-              "OAuth 2.0 Mutual-TLS Client Authentication and
-              Certificate-Bound Access Tokens", February 2020,
-              <https://datatracker.ietf.org/doc/html/rfc8705>.
 
    [RFC9126]  Ed., T. L., Campbell, B., Sakimura, N., Tonge, D., and F.
               Skokan, "OAuth 2.0 Pushed Authorization Requests",
