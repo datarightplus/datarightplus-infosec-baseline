@@ -124,6 +124,7 @@ In addition, the authorisation server:
 1. **SHALL** support discovery, as defined in OpenID Connect Discovery 1.0 [@!OIDC-Discovery];
 1. **SHALL** support an introspection endpoint, as defined in [@!RFC7662];
 1. **SHALL** support a revocation endpoint, as defined in [@!RFC7009]
+1. **SHALL** not use refresh token rotation unless, in the case a response with a new refresh token is not received and stored by the client, retrying the request (with the previous refresh token) will succeed
 
 ### Authorisation Flow
 
