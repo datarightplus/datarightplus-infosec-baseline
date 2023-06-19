@@ -230,6 +230,11 @@ Table of Contents
 
    14.  SHALL support a revocation endpoint, as defined in [RFC7009]
 
+   15.  SHALL not use refresh token rotation unless, in the case a
+        response with a new refresh token is not received and stored by
+        the client, retrying the request (with the previous refresh
+        token) will succeed
+
 3.1.1.  Authorisation Flow
 
    During the authorisation flow, the authorisation server:
