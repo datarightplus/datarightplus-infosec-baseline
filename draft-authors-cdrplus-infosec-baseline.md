@@ -161,12 +161,13 @@ The discovery document from the authorisation server:
 The introspection endpoint:
 
 1. **MUST NOT** support introspection of Access Tokens
-2. **MUST** include the `sub`, `exp` and `scope` attributes
+1. **MUST** include the `sub`, `exp` and `scope` attributes
 1. **MUST NOT** include the `username` attribute
 
 #### Revocation Endpoint
 
 The revocation endpoint:
+
 1. **MUST** support revocation of Refresh Tokens
 1. **MUST** support revocation of Access Tokens
 
@@ -204,6 +205,7 @@ A Software Product assumes the role of an [@!OIDC-Core] Relying Party (Client).
 ## Authorisation Client
 
 The authorisation client:
+
 1. **SHALL** support the provisions specified in clause 5.2.3 and 5.2.4 of [@!FAPI-1.0-Baseline];
 1. **SHALL** support pushed authorisation requests as described in [@!RFC9126];
 1. **SHALL** obtain the consent of the Consumer prior to commencing authorisation with the Data Holder;
@@ -224,6 +226,7 @@ Data Holders and Software Products **MUST** support the following:
 Section 8.5 of [@!FAPI-1.0-Advanced] **SHALL** apply.
 
 In addition:
+
 1. Use of Mutual TLS is **REQUIRED** at all Authenticated Resource Server endpoints;
 1. Use of Mutual TLS is **REQUIRED** at all OAuth2 endpoints except where required for Discovery or Consumer browser access (ie. Authorisation endpoint);
 1. All parties **SHALL** utilise certificates issued by the Ecosystem Authority
