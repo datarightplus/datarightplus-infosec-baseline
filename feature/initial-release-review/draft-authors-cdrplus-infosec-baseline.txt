@@ -315,7 +315,8 @@ Table of Contents
 
 3.1.4.  Authentication Context Class References (ACR)
 
-   The authorisation server SHALL support the following ACR values:
+   If the acr claim is supported, the authorisation server SHALL support
+   the following ACR values:
 
    1.  urn:cds.au:cdr:2 where the authentication achieved matches the
        Credential Level CL1 rules of [TDIF];
@@ -420,9 +421,9 @@ Table of Contents
 10.  Normative References
 
    [CDRPLUS-ADMISSION-CONTROL]
-              Low, S., "CDR: Admission Control",
-              <https://cdrplus.github.io/cdrplus-specs/main/cdrplus-
-              admission-control.html>.
+              Low, S., "CDR Plus: Admission Control",
+              <https://cdrplus.github.io/cdrplus-admission-control/
+              draft-authors-cdrplus-admission-control.html>.
 
    [CDRPLUS-INFOSEC-SHARING-V1]
               Low, S., "CDR: Sharing Arrangement V1",
