@@ -296,8 +296,11 @@ Table of Contents
 
 3.1.2.3.  Revocation Endpoint
 
-   The revocation endpoint: 1.  MUST support revocation of Refresh
-   Tokens 1.  MUST support revocation of Access Tokens
+   The revocation endpoint:
+
+   1.  MUST support revocation of Refresh Tokens
+
+   2.  MUST support revocation of Access Tokens
 
 3.1.3.  Claims
 
@@ -352,15 +355,25 @@ Table of Contents
 
 4.1.  Authorisation Client
 
-   The authorisation client: 1.  SHALL support the provisions specified
-   in clause 5.2.3 and 5.2.4 of [FAPI-1.0-Baseline]; 1.  SHALL support
-   pushed authorisation requests as described in [RFC9126]; 1.  SHALL
-   obtain the consent of the Consumer prior to commencing authorisation
-   with the Data Holder; 1.  MUST submit authorisation requests
-   containing a exp claim, in accordance with [JWT] Section 4.1.4; 1.
-   MUST submit authorisation requests containing a exp claim that is
-   less than or equal to 3600; 1.  MUST submit authorisation requests
-   containing a nbf claim in accordance with [JWT] Section 4.1.5
+   The authorisation client:
+
+   1.  SHALL support the provisions specified in clause 5.2.3 and 5.2.4
+       of [FAPI-1.0-Baseline];
+
+   2.  SHALL support pushed authorisation requests as described in
+       [RFC9126];
+
+   3.  SHALL obtain the consent of the Consumer prior to commencing
+       authorisation with the Data Holder;
+
+   4.  MUST submit authorisation requests containing a exp claim, in
+       accordance with [JWT] Section 4.1.4;
+
+   5.  MUST submit authorisation requests containing a exp claim that is
+       less than or equal to 3600;
+
+   6.  MUST submit authorisation requests containing a nbf claim in
+       accordance with [JWT] Section 4.1.5
 
    _Note:_ The form and structure of the consent obtained by the
    authorisation client is outside the scope of this document.
@@ -376,11 +389,17 @@ Table of Contents
 
    Section 8.5 of [FAPI-1.0-Advanced] SHALL apply.
 
-   In addition: 1.  Use of Mutual TLS is REQUIRED at all Authenticated
-   Resource Server endpoints; 1.  Use of Mutual TLS is REQUIRED at all
-   OAuth2 endpoints except where required for Discovery or Consumer
-   browser access (ie.  Authorisation endpoint); 1.  All parties SHALL
-   utilise certificates issued by the Ecosystem Authority
+   In addition:
+
+   1.  Use of Mutual TLS is REQUIRED at all Authenticated Resource
+       Server endpoints;
+
+   2.  Use of Mutual TLS is REQUIRED at all OAuth2 endpoints except
+       where required for Discovery or Consumer browser access (ie.
+       Authorisation endpoint);
+
+   3.  All parties SHALL utilise certificates issued by the Ecosystem
+       Authority
 
 7.  Implementation Considerations
 
