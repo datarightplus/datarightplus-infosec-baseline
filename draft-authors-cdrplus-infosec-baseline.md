@@ -181,7 +181,7 @@ The authorisation server:
 
 ### Authentication Context Class References (ACR)
 
-The authorisation server **SHALL** support the following ACR values:
+If the `acr` claim is supported, the authorisation server **SHALL** support the following ACR values:
 
 1. `urn:cds.au:cdr:2` where the authentication achieved matches the Credential Level `CL1` rules of [@!TDIF];
 2. `urn:cds.au:cdr:3` where the authentication achieved matches the Credential Level `CL2` rules of [@!TDIF]
@@ -279,7 +279,7 @@ This document relies heavily upon the [@!CDS] and we therefore acknowledge the c
 
 <reference anchor="CDRPLUS-INFOSEC-SHARING-V1" target="https://cdrplus.github.io/cdrplus-specs/main/cdrplus-infosec-sharing-v1.html"> <front><title>CDR: Sharing Arrangement V1</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
 
-<reference anchor="CDRPLUS-ADMISSION-CONTROL" target="https://cdrplus.github.io/cdrplus-specs/main/cdrplus-admission-control.html"> <front><title>CDR: Admission Control</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
+<reference anchor="CDRPLUS-ADMISSION-CONTROL" target="https://cdrplus.github.io/cdrplus-admission-control/draft-authors-cdrplus-admission-control.html"> <front><title>CDR Plus: Admission Control</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
 
 <reference anchor="CDS" target="https://consumerdatastandardsaustralia.github.io/standards"><front><title>Consumer Data Standards (CDS)</title><author><organization>Data Standards Body (Treasury)</organization></author></front> </reference>
 
