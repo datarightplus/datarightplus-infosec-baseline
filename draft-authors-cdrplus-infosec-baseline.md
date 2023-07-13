@@ -69,7 +69,7 @@ Data Recipient
 : A Data Recipient is a party that receives consumer data from a Data Holder. This occurs by way of a Software Product.
 
 Ecosystem Authority
-: The Ecosystem Authority represents the designated arbiter of trust between Data Holders, Data Recipients and the Consumer. Within the Australian Consumer Data Right this is the Australian Competition and Consumer Commission. Futher elaboration on the Ecosystem Authority is provided within [@!CDRPLUS-ADMISSION-CONTROL].
+: The Ecosystem Authority represents the designated arbiter of trust between Data Holders, Data Recipients and the Consumer. Within the Australian Consumer Data Right this is the Australian Competition and Consumer Commission. Further elaboration on the Ecosystem Authority is provided within [@!CDRPLUS-ADMISSION-CONTROL].
 
 Personally Identifiable Information (PII)
 : Information that (a) can be used to identify the natural person to whom such information relates, or (b) is or might be directly or indirectly linked to a natural person to whom such information relates.
@@ -251,6 +251,7 @@ The following people contributed to this document:
 - Ben Kolera (Biza.io)
 
 This document relies heavily upon the [@!CDS] and we therefore acknowledge the contribution of the following individuals:
+-
 - James Bligh (Data Standards Body) - Lead Architect for the Consumer Data Right
 - Mark Verstege (Data Standards Body) - Lead Architect, Banking & Information Security for the Consumer Data Right
 - Ivan Hosgood (Data Standards Body & ACCC) - Solutions Architect
