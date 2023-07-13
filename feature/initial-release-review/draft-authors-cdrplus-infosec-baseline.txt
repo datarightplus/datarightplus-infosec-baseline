@@ -5,7 +5,7 @@
 cdrplus-parity                                                    S. Low
 Internet-Draft                                                 B. Kolera
 Intended status: Experimental                                    Biza.io
-Expires: 21 December 2023                                   19 June 2023
+Expires: 14 January 2024                                    13 July 2023
 
 
                     CDR+ Security Profile: Baseline
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 December 2023.
+   This Internet-Draft will expire on 14 January 2024.
 
 Copyright Notice
 
@@ -80,6 +80,8 @@ Table of Contents
    7.  Implementation Considerations
    8.  Security Considerations
    9.  Acknowledgement
+     9.1.  This document relies heavily upon the CDS and we therefore
+           acknowledge the contribution of the following individuals:
    10. Normative References
    Authors' Addresses
 
@@ -128,7 +130,7 @@ Table of Contents
    Ecosystem Authority  The Ecosystem Authority represents the
       designated arbiter of trust between Data Holders, Data Recipients
       and the Consumer.  Within the Australian Consumer Data Right this
-      is the Australian Competition and Consumer Commission.  Futher
+      is the Australian Competition and Consumer Commission.  Further
       elaboration on the Ecosystem Authority is provided within
       [CDRPLUS-ADMISSION-CONTROL].
 
@@ -430,12 +432,16 @@ Table of Contents
 
    *  Ben Kolera (Biza.io)
 
-   This document relies heavily upon the [CDS] and we therefore
-   acknowledge the contribution of the following individuals: - James
-   Bligh (Data Standards Body) - Lead Architect for the Consumer Data
-   Right - Mark Verstege (Data Standards Body) - Lead Architect, Banking
-   & Information Security for the Consumer Data Right - Ivan Hosgood
-   (Data Standards Body & ACCC) - Solutions Architect
+9.1.  This document relies heavily upon the [CDS] and we therefore
+      acknowledge the contribution of the following individuals:
+
+   *  James Bligh (Data Standards Body) - Lead Architect for the
+      Consumer Data Right
+
+   *  Mark Verstege (Data Standards Body) - Lead Architect, Banking &
+      Information Security for the Consumer Data Right
+
+   *  Ivan Hosgood (Data Standards Body & ACCC) - Solutions Architect
 
 10.  Normative References
 
