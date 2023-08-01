@@ -4,23 +4,23 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>CDR+ Security Profile: Baseline</title>
+<title>DR+ Security Profile: Baseline</title>
 <meta content="Stuart Low" name="author">
 <meta content="Ben Kolera" name="author">
 <meta content="
-       The CDR+ Security Profile: Baseline is intended to be a compatible profile of the   presented as a profile of  . This profile focuses primarily on the obligations between OP and RP with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of permitted arrangement types within the CDR (currently one, the CDR Sharing Arrangement V1). It does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the  Data Standards: Security Profile . 
+       The DR+ Security Profile: Baseline is intended to be a compatible profile of the   presented as a profile of  . This profile focuses primarily on the obligations between OP and RP with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of permitted arrangement types within the CDR (currently one, the CDR Sharing Arrangement V1). It does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the  Data Standards: Security Profile . 
     " name="description">
-<meta content="xml2rfc 3.17.3" name="generator">
-<meta content="draft-authors-cdrplus-infosec-baseline-latest" name="ietf.draft">
+<meta content="xml2rfc 3.17.4" name="generator">
+<meta content="draft-authors-datarightplus-infosec-baseline-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.17.3
+  xml2rfc 3.17.4
     Python 3.11.4
-    appdirs 1.4.4
     ConfigArgParse 1.5.3
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
-    lxml 4.9.2
+    lxml 4.9.3
+    platformdirs 3.9.1
     pycountry 22.3.5
     PyYAML 6.0
     requests 2.31.0
@@ -28,7 +28,7 @@
     six 1.16.0
     wcwidth 0.2.6
 -->
-<link href="draft-authors-cdrplus-infosec-baseline.xml" rel="alternate" type="application/rfc+xml">
+<link href="draft-authors-datarightplus-infosec-baseline.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">@font-face {
   font-family: 'Lora';
@@ -1046,12 +1046,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <table class="ears">
 <thead><tr>
 <td class="left">Internet-Draft</td>
-<td class="center">CDR+ Security Profile: Baseline</td>
-<td class="right">June 2023</td>
+<td class="center">DR+ Security Profile: Baseline</td>
+<td class="right">August 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Low &amp; Kolera</td>
-<td class="center">Expires 21 December 2023</td>
+<td class="center">Expires 2 February 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1059,17 +1059,17 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">cdrplus-parity</dd>
+<dd class="workgroup">datarightplus-parity</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-authors-cdrplus-infosec-baseline-latest</dd>
+<dd class="internet-draft">draft-authors-datarightplus-infosec-baseline-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-06-19" class="published">19 June 2023</time>
+<time datetime="2023-08-01" class="published">1 August 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Experimental</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-12-21">21 December 2023</time></dd>
+<dd class="expires"><time datetime="2024-02-02">2 February 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1083,10 +1083,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
 </dl>
 </div>
-<h1 id="title">CDR+ Security Profile: Baseline</h1>
+<h1 id="title">DR+ Security Profile: Baseline</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">The CDR+ Security Profile: Baseline is intended to be a compatible profile of the <span>[<a href="#CDS" class="cite xref">CDS</a>]</span> presented as a profile of <span>[<a href="#FAPI-1.0-Advanced" class="cite xref">FAPI-1.0-Advanced</a>]</span>. This profile focuses primarily on the obligations between OP and RP with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of permitted arrangement types within the CDR (currently one, the CDR Sharing Arrangement V1). It does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the <em><a href="https://consumerdatastandardsaustralia.github.io/standards/#security-profile">Data Standards: Security Profile</a></em>.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">The DR+ Security Profile: Baseline is intended to be a compatible profile of the <span>[<a href="#CDS" class="cite xref">CDS</a>]</span> presented as a profile of <span>[<a href="#FAPI-1.0-Advanced" class="cite xref">FAPI-1.0-Advanced</a>]</span>. This profile focuses primarily on the obligations between OP and RP with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of permitted arrangement types within the CDR (currently one, the CDR Sharing Arrangement V1). It does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the <em><a href="https://consumerdatastandardsaustralia.github.io/standards/#security-profile">Data Standards: Security Profile</a></em>.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note" id="section-note.1">
       <h2 id="name-notational-conventions">
@@ -1113,7 +1113,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 21 December 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 2 February 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1195,6 +1195,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-acknowledgement" class="internal xref">Acknowledgement</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-this-document-relies-heavil" class="internal xref">This document relies heavily upon the CDS and we therefore acknowledge the contribution of the following individuals:</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
             <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-normative-references" class="internal xref">Normative References</a></p>
@@ -1245,7 +1250,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
         <dd class="break"></dd>
 <dt id="section-2-3.9">Ecosystem Authority</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.10">The Ecosystem Authority represents the designated arbiter of trust between Data Holders, Data Recipients and the Consumer. Within the Australian Consumer Data Right this is the Australian Competition and Consumer Commission. Futher elaboration on the Ecosystem Authority is provided within <span>[<a href="#CDRPLUS-ADMISSION-CONTROL" class="cite xref">CDRPLUS-ADMISSION-CONTROL</a>]</span>.<a href="#section-2-3.10" class="pilcrow">¶</a>
+        <dd style="margin-left: 1.5em" id="section-2-3.10">The Ecosystem Authority represents the designated arbiter of trust between Data Holders, Data Recipients and the Consumer. Within the Australian Consumer Data Right this is the Australian Competition and Consumer Commission. Further elaboration on the Ecosystem Authority is provided within <span>[<a href="#CDRPLUS-ADMISSION-CONTROL" class="cite xref">CDRPLUS-ADMISSION-CONTROL</a>]</span>.<a href="#section-2-3.10" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 <dt id="section-2-3.11">Personally Identifiable Information (PII)</dt>
@@ -1602,10 +1607,21 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <li class="normal" id="section-9-2.2">Ben Kolera (Biza.io)<a href="#section-9-2.2" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-9-3">This document relies heavily upon the <span>[<a href="#CDS" class="cite xref">CDS</a>]</span> and we therefore acknowledge the contribution of the following individuals:
-- James Bligh (Data Standards Body) - Lead Architect for the Consumer Data Right
-- Mark Verstege (Data Standards Body) - Lead Architect, Banking &amp; Information Security for the Consumer Data Right
-- Ivan Hosgood (Data Standards Body &amp; ACCC) - Solutions Architect<a href="#section-9-3" class="pilcrow">¶</a></p>
+<div id="this-document-relies-heavily-upon-the-cds-and-we-therefore-acknowledge-the-contribution-of-the-following-individuals">
+<section id="section-9.1">
+        <h3 id="name-this-document-relies-heavil">
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-this-document-relies-heavil" class="section-name selfRef">This document relies heavily upon the <em class="cite xref">[CDS]</em> and we therefore acknowledge the contribution of the following individuals:</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="section-9.1-1.1">James Bligh (Data Standards Body) - Lead Architect for the Consumer Data Right<a href="#section-9.1-1.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-9.1-1.2">Mark Verstege (Data Standards Body) - Lead Architect, Banking &amp; Information Security for the Consumer Data Right<a href="#section-9.1-1.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-9.1-1.3">Ivan Hosgood (Data Standards Body &amp; ACCC) - Solutions Architect<a href="#section-9.1-1.3" class="pilcrow">¶</a>
+</li>
+        </ul>
+</section>
+</div>
 </section>
 </div>
 <section id="section-10">
@@ -1615,11 +1631,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dl class="references">
 <dt id="CDRPLUS-ADMISSION-CONTROL">[CDRPLUS-ADMISSION-CONTROL]</dt>
       <dd>
-<span class="refAuthor">Low, S.</span>, <span class="refTitle">"CDR Plus: Admission Control"</span>, <span>&lt;<a href="https://cdrplus.github.io/cdrplus-admission-control/draft-authors-cdrplus-admission-control.html">https://cdrplus.github.io/cdrplus-admission-control/draft-authors-cdrplus-admission-control.html</a>&gt;</span>. </dd>
+<span class="refAuthor">Low, S.</span>, <span class="refTitle">"DataRight Plus: Admission Control"</span>, <span>&lt;<a href="https://datarightplus.github.io/datarightplus-admission-control/draft-authors-datarightplus-admission-control.html">https://datarightplus.github.io/datarightplus-admission-control/draft-authors-datarightplus-admission-control.html</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="CDRPLUS-INFOSEC-SHARING-V1">[CDRPLUS-INFOSEC-SHARING-V1]</dt>
       <dd>
-<span class="refAuthor">Low, S.</span>, <span class="refTitle">"CDR: Sharing Arrangement V1"</span>, <span>&lt;<a href="https://cdrplus.github.io/cdrplus-specs/main/cdrplus-infosec-sharing-v1.html">https://cdrplus.github.io/cdrplus-specs/main/cdrplus-infosec-sharing-v1.html</a>&gt;</span>. </dd>
+<span class="refAuthor">Low, S.</span>, <span class="refTitle">"CDR: Sharing Arrangement V1"</span>, <span>&lt;<a href="https://datarightplus.github.io/datarightplus-specs/main/datarightplus-infosec-sharing-v1.html">https://datarightplus.github.io/datarightplus-specs/main/datarightplus-infosec-sharing-v1.html</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="CDS">[CDS]</dt>
       <dd>
