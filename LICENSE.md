@@ -1,7 +1,7 @@
 The MIT License (MIT)
 =====================
 
-Copyright © 2023 [CDR Plus Contributors](https://cdrplus.au/docs/contributors)
+Copyright © 2023 [DataRight Plus Contributors](https://datarightplus.au/docs/contributors)
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation

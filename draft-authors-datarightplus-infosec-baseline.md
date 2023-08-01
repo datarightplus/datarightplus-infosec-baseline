@@ -1,11 +1,11 @@
 %%%
-Title = "CDR+ Security Profile: Baseline"
+Title = "DR+ Security Profile: Baseline"
 area = "Internet"
-workgroup = "cdrplus-parity"
+workgroup = "datarightplus-parity"
 
 [seriesInfo]
 name = "Internet-Draft"
-value = "draft-authors-cdrplus-infosec-baseline-latest"
+value = "draft-authors-datarightplus-infosec-baseline-latest"
 stream = "IETF"
 status = "experimental"
 
@@ -31,7 +31,7 @@ organization="Biza.io"
 
 .# Abstract
 
-The CDR+ Security Profile: Baseline is intended to be a compatible profile of the [@!CDS] presented as a profile of [@!FAPI-1.0-Advanced]. This profile focuses primarily on the obligations between OP and RP with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of permitted arrangement types within the CDR (currently one, the CDR Sharing Arrangement V1). It does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the _[Data Standards: Security Profile](https://consumerdatastandardsaustralia.github.io/standards/#security-profile)_.
+The DR+ Security Profile: Baseline is intended to be a compatible profile of the [@!CDS] presented as a profile of [@!FAPI-1.0-Advanced]. This profile focuses primarily on the obligations between OP and RP with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of permitted arrangement types within the CDR (currently one, the CDR Sharing Arrangement V1). It does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the _[Data Standards: Security Profile](https://consumerdatastandardsaustralia.github.io/standards/#security-profile)_.
 
 .# Notational Conventions
 
@@ -281,9 +281,9 @@ This document relies heavily upon the [@!CDS] and we therefore acknowledge the c
 
 <reference anchor="FAPI-1.0-Baseline" target="https://openid.net/specs/openid-financial-api-part-1-1_0.html"> <front><title abbrev="FAPI 1.0 Baseline">Financial-grade API Security Profile 1.0 - Part 1: Baseline</title><author initials="N." surname="Sakimura" fullname="Nat Sakimura"><organization>Nat Consulting</organization></author><author initials="J." surname="Bradley" fullname="John Bradley"><organization>Yubico</organization></author><author initials="E." surname="Jay" fullname="Illumila"><organization>Illumila</organization></author></front> </reference>
 
-<reference anchor="CDRPLUS-INFOSEC-SHARING-V1" target="https://cdrplus.github.io/cdrplus-specs/main/cdrplus-infosec-sharing-v1.html"> <front><title>CDR: Sharing Arrangement V1</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
+<reference anchor="CDRPLUS-INFOSEC-SHARING-V1" target="https://datarightplus.github.io/datarightplus-specs/main/datarightplus-infosec-sharing-v1.html"> <front><title>CDR: Sharing Arrangement V1</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
 
-<reference anchor="CDRPLUS-ADMISSION-CONTROL" target="https://cdrplus.github.io/cdrplus-admission-control/draft-authors-cdrplus-admission-control.html"> <front><title>CDR Plus: Admission Control</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
+<reference anchor="CDRPLUS-ADMISSION-CONTROL" target="https://datarightplus.github.io/datarightplus-admission-control/draft-authors-datarightplus-admission-control.html"> <front><title>DataRight Plus: Admission Control</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
 
 <reference anchor="CDS" target="https://consumerdatastandardsaustralia.github.io/standards"><front><title>Consumer Data Standards (CDS)</title><author><organization>Data Standards Body (Treasury)</organization></author></front> </reference>
 
