@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-08-01T00:03:22.163912+00:00",
+  "timestamp": "2023-08-13T00:03:15.308402+00:00",
   "repo": "datarightplus/datarightplus-infosec-baseline",
   "labels": [
     {
@@ -69,6 +69,30 @@
       "updatedAt": "2023-06-19T11:15:14Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOJv_23M5t70An",
+      "title": "Party Naming",
+      "url": "https://github.com/datarightplus/datarightplus-infosec-baseline/issues/3",
+      "state": "OPEN",
+      "author": "perlboy",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "There's a discussion ongoing regarding the use of the current terms \"Data Holder\" and \"Data Recipient\". \r\n\r\nThought is that before we get too much further we should ideally abstract away from the CDR defined legalese to more genericised concepts.",
+      "createdAt": "2023-08-10T04:32:37Z",
+      "updatedAt": "2023-08-10T04:34:51Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "perlboy",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Current thoughts are Service Provider and Service Consumer.\r\n",
+          "createdAt": "2023-08-10T04:34:51Z",
+          "updatedAt": "2023-08-10T04:34:51Z"
+        }
+      ]
     }
   ],
   "pulls": [
