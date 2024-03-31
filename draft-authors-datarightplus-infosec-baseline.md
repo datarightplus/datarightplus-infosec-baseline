@@ -1,5 +1,5 @@
 %%%
-Title = "DR+ Security Profile: Baseline"
+Title = "DataRight+ Security Profile: Baseline"
 area = "Internet"
 workgroup = "datarightplus-parity"
 
@@ -31,7 +31,7 @@ organization="Biza.io"
 
 .# Abstract
 
-The DR+ Security Profile: Baseline is intended to be a compatible profile of the [@!CDS] presented as a profile of [@!FAPI-1.0-Advanced]. This profile focuses primarily on the obligations between Provider and Initiator with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of specified authorisation types.
+The DataRight+ Security Profile: Baseline is intended to be a compatible profile of the [@!CDS] presented as a profile of [@!FAPI-1.0-Advanced]. This profile focuses primarily on the obligations between Provider and Initiator with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of specified authorisation types.
 
 This profile does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the [@!CDS]. Further terminology used is deliberately jurisdiction agnostic, please refer to [@!DATARIGHTPLUS-ROSETTA] for specific ecosystem mappings.
 
@@ -44,10 +44,12 @@ The keywords "**REQUIRED**", "**SHALL**", "**SHALL NOT**", "**SHOULD**", "**SHOU
 # Scope
 
 This document specifies methods for the following:
+
   - method of obtaining OAuth2 tokens as originally described within the [@!CDS] and;
   - requirements related to participants for initiating authorisations and obtaining ongoing authorisation credentials
 
 This document does not seek to:
+
   - specify correlation elements between technical and the legal obligations contained within documents such as the CDR Rules;
   - restate unchanged requirements from upstream specifications
   - consider historical obligations which have expired
@@ -168,6 +170,13 @@ The Initiators authorisation client:
 
 _Note:_ The form and structure of the consent obtained by the authorisation client is outside the scope of this document.
 
+## Resource Server
+
+The resource server **SHALL** support the provisions specified in clause 6.2.2 of [@!FAPI-1.0-Baseline] with the following sections replaced:
+
+1. Section 6.2.2-3: **SHALL** send the last time the customer logged into the client in the x-fapi-auth-date header where the value is supplied as a HTTP-date as in Section 7.1.1.1 of RFC7231, e.g., x-fapi-auth-date: Tue, 11 Sep 2012 19:43:31 GMT;
+1. Section 6.2.2-4: **SHALL** send the customer’s IP address if this data is available in the x-fapi-customer-ip-address header, e.g., x-fapi-customer-ip-address: 2001:DB8::1893:25c8:1946 or x-fapi-customer-ip-address: 198.51.100.119; and
+
 # TLS Considerations
 
 Section 8.5 of [@!FAPI-1.0-Advanced] **SHALL** apply.
@@ -175,7 +184,7 @@ Section 8.5 of [@!FAPI-1.0-Advanced] **SHALL** apply.
 In addition:
 
 1. Use of Mutual TLS is **REQUIRED** at all Authenticated Resource Server endpoints except where required for Discovery or Consumer browser access (ie. Authorisation endpoint);
-1. All parties **SHALL** utilise certificates issued by the Ecosystem Authority
+1. All parties **SHALL** apply the certificate management policy requirements of the relevant Ecosystem Authority
 
 # Implementation Considerations
 
@@ -205,7 +214,7 @@ The following people contributed to this document:
 This document relies heavily upon the [@!CDS] and we therefore acknowledge the contribution of the following individuals:
 - James Bligh (Data Standards Body) - Lead Architect for the Consumer Data Right
 - Mark Verstege (Data Standards Body) - Lead Architect, Banking & Information Security for the Consumer Data Right
-- Ivan Hosgood (formally Data Standards Body & ACCC) - Solutions Architect
+- Ivan Hosgood (formerly Data Standards Body & ACCC) - Solutions Architect
 
 {backmatter}
 
@@ -236,7 +245,7 @@ This document relies heavily upon the [@!CDS] and we therefore acknowledge the c
 
 <reference anchor="DATARIGHTPLUS-ADMISSION-CONTROL" target="https://datarightplus.github.io/datarightplus-admission-control/draft-authors-datarightplus-admission-control.html"> <front><title>DataRight Plus: Admission Control</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
 
-<reference anchor="DATARIGHTPLUS-ROSETTA" target="https://datarightplus.github.io/datarightplus-rosetta/draft-authors-datarightplus-rosetta.html"> <front><title>DR+ Rosetta Stone</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
+<reference anchor="DATARIGHTPLUS-ROSETTA" target="https://datarightplus.github.io/datarightplus-rosetta/draft-authors-datarightplus-rosetta.html"> <front><title>DataRight+ Rosetta Stone</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
 
 <reference anchor="CDS" target="https://consumerdatastandardsaustralia.github.io/standards"><front><title>Consumer Data Standards (CDS)</title><author><organization>Data Standards Body (Treasury)</organization></author></front> </reference>
 
