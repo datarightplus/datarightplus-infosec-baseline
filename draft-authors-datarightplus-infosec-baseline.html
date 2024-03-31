@@ -4,29 +4,30 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>DR+ Security Profile: Baseline</title>
+<title>DataRight+ Security Profile: Baseline</title>
 <meta content="Stuart Low" name="author">
 <meta content="Ben Kolera" name="author">
 <meta content="
-       The DR+ Security Profile: Baseline is intended to be a compatible profile of the   presented as a profile of  . This profile focuses primarily on the obligations between OP and RP with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of permitted arrangement types within the CDR (currently one, the CDR Sharing Arrangement V1). It does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the  Data Standards: Security Profile . 
+       The DataRight+ Security Profile: Baseline is intended to be a compatible profile of the   presented as a profile of  . This profile focuses primarily on the obligations between Provider and Initiator with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of specified authorisation types. 
+       This profile does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the  . Further terminology used is deliberately jurisdiction agnostic, please refer to   for specific ecosystem mappings. 
     " name="description">
-<meta content="xml2rfc 3.17.4" name="generator">
+<meta content="xml2rfc 3.20.1" name="generator">
 <meta content="draft-authors-datarightplus-infosec-baseline-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.17.4
-    Python 3.11.4
-    ConfigArgParse 1.5.3
+  xml2rfc 3.20.1
+    Python 3.11.8
+    ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 3.9.1
+    platformdirs 4.2.0
     pycountry 22.3.5
-    PyYAML 6.0
+    PyYAML 6.0.1
     requests 2.31.0
-    setuptools 67.7.2
+    setuptools 68.2.2
     six 1.16.0
-    wcwidth 0.2.6
+    wcwidth 0.2.13
 -->
 <link href="draft-authors-datarightplus-infosec-baseline.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -649,7 +650,7 @@ sub, sup {
 }
 #toc nav li {
   line-height: 1.3em;
-  margin: 0.75em 0;
+  margin: 2px 0;
   padding-left: 1.2em;
   text-indent: -1.2em;
 }
@@ -742,7 +743,7 @@ hr.addr {
     z-index: 2;
     top: 0;
     right: 0;
-    padding: 0;
+    padding: 1px 0 0 0;
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
@@ -866,16 +867,13 @@ hr.addr {
     border-top: none;
     padding-top: 0;
   }
-  figure, pre {
+  figure, pre, .vcard {
     page-break-inside: avoid;
-  }
-  figure {
-    overflow: scroll;
   }
   h1, h2, h3, h4, h5, h6 {
     page-break-after: avoid;
   }
-  h2+*, h3+*, h4+*, h5+*, h6+* {
+  :is(h2, h3, h4, h5, h6)+*, dd {
     page-break-before: avoid;
   }
   pre {
@@ -888,6 +886,9 @@ hr.addr {
   }
   td {
     border-top: 1px solid #ddd;
+  }
+  .toplink {
+    display: none;
   }
 }
 
@@ -989,28 +990,6 @@ address div.right {
   text-align: right;
 }
 
-/* Give the table caption label the same styling as the figcaption */
-
-@media print {
-  .toplink {
-    display: none;
-  }
-
-  /* avoid overwriting the top border line with the ToC header */
-  #toc {
-    padding-top: 1px;
-  }
-
-  /* Avoid page breaks inside dl and author address entries */
-  dd {
-    page-break-before: avoid;
-  }
-  .vcard {
-    page-break-inside: avoid;
-  }
-
-}
-
 /* Dark mode. */
 @media (prefers-color-scheme: dark) {
 :root {
@@ -1046,12 +1025,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <table class="ears">
 <thead><tr>
 <td class="left">Internet-Draft</td>
-<td class="center">DR+ Security Profile: Baseline</td>
-<td class="right">August 2023</td>
+<td class="center">DataRight+ Security Profile: Baseline</td>
+<td class="right">March 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Low &amp; Kolera</td>
-<td class="center">Expires 2 February 2024</td>
+<td class="center">Expires 2 October 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1064,12 +1043,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-authors-datarightplus-infosec-baseline-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-08-01" class="published">1 August 2023</time>
+<time datetime="2024-03-31" class="published">31 March 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Experimental</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-02-02">2 February 2024</time></dd>
+<dd class="expires"><time datetime="2024-10-02">2 October 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1083,16 +1062,17 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
 </dl>
 </div>
-<h1 id="title">DR+ Security Profile: Baseline</h1>
+<h1 id="title">DataRight+ Security Profile: Baseline</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">The DR+ Security Profile: Baseline is intended to be a compatible profile of the <span>[<a href="#CDS" class="cite xref">CDS</a>]</span> presented as a profile of <span>[<a href="#FAPI-1.0-Advanced" class="cite xref">FAPI-1.0-Advanced</a>]</span>. This profile focuses primarily on the obligations between OP and RP with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of permitted arrangement types within the CDR (currently one, the CDR Sharing Arrangement V1). It does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the <em><a href="https://consumerdatastandardsaustralia.github.io/standards/#security-profile">Data Standards: Security Profile</a></em>.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">The DataRight+ Security Profile: Baseline is intended to be a compatible profile of the <span>[<a href="#CDS" class="cite xref">CDS</a>]</span> presented as a profile of <span>[<a href="#FAPI-1.0-Advanced" class="cite xref">FAPI-1.0-Advanced</a>]</span>. This profile focuses primarily on the obligations between Provider and Initiator with respect to authorisation requests and does so as an overlay on the underlying FAPI profile combined with the inclusion of specified authorisation types.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">This profile does not attempt to provide elaboration on registration protocols, certificate profiles, federation or other components specified within the <span>[<a href="#CDS" class="cite xref">CDS</a>]</span>. Further terminology used is deliberately jurisdiction agnostic, please refer to <span>[<a href="#DATARIGHTPLUS-ROSETTA" class="cite xref">DATARIGHTPLUS-ROSETTA</a>]</span> for specific ecosystem mappings.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 </section>
 <section class="note" id="section-note.1">
       <h2 id="name-notational-conventions">
 <a href="#name-notational-conventions" class="section-name selfRef">Notational Conventions</a>
       </h2>
-<p id="section-note.1-1">The keywords "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>",  "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as described in <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span>.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
+<p id="section-note.1-1">The keywords "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>",  "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as described in <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span>.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1113,7 +1093,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 2 February 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 2 October 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1122,7 +1102,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2023 IETF Trust and the persons identified as the
+            Copyright (c) 2024 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1146,66 +1126,55 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-scope" class="internal xref">Scope</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-terminology" class="internal xref">Terminology</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-data-holder" class="internal xref">Data Holder</a></p>
+            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-terminology" class="internal xref">Terminology</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
-                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-authorisation-server" class="internal xref">Authorisation Server</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
+                <p id="section-toc.1-1.2.2.1.1"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-authorisation-server" class="internal xref">Authorisation Server</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.1">
-                    <p id="section-toc.1-1.3.2.1.2.1.1" class="keepWithNext"><a href="#section-3.1.1" class="auto internal xref">3.1.1</a>.  <a href="#name-authorisation-flow" class="internal xref">Authorisation Flow</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1.2.1">
+                    <p id="section-toc.1-1.2.2.1.2.1.1" class="keepWithNext"><a href="#section-2.1.1" class="auto internal xref">2.1.1</a>.  <a href="#name-authorisation-flow" class="internal xref">Authorisation Flow</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.2">
-                    <p id="section-toc.1-1.3.2.1.2.2.1"><a href="#section-3.1.2" class="auto internal xref">3.1.2</a>.  <a href="#name-endpoints" class="internal xref">Endpoints</a></p>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1.2.2">
+                    <p id="section-toc.1-1.2.2.1.2.2.1" class="keepWithNext"><a href="#section-2.1.2" class="auto internal xref">2.1.2</a>.  <a href="#name-endpoints" class="internal xref">Endpoints</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.3">
-                    <p id="section-toc.1-1.3.2.1.2.3.1"><a href="#section-3.1.3" class="auto internal xref">3.1.3</a>.  <a href="#name-claims" class="internal xref">Claims</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.4">
-                    <p id="section-toc.1-1.3.2.1.2.4.1"><a href="#section-3.1.4" class="auto internal xref">3.1.4</a>.  <a href="#name-authentication-context-clas" class="internal xref">Authentication Context Class References (ACR)</a></p>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1.2.3">
+                    <p id="section-toc.1-1.2.2.1.2.3.1"><a href="#section-2.1.3" class="auto internal xref">2.1.3</a>.  <a href="#name-claims" class="internal xref">Claims</a></p>
 </li>
                 </ul>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2">
+                <p id="section-toc.1-1.2.2.2.1"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-resource-server" class="internal xref">Resource Server</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-initiator" class="internal xref">Initiator</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-authorisation-client" class="internal xref">Authorisation Client</a></p>
+</li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
-                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-resource-server" class="internal xref">Resource Server</a></p>
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-resource-server-2" class="internal xref">Resource Server</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-software-product" class="internal xref">Software Product</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
-                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-authorisation-client" class="internal xref">Authorisation Client</a></p>
-</li>
-            </ul>
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-tls-considerations" class="internal xref">TLS Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-supported-arrangement-types" class="internal xref">Supported Arrangement Types</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-implementation-consideratio" class="internal xref">Implementation Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-tls-considerations" class="internal xref">TLS Considerations</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-implementation-consideratio" class="internal xref">Implementation Considerations</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-acknowledgement" class="internal xref">Acknowledgement</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-acknowledgement" class="internal xref">Acknowledgement</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
-                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-this-document-relies-heavil" class="internal xref">This document relies heavily upon the CDS and we therefore acknowledge the contribution of the following individuals:</a></p>
-</li>
-            </ul>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-normative-references" class="internal xref">Normative References</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1216,13 +1185,22 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-scope">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-scope" class="section-name selfRef">Scope</a>
       </h2>
-<p id="section-1-1">This document specifies methods for the following:
-  - method of obtaining OAuth2 tokens in th designated manner under the CDR Rules and <span>[<a href="#CDS" class="cite xref">CDS</a>]</span>;
-  - requirements related to participants for initiating authorisations and obtaining ongoing authorisation credentials<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">This document does not seek to:
-  - specify correlation elements between technical and the legal obligations contained within documents such as the CDR Rules;
-  - restate unchanged requirements from upstream specifications
-  - incorporate components which are headed towards retirement, notably at the time of drafting, the inclusion of Hybrid authorisation flow<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-1">This document specifies methods for the following:<a href="#section-1-1" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-1-2.1">method of obtaining OAuth2 tokens as originally described within the <span>[<a href="#CDS" class="cite xref">CDS</a>]</span> and;<a href="#section-1-2.1" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="section-1-2.2">requirements related to participants for initiating authorisations and obtaining ongoing authorisation credentials<a href="#section-1-2.2" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="section-1-3">This document does not seek to:<a href="#section-1-3" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-1-4.1">specify correlation elements between technical and the legal obligations contained within documents such as the CDR Rules;<a href="#section-1-4.1" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="section-1-4.2">restate unchanged requirements from upstream specifications<a href="#section-1-4.2" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="section-1-4.3">consider historical obligations which have expired<a href="#section-1-4.3" class="pilcrow">¶</a>
+</li>
+      </ul>
 </section>
 </div>
 <div id="terminology">
@@ -1230,227 +1208,178 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-terminology">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-terminology" class="section-name selfRef">Terminology</a>
       </h2>
-<p id="section-2-1">This specification uses the term "JSON Web Token (JWT)" as defined by <span>[<a href="#JWT" class="cite xref">JWT</a>]</span>.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-1">This specification uses the term "JSON Web Token (JWT)" as defined by <span>[<a href="#JWT" class="cite xref">JWT</a>]</span> and the terms "Consumer", "Ecosystem Authority", "Initiator", "Personally Identifiable Information (PII)", "Provider", "User" as defined by <span>[<a href="#DATARIGHTPLUS-ROSETTA" class="cite xref">DATARIGHTPLUS-ROSETTA</a>]</span>.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <p id="section-2-2">The specification also defines the following terms:<a href="#section-2-2" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-2-3">
-        <dt id="section-2-3.1">CDR Rules</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.2">Refers to the <a href="https://www.legislation.gov.au/Series/F2020L00094">Competition and Consumer (Consumer Data Right) Rules 2020</a><a href="#section-2-3.2" class="pilcrow">¶</a>
+<span class="break"></span><dl class="dlCompact dlParallel" id="section-2-3">
+        <dt id="section-2-3.1">Access Token:</dt>
+        <dd style="margin-left: 1.5em" id="section-2-3.2">TODO<a href="#section-2-3.2" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-3.3">Consumer</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.4">A Consumer is a business or individual who authorises the sharing of data stored by a Data Holder on their behalf to a Software Product with their permission. Beyond having access an individual to their own data a User may also have access to zero or more non-individual Consumer's, for instance businesses that they have permission to make sharing decisions for.<a href="#section-2-3.4" class="pilcrow">¶</a>
+<dt id="section-2-3.3">ID Token:</dt>
+        <dd style="margin-left: 1.5em" id="section-2-3.4">TODO<a href="#section-2-3.4" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-3.5">Data Holder</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.6">A Data Holder is a party that holds consumer data for which sharing is to be conducted and for which their customer, the Consumer, participates in the authorisation process initiated by a Data Recipient. Please refer to the expanded description of Data Holder within this document.<a href="#section-2-3.6" class="pilcrow">¶</a>
+<dt id="section-2-3.5">Issuer</dt>
+        <dd style="margin-left: 1.5em" id="section-2-3.6">TODO<a href="#section-2-3.6" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-3.7">Data Recipient</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.8">A Data Recipient is a party that receives consumer data from a Data Holder. This occurs by way of a Software Product.<a href="#section-2-3.8" class="pilcrow">¶</a>
+<dt id="section-2-3.7">Pairwise Pseudonymous Identifier (PPID)</dt>
+        <dd style="margin-left: 1.5em" id="section-2-3.8">Identifier that identifies the Consumer to a Initiator that cannot be correlated with the Consumer's PPID at another Initiator.<a href="#section-2-3.8" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-3.9">Ecosystem Authority</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.10">The Ecosystem Authority represents the designated arbiter of trust between Data Holders, Data Recipients and the Consumer. Within the Australian Consumer Data Right this is the Australian Competition and Consumer Commission. Further elaboration on the Ecosystem Authority is provided within <span>[<a href="#CDRPLUS-ADMISSION-CONTROL" class="cite xref">CDRPLUS-ADMISSION-CONTROL</a>]</span>.<a href="#section-2-3.10" class="pilcrow">¶</a>
+<dt id="section-2-3.9">Refresh Token</dt>
+        <dd style="margin-left: 1.5em" id="section-2-3.10">TODO<a href="#section-2-3.10" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-3.11">Personally Identifiable Information (PII)</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.12">Information that (a) can be used to identify the natural person to whom such information relates, or (b) is or might be directly or indirectly linked to a natural person to whom such information relates.<a href="#section-2-3.12" class="pilcrow">¶</a>
-</dd>
-        <dd class="break"></dd>
-<dt id="section-2-3.13">Pairwise Pseudonymous Identifier (PPID)</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.14">Identifier that identifies the Consumer to a Data Recipient that cannot be correlated with the Consumer's PPID at another Data Recipient.<a href="#section-2-3.14" class="pilcrow">¶</a>
-</dd>
-        <dd class="break"></dd>
-<dt id="section-2-3.15">Software Product</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.16">A Software Product represents the technology infrastructure, ostensibly a client registration with an authorisation server, operated by a Data Recipient for the purposes of receiving consumer data.<a href="#section-2-3.16" class="pilcrow">¶</a>
-</dd>
-        <dd class="break"></dd>
-<dt id="section-2-3.17">User</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.18">A User is a human who provides an identifier unique to the individual and for which correlates to one or more Consumer relationships.<a href="#section-2-3.18" class="pilcrow">¶</a>
-</dd>
-        <dd class="break"></dd>
-<dt id="section-2-3.19">User Identifier</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.20">A User Identifier is a unique piece of information, typically a username, which identifies the User<a href="#section-2-3.20" class="pilcrow">¶</a>
+<dt id="section-2-3.11">User Identifier</dt>
+        <dd style="margin-left: 1.5em" id="section-2-3.12">A User Identifier is a unique piece of information, typically a username, which identifies the User<a href="#section-2-3.12" class="pilcrow">¶</a>
 </dd>
       <dd class="break"></dd>
 </dl>
-</section>
-</div>
-<div id="data-holder">
-<section id="section-3">
-      <h2 id="name-data-holder">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-data-holder" class="section-name selfRef">Data Holder</a>
-      </h2>
-<p id="section-3-1">For the purposes of this specification a Data Holder is described as the party who is offering or has offered services to the Consumer and/or holds relevant data related to those services on behalf of the Consumer.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">The types and format of that data is outside the scope of this particular specification but traditionally includes:
-- specific customer information such as name, addresses and phone numbers;
-- information related to services such as account numbers, pricing information and balances;
-- transaction/ledger information pertaining to services provided<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3">Within the CDR ecosystem the mandated Data Holders are ostensible Banking and Energy providers. Additional sectors can be designated by way of a legally binding Designation Instrument coupled with changes to the CDR Rules.<a href="#section-3-3" class="pilcrow">¶</a></p>
-<p id="section-3-4">A Software Product assumes the role of an <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span> OpenID Provider.<a href="#section-3-4" class="pilcrow">¶</a></p>
 <div id="authorisation-server">
-<section id="section-3.1">
+<section id="section-2.1">
         <h3 id="name-authorisation-server">
-<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-authorisation-server" class="section-name selfRef">Authorisation Server</a>
+<a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-authorisation-server" class="section-name selfRef">Authorisation Server</a>
         </h3>
-<p id="section-3.1-1">The authorisation server <span class="bcp14">MUST</span> support the provisions specified in clause 5.2.2 of <span>[<a href="#FAPI-1.0-Advanced" class="cite xref">FAPI-1.0-Advanced</a>]</span> with the following sections replaced as follows:
-1. Section 5.2.2-1: <span class="bcp14">SHALL</span> accept only PAR issued request object passed by reference using the <code>request_uri</code> parameter
-1. Section 5.2.2-2: <span class="bcp14">SHALL</span> require the <code>response_type</code> value <code>code</code> in conjunction with the <code>response_mode</code> value <code>jwt</code>;
-1. Section 5.2.2-11: <span class="bcp14">MUST</span> support the pushed authorization request endpoint as described in PAR;
-1. Section 5.2.2-14: <span class="bcp14">SHALL</span> authenticate the confidential client using <code>private_key_jwt</code> specified in section 9 of <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span><a href="#section-3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.1-2">In addition, the authorisation server:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3.1-3">
-<li id="section-3.1-3.1">
-            <span class="bcp14">MUST</span> support the <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span> scopes <code>openid</code> and <code>profile</code>;<a href="#section-3.1-3.1" class="pilcrow">¶</a>
+<p id="section-2.1-1">The authorisation server <span class="bcp14">SHALL</span> support the provisions specified in clause 5.2.2 of <span>[<a href="#FAPI-1.0-Advanced" class="cite xref">FAPI-1.0-Advanced</a>]</span> with the following sections replaced:<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="compact type-1" id="section-2.1-2">
+<li id="section-2.1-2.1">Section 5.2.2-1: <span class="bcp14">SHALL</span> accept only PAR issued request object passed by reference using the <code>request_uri</code> parameter;<a href="#section-2.1-2.1" class="pilcrow">¶</a>
 </li>
-          <li id="section-3.1-3.2">
-            <span class="bcp14">SHALL</span> support signed ID Tokens and <span class="bcp14">MAY</span> support signed and encrypted ID Tokens;<a href="#section-3.1-3.2" class="pilcrow">¶</a>
+          <li id="section-2.1-2.2">Section 5.2.2-2: <span class="bcp14">SHALL</span> require the <code>response_type</code> value <code>code</code> in conjunction with the <code>response_mode</code> value <code>jwt</code>;<a href="#section-2.1-2.2" class="pilcrow">¶</a>
 </li>
-          <li id="section-3.1-3.3">
-            <span class="bcp14">SHALL</span> issue access tokens with an expiry time of between 2 and 10 minutes;<a href="#section-3.1-3.3" class="pilcrow">¶</a>
+          <li id="section-2.1-2.3">Section 5.2.2-11: <span class="bcp14">SHALL</span> support the pushed authorization request endpoint as described in PAR;<a href="#section-2.1-2.3" class="pilcrow">¶</a>
 </li>
-          <li id="section-3.1-3.4">
-            <span class="bcp14">SHALL NOT</span> accept authorisation request object passed by value<a href="#section-3.1-3.4" class="pilcrow">¶</a>
+          <li id="section-2.1-2.4">Section 5.2.2-14: <span class="bcp14">SHALL</span> authenticate the confidential client using <code>private_key_jwt</code> specified in section 9 of <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span><a href="#section-2.1-2.4" class="pilcrow">¶</a>
 </li>
-          <li id="section-3.1-3.5">
-            <span class="bcp14">SHALL</span> provide the lifetime of an access token as an attribute named <code>expires_in</code> within the token endpoint response;<a href="#section-3.1-3.5" class="pilcrow">¶</a>
+        </ol>
+<p id="section-2.1-3">In addition, the authorisation server:<a href="#section-2.1-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="compact type-1" id="section-2.1-4">
+<li id="section-2.1-4.1">
+            <span class="bcp14">SHALL</span> support the <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span> scopes <code>openid</code> and <code>profile</code>;<a href="#section-2.1-4.1" class="pilcrow">¶</a>
 </li>
-          <li id="section-3.1-3.6">
-            <span class="bcp14">MUST</span> generate the <code>sub</code> as a PPID as described in Section 8 of <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span>;<a href="#section-3.1-3.6" class="pilcrow">¶</a>
+          <li id="section-2.1-4.2">
+            <span class="bcp14">SHALL</span> support signed ID Tokens and <span class="bcp14">MAY</span> support signed and encrypted ID Tokens;<a href="#section-2.1-4.2" class="pilcrow">¶</a>
 </li>
-          <li id="section-3.1-3.7">
-            <span class="bcp14">SHALL</span> issue <code>request_uri</code> values which are one-time use and expire between 10 seconds and 90 seconds (this overrides <span>[<a href="#RFC9126" class="cite xref">RFC9126</a>]</span> clause 4);<a href="#section-3.1-3.7" class="pilcrow">¶</a>
+          <li id="section-2.1-4.3">
+            <span class="bcp14">SHALL</span> issue Access Tokens with an expiry time of between 2 and 10 minutes;<a href="#section-2.1-4.3" class="pilcrow">¶</a>
 </li>
-          <li id="section-3.1-3.8">
-            <span class="bcp14">MUST NOT</span> specify duplicate <code>kid</code> parameters within the endpoint advertised at <code>jwks_uri</code>;<a href="#section-3.1-3.8" class="pilcrow">¶</a>
+          <li id="section-2.1-4.4">
+            <span class="bcp14">SHALL</span> provide the lifetime remaining of an Access Token as an attribute named <code>expires_in</code> within the token endpoint response;<a href="#section-2.1-4.4" class="pilcrow">¶</a>
 </li>
-          <li id="section-3.1-3.9">
-            <span class="bcp14">MUST</span> support a Token End Point as specified in Section 3.1.3 of <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span>;<a href="#section-3.1-3.9" class="pilcrow">¶</a>
+          <li id="section-2.1-4.5">
+            <span class="bcp14">SHALL</span> generate the <code>sub</code> as a PPID as described in Section 8 of <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span>;<a href="#section-2.1-4.5" class="pilcrow">¶</a>
 </li>
-          <li id="section-3.1-3.10">
-            <span class="bcp14">MUST</span> support a UserInfo Endpoint as specified in Section 5.3 of <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span>;<a href="#section-3.1-3.10" class="pilcrow">¶</a>
+          <li id="section-2.1-4.6">
+            <span class="bcp14">SHALL</span> issue <code>request_uri</code> values which are one-time use and expire between 10 seconds and 90 seconds (this overrides <span>[<a href="#RFC9126" class="cite xref">RFC9126</a>]</span> clause 4);<a href="#section-2.1-4.6" class="pilcrow">¶</a>
 </li>
-          <li id="section-3.1-3.11">
-            <span class="bcp14">MUST</span> utilise a different Issuer as specified in Section 1.2 of <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span> for each marketable brand of the Data Holder;<a href="#section-3.1-3.11" class="pilcrow">¶</a>
+          <li id="section-2.1-4.7">
+            <span class="bcp14">SHALL NOT</span> specify duplicate <code>kid</code> parameters within the endpoint advertised at <code>jwks_uri</code>;<a href="#section-2.1-4.7" class="pilcrow">¶</a>
 </li>
-          <li id="section-3.1-3.12">
-            <span class="bcp14">SHALL</span> support discovery, as defined in OpenID Connect Discovery 1.0 <span>[<a href="#OIDC-Discovery" class="cite xref">OIDC-Discovery</a>]</span>;<a href="#section-3.1-3.12" class="pilcrow">¶</a>
+          <li id="section-2.1-4.8">
+            <span class="bcp14">SHALL</span> support a Token End Point as specified in Section 3.1.3 of <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span>;<a href="#section-2.1-4.8" class="pilcrow">¶</a>
 </li>
-          <li id="section-3.1-3.13">
-            <span class="bcp14">SHALL</span> support an introspection endpoint, as defined in <span>[<a href="#RFC7662" class="cite xref">RFC7662</a>]</span>;<a href="#section-3.1-3.13" class="pilcrow">¶</a>
+          <li id="section-2.1-4.9">
+            <span class="bcp14">SHALL</span> support a UserInfo Endpoint as specified in Section 5.3 of <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span>;<a href="#section-2.1-4.9" class="pilcrow">¶</a>
 </li>
-          <li id="section-3.1-3.14">
-            <span class="bcp14">SHALL</span> support a revocation endpoint, as defined in <span>[<a href="#RFC7009" class="cite xref">RFC7009</a>]</span><a href="#section-3.1-3.14" class="pilcrow">¶</a>
+          <li id="section-2.1-4.10">
+            <span class="bcp14">SHALL</span> for each Provider, utilise a different Issuer as specified in Section 1.2 of <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span>;<a href="#section-2.1-4.10" class="pilcrow">¶</a>
 </li>
-          <li id="section-3.1-3.15">
-            <span class="bcp14">SHALL</span> not use refresh token rotation unless, in the case a response with a new refresh token is not received and stored by the client, retrying the request (with the previous refresh token) will succeed<a href="#section-3.1-3.15" class="pilcrow">¶</a>
+          <li id="section-2.1-4.11">
+            <span class="bcp14">SHALL</span> support discovery, as defined in OpenID Connect Discovery 1.0 <span>[<a href="#OIDC-Discovery" class="cite xref">OIDC-Discovery</a>]</span>;<a href="#section-2.1-4.11" class="pilcrow">¶</a>
+</li>
+          <li id="section-2.1-4.12">
+            <span class="bcp14">SHALL</span> support an introspection endpoint, as defined in <span>[<a href="#RFC7662" class="cite xref">RFC7662</a>]</span>;<a href="#section-2.1-4.12" class="pilcrow">¶</a>
+</li>
+          <li id="section-2.1-4.13">
+            <span class="bcp14">SHALL</span> support a revocation endpoint, as defined in <span>[<a href="#RFC7009" class="cite xref">RFC7009</a>]</span>;<a href="#section-2.1-4.13" class="pilcrow">¶</a>
+</li>
+          <li id="section-2.1-4.14">
+            <span class="bcp14">SHALL</span> ensure all operations meet at at least the requirements of Credential Level <code>CL1</code> rules of <span>[<a href="#TDIF" class="cite xref">TDIF</a>]</span>;<a href="#section-2.1-4.14" class="pilcrow">¶</a>
+</li>
+          <li id="section-2.1-4.15">
+            <span class="bcp14">SHALL NOT</span> utilise Refresh Token rotation<a href="#section-2.1-4.15" class="pilcrow">¶</a>
 </li>
         </ol>
 <div id="authorisation-flow">
-<section id="section-3.1.1">
+<section id="section-2.1.1">
           <h4 id="name-authorisation-flow">
-<a href="#section-3.1.1" class="section-number selfRef">3.1.1. </a><a href="#name-authorisation-flow" class="section-name selfRef">Authorisation Flow</a>
+<a href="#section-2.1.1" class="section-number selfRef">2.1.1. </a><a href="#name-authorisation-flow" class="section-name selfRef">Authorisation Flow</a>
           </h4>
-<p id="section-3.1.1-1">During the authorisation flow, the authorisation server:<a href="#section-3.1.1-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3.1.1-2">
-<li id="section-3.1.1-2.1">
-              <span class="bcp14">MUST</span> request a User Identifier that can identify the relationship between the user and the Consumer;<a href="#section-3.1.1-2.1" class="pilcrow">¶</a>
+<p id="section-2.1.1-1">During the authorisation flow, the authorisation server:<a href="#section-2.1.1-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="compact type-1" id="section-2.1.1-2">
+<li id="section-2.1.1-2.1">
+              <span class="bcp14">SHALL</span> request a User Identifier that can identify the relationship between the user and the Consumer;<a href="#section-2.1.1-2.1" class="pilcrow">¶</a>
 </li>
-            <li id="section-3.1.1-2.2">
-              <span class="bcp14">MUST</span> request a User Identifier already known by the User;<a href="#section-3.1.1-2.2" class="pilcrow">¶</a>
+            <li id="section-2.1.1-2.2">
+              <span class="bcp14">SHALL</span> request a User Identifier already known by the User;<a href="#section-2.1.1-2.2" class="pilcrow">¶</a>
 </li>
-            <li id="section-3.1.1-2.3">
-              <span class="bcp14">MUST</span> use a one-time password (OTP) provided to the Consumer through an existing channel or mechanism;<a href="#section-3.1.1-2.3" class="pilcrow">¶</a>
+            <li id="section-2.1.1-2.3">
+              <span class="bcp14">SHALL</span> use a one-time password (OTP) provided to the Consumer through an existing channel or mechanism;<a href="#section-2.1.1-2.3" class="pilcrow">¶</a>
 </li>
-            <li id="section-3.1.1-2.4">
-              <span class="bcp14">MUST NOT</span> request the User to provide a known password;<a href="#section-3.1.1-2.4" class="pilcrow">¶</a>
+            <li id="section-2.1.1-2.4">
+              <span class="bcp14">SHALL NOT</span> request the User to provide a known password;<a href="#section-2.1.1-2.4" class="pilcrow">¶</a>
 </li>
-            <li id="section-3.1.1-2.5">
-              <span class="bcp14">MUST NOT</span> introduce friction designed to make the authorisation process more difficult than it needs to be<a href="#section-3.1.1-2.5" class="pilcrow">¶</a>
+            <li id="section-2.1.1-2.5">
+              <span class="bcp14">SHALL NOT</span> introduce friction designed to make the authorisation process more difficult than it needs to be<a href="#section-2.1.1-2.5" class="pilcrow">¶</a>
 </li>
           </ol>
-<div id="one-time-password-otp">
-<section id="section-3.1.1.1">
-            <h5 id="name-one-time-password-otp">
-<a href="#section-3.1.1.1" class="section-number selfRef">3.1.1.1. </a><a href="#name-one-time-password-otp" class="section-name selfRef">One-Time Password (OTP)</a>
-            </h5>
-<p id="section-3.1.1.1-1">The One-Time Password (OTP):<a href="#section-3.1.1.1-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3.1.1.1-2">
-<li id="section-3.1.1.1-2.1">
-                <span class="bcp14">MUST</span> be delivered using existing and preferred channels<a href="#section-3.1.1.1-2.1" class="pilcrow">¶</a>
-</li>
-              <li id="section-3.1.1.1-2.2">
-                <span class="bcp14">MUST</span> be numeric digits and be between 4 and 6 digits in length<a href="#section-3.1.1.1-2.2" class="pilcrow">¶</a>
-</li>
-              <li id="section-3.1.1.1-2.3">
-                <span class="bcp14">MUST</span> only be valid for the purposes of establishing authorisations between Data Holder and Software Products<a href="#section-3.1.1.1-2.3" class="pilcrow">¶</a>
-</li>
-              <li id="section-3.1.1.1-2.4">
-                <span class="bcp14">MUST</span> be invalidated after a reasonable period of time<a href="#section-3.1.1.1-2.4" class="pilcrow">¶</a>
-</li>
-              <li id="section-3.1.1.1-2.5">
-                <span class="bcp14">SHOULD</span> incorporate a level of pseudo-randomness appropriate for the use case<a href="#section-3.1.1.1-2.5" class="pilcrow">¶</a>
-</li>
-              <li id="section-3.1.1.1-2.6">
-                <span class="bcp14">SHOULD</span> incorporate controls, such as retry limits, to minimise the risk of enumeration attacks during the authorisation process<a href="#section-3.1.1.1-2.6" class="pilcrow">¶</a>
-</li>
-            </ol>
-</section>
-</div>
 </section>
 </div>
 <div id="endpoints">
-<section id="section-3.1.2">
+<section id="section-2.1.2">
           <h4 id="name-endpoints">
-<a href="#section-3.1.2" class="section-number selfRef">3.1.2. </a><a href="#name-endpoints" class="section-name selfRef">Endpoints</a>
+<a href="#section-2.1.2" class="section-number selfRef">2.1.2. </a><a href="#name-endpoints" class="section-name selfRef">Endpoints</a>
           </h4>
 <div id="discovery-document">
-<section id="section-3.1.2.1">
+<section id="section-2.1.2.1">
             <h5 id="name-discovery-document">
-<a href="#section-3.1.2.1" class="section-number selfRef">3.1.2.1. </a><a href="#name-discovery-document" class="section-name selfRef">Discovery Document</a>
+<a href="#section-2.1.2.1" class="section-number selfRef">2.1.2.1. </a><a href="#name-discovery-document" class="section-name selfRef">Discovery Document</a>
             </h5>
-<p id="section-3.1.2.1-1">The discovery document from the authorisation server:<a href="#section-3.1.2.1-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3.1.2.1-2">
-<li id="section-3.1.2.1-2.1">
-                <span class="bcp14">MUST</span> support the <code>require_pushed_authorization_requests</code> parameter as described in <span>[<a href="#RFC9126" class="cite xref">RFC9126</a>]</span> at the OpenID Connect Discovery 1.0 <span>[<a href="#OIDC-Discovery" class="cite xref">OIDC-Discovery</a>]</span> endpoint;<a href="#section-3.1.2.1-2.1" class="pilcrow">¶</a>
+<p id="section-2.1.2.1-1">The discovery document from the authorisation server:<a href="#section-2.1.2.1-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="compact type-1" id="section-2.1.2.1-2">
+<li id="section-2.1.2.1-2.1">
+                <span class="bcp14">SHALL</span> support the <code>require_pushed_authorization_requests</code> parameter as described in <span>[<a href="#RFC9126" class="cite xref">RFC9126</a>]</span> at the OpenID Connect Discovery 1.0 <span>[<a href="#OIDC-Discovery" class="cite xref">OIDC-Discovery</a>]</span> endpoint;<a href="#section-2.1.2.1-2.1" class="pilcrow">¶</a>
 </li>
-              <li id="section-3.1.2.1-2.2">
-                <span class="bcp14">SHOULD</span> support the <code>require_pushed_authorization_requests</code> parameter as described in <span>[<a href="#RFC9126" class="cite xref">RFC9126</a>]</span> at the <span>[<a href="#RFC8414" class="cite xref">RFC8414</a>]</span> endpoint;<a href="#section-3.1.2.1-2.2" class="pilcrow">¶</a>
+              <li id="section-2.1.2.1-2.2">
+                <span class="bcp14">SHALL</span> support the <code>require_pushed_authorization_requests</code> parameter as described in <span>[<a href="#RFC9126" class="cite xref">RFC9126</a>]</span> at the <span>[<a href="#RFC8414" class="cite xref">RFC8414</a>]</span> endpoint;<a href="#section-2.1.2.1-2.2" class="pilcrow">¶</a>
 </li>
             </ol>
 </section>
 </div>
 <div id="introspection-endpoint">
-<section id="section-3.1.2.2">
+<section id="section-2.1.2.2">
             <h5 id="name-introspection-endpoint">
-<a href="#section-3.1.2.2" class="section-number selfRef">3.1.2.2. </a><a href="#name-introspection-endpoint" class="section-name selfRef">Introspection Endpoint</a>
+<a href="#section-2.1.2.2" class="section-number selfRef">2.1.2.2. </a><a href="#name-introspection-endpoint" class="section-name selfRef">Introspection Endpoint</a>
             </h5>
-<p id="section-3.1.2.2-1">The introspection endpoint:<a href="#section-3.1.2.2-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3.1.2.2-2">
-<li id="section-3.1.2.2-2.1">
-                <span class="bcp14">MUST NOT</span> support introspection of Access Tokens<a href="#section-3.1.2.2-2.1" class="pilcrow">¶</a>
+<p id="section-2.1.2.2-1">The introspection endpoint:<a href="#section-2.1.2.2-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="compact type-1" id="section-2.1.2.2-2">
+<li id="section-2.1.2.2-2.1">
+                <span class="bcp14">SHALL NOT</span> support introspection of Access Tokens<a href="#section-2.1.2.2-2.1" class="pilcrow">¶</a>
 </li>
-              <li id="section-3.1.2.2-2.2">
-                <span class="bcp14">MUST</span> include the <code>sub</code>, <code>exp</code> and <code>scope</code> attributes<a href="#section-3.1.2.2-2.2" class="pilcrow">¶</a>
+              <li id="section-2.1.2.2-2.2">
+                <span class="bcp14">SHALL</span> include the <code>sub</code>, <code>exp</code> and <code>scope</code> attributes<a href="#section-2.1.2.2-2.2" class="pilcrow">¶</a>
 </li>
-              <li id="section-3.1.2.2-2.3">
-                <span class="bcp14">MUST NOT</span> include the <code>username</code> attribute<a href="#section-3.1.2.2-2.3" class="pilcrow">¶</a>
+              <li id="section-2.1.2.2-2.3">
+                <span class="bcp14">SHALL NOT</span> include the <code>username</code> attribute<a href="#section-2.1.2.2-2.3" class="pilcrow">¶</a>
 </li>
             </ol>
 </section>
 </div>
 <div id="revocation-endpoint">
-<section id="section-3.1.2.3">
+<section id="section-2.1.2.3">
             <h5 id="name-revocation-endpoint">
-<a href="#section-3.1.2.3" class="section-number selfRef">3.1.2.3. </a><a href="#name-revocation-endpoint" class="section-name selfRef">Revocation Endpoint</a>
+<a href="#section-2.1.2.3" class="section-number selfRef">2.1.2.3. </a><a href="#name-revocation-endpoint" class="section-name selfRef">Revocation Endpoint</a>
             </h5>
-<p id="section-3.1.2.3-1">The revocation endpoint:<a href="#section-3.1.2.3-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3.1.2.3-2">
-<li id="section-3.1.2.3-2.1">
-                <span class="bcp14">MUST</span> support revocation of Refresh Tokens<a href="#section-3.1.2.3-2.1" class="pilcrow">¶</a>
+<p id="section-2.1.2.3-1">The revocation endpoint:<a href="#section-2.1.2.3-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="compact type-1" id="section-2.1.2.3-2">
+<li id="section-2.1.2.3-2.1">
+                <span class="bcp14">SHALL</span> support revocation of Refresh Tokens<a href="#section-2.1.2.3-2.1" class="pilcrow">¶</a>
 </li>
-              <li id="section-3.1.2.3-2.2">
-                <span class="bcp14">MUST</span> support revocation of Access Tokens<a href="#section-3.1.2.3-2.2" class="pilcrow">¶</a>
+              <li id="section-2.1.2.3-2.2">
+                <span class="bcp14">SHALL</span> support revocation of Access Tokens<a href="#section-2.1.2.3-2.2" class="pilcrow">¶</a>
+</li>
+              <li id="section-2.1.2.3-2.3">
+                <span class="bcp14">MAY</span> support revocation of ID Tokens<a href="#section-2.1.2.3-2.3" class="pilcrow">¶</a>
 </li>
             </ol>
 </section>
@@ -1458,188 +1387,165 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </section>
 </div>
 <div id="claims">
-<section id="section-3.1.3">
+<section id="section-2.1.3">
           <h4 id="name-claims">
-<a href="#section-3.1.3" class="section-number selfRef">3.1.3. </a><a href="#name-claims" class="section-name selfRef">Claims</a>
+<a href="#section-2.1.3" class="section-number selfRef">2.1.3. </a><a href="#name-claims" class="section-name selfRef">Claims</a>
           </h4>
-<p id="section-3.1.3-1">The authorisation server:<a href="#section-3.1.3-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3.1.3-2">
-<li id="section-3.1.3-2.1">
-              <span class="bcp14">MUST</span> support the <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span> claims of <code>sub</code>, <code>auth_time</code>, <code>name</code>, <code>given_name</code> <code>family_name</code> and <code>last_updated</code>;<a href="#section-3.1.3-2.1" class="pilcrow">¶</a>
+<p id="section-2.1.3-1">The authorisation server:<a href="#section-2.1.3-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="compact type-1" id="section-2.1.3-2">
+<li id="section-2.1.3-2.1">
+              <span class="bcp14">SHALL</span> support the <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span> claims of <code>sub</code>, <code>auth_time</code>, <code>name</code>, <code>given_name</code> <code>family_name</code> and <code>last_updated</code>;<a href="#section-2.1.3-2.1" class="pilcrow">¶</a>
 </li>
-            <li id="section-3.1.3-2.2">
-              <span class="bcp14">SHOULD</span> support the <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span> <code>acr</code> claim;<a href="#section-3.1.3-2.2" class="pilcrow">¶</a>
+            <li id="section-2.1.3-2.2">
+              <span class="bcp14">SHALL</span> ignored and not authorise any other claims outlined in <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span>;<a href="#section-2.1.3-2.2" class="pilcrow">¶</a>
 </li>
-            <li id="section-3.1.3-2.3">
-              <span class="bcp14">MAY</span> support the <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span> claims of <code>email</code>, <code>email_verified</code>, <code>phone_number</code> and <code>phone_number_verified</code>;<a href="#section-3.1.3-2.3" class="pilcrow">¶</a>
+            <li id="section-2.1.3-2.3">
+              <span class="bcp14">SHOULD</span> support the <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span> <code>acr</code> claim;<a href="#section-2.1.3-2.3" class="pilcrow">¶</a>
 </li>
-            <li id="section-3.1.3-2.4">
-              <span class="bcp14">MUST NOT</span> support any other claims outlined in <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span>;<a href="#section-3.1.3-2.4" class="pilcrow">¶</a>
+            <li id="section-2.1.3-2.4">
+              <span class="bcp14">MAY</span> support the <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span> claims of <code>email</code>, <code>email_verified</code>, <code>phone_number</code> and <code>phone_number_verified</code>;<a href="#section-2.1.3-2.4" class="pilcrow">¶</a>
 </li>
           </ol>
-</section>
-</div>
-<div id="authentication-context-class-references-acr">
-<section id="section-3.1.4">
-          <h4 id="name-authentication-context-clas">
-<a href="#section-3.1.4" class="section-number selfRef">3.1.4. </a><a href="#name-authentication-context-clas" class="section-name selfRef">Authentication Context Class References (ACR)</a>
-          </h4>
-<p id="section-3.1.4-1">If the <code>acr</code> claim is supported, the authorisation server <span class="bcp14">SHALL</span> support the following ACR values:<a href="#section-3.1.4-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3.1.4-2">
-<li id="section-3.1.4-2.1">
-              <code>urn:cds.au:cdr:2</code> where the authentication achieved matches the Credential Level <code>CL1</code> rules of <span>[<a href="#TDIF" class="cite xref">TDIF</a>]</span>;<a href="#section-3.1.4-2.1" class="pilcrow">¶</a>
-</li>
-            <li id="section-3.1.4-2.2">
-              <code>urn:cds.au:cdr:3</code> where the authentication achieved matches the Credential Level <code>CL2</code> rules of <span>[<a href="#TDIF" class="cite xref">TDIF</a>]</span><a href="#section-3.1.4-2.2" class="pilcrow">¶</a>
-</li>
-          </ol>
-<p id="section-3.1.4-3">Additionally, the authorisation server <span class="bcp14">MUST</span> ensure all operations meet the requirements of <code>urn:cds.au:cdr:2</code> ACR value.<a href="#section-3.1.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="resource-server">
-<section id="section-3.2">
+<section id="section-2.2">
         <h3 id="name-resource-server">
-<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-resource-server" class="section-name selfRef">Resource Server</a>
+<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-resource-server" class="section-name selfRef">Resource Server</a>
         </h3>
-<p id="section-3.2-1">The resource server provided by Data Holders:
-1. <span class="bcp14">SHALL</span> support the provisions specified in clause 5.2.2 of <span>[<a href="#FAPI-1.0-Baseline" class="cite xref">FAPI-1.0-Baseline</a>]</span>;<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2-1">The resource server provided by Providers:
+1. <span class="bcp14">SHALL</span> support the provisions specified in clause 5.2.2 of <span>[<a href="#FAPI-1.0-Baseline" class="cite xref">FAPI-1.0-Baseline</a>]</span>;<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
-<div id="software-product">
-<section id="section-4">
-      <h2 id="name-software-product">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-software-product" class="section-name selfRef">Software Product</a>
+<div id="initiator">
+<section id="section-3">
+      <h2 id="name-initiator">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-initiator" class="section-name selfRef">Initiator</a>
       </h2>
-<p id="section-4-1">For the purposes of this specification, a Software Product is a piece of technology infrastructure managed by a Data Recipient for a specific value proposition. That valuate proposition, following the request of consent from the Consumer, initiates authorisation requests to Data Holders and processes these responses for the purposes of obtaining access credentials (tokens) to utilise at various resource server endpoints.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2">Within a legal context there are a variety of Data Recipient engagement approaches however this specification seeks to avoid a variety of ambiguity and instead focus on the Software Product itself.<a href="#section-4-2" class="pilcrow">¶</a></p>
-<p id="section-4-3">A Software Product assumes the role of an <span>[<a href="#OIDC-Core" class="cite xref">OIDC-Core</a>]</span> Relying Party (Client).<a href="#section-4-3" class="pilcrow">¶</a></p>
 <div id="authorisation-client">
-<section id="section-4.1">
+<section id="section-3.1">
         <h3 id="name-authorisation-client">
-<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-authorisation-client" class="section-name selfRef">Authorisation Client</a>
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-authorisation-client" class="section-name selfRef">Authorisation Client</a>
         </h3>
-<p id="section-4.1-1">The authorisation client:<a href="#section-4.1-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-4.1-2">
-<li id="section-4.1-2.1">
-            <span class="bcp14">SHALL</span> support the provisions specified in clause 5.2.3 and 5.2.4 of <span>[<a href="#FAPI-1.0-Baseline" class="cite xref">FAPI-1.0-Baseline</a>]</span>;<a href="#section-4.1-2.1" class="pilcrow">¶</a>
+<p id="section-3.1-1">The Initiators authorisation client:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="compact type-1" id="section-3.1-2">
+<li id="section-3.1-2.1">
+            <span class="bcp14">SHALL</span> support the provisions specified in clause 5.2.3 and 5.2.4 of <span>[<a href="#FAPI-1.0-Baseline" class="cite xref">FAPI-1.0-Baseline</a>]</span>;<a href="#section-3.1-2.1" class="pilcrow">¶</a>
 </li>
-          <li id="section-4.1-2.2">
-            <span class="bcp14">SHALL</span> support pushed authorisation requests as described in <span>[<a href="#RFC9126" class="cite xref">RFC9126</a>]</span>;<a href="#section-4.1-2.2" class="pilcrow">¶</a>
+          <li id="section-3.1-2.2">
+            <span class="bcp14">SHALL</span> support pushed authorisation requests as described in <span>[<a href="#RFC9126" class="cite xref">RFC9126</a>]</span>;<a href="#section-3.1-2.2" class="pilcrow">¶</a>
 </li>
-          <li id="section-4.1-2.3">
-            <span class="bcp14">SHALL</span> obtain the consent of the Consumer prior to commencing authorisation with the Data Holder;<a href="#section-4.1-2.3" class="pilcrow">¶</a>
+          <li id="section-3.1-2.3">
+            <span class="bcp14">SHALL</span> obtain the consent of the Consumer prior to commencing authorisation with the Provider;<a href="#section-3.1-2.3" class="pilcrow">¶</a>
 </li>
-          <li id="section-4.1-2.4">
-            <span class="bcp14">MUST</span> submit authorisation requests containing a <code>exp</code> claim, in accordance with <span>[<a href="#JWT" class="cite xref">JWT</a>]</span> Section 4.1.4;<a href="#section-4.1-2.4" class="pilcrow">¶</a>
+          <li id="section-3.1-2.4">
+            <span class="bcp14">SHALL</span> submit authorisation requests containing a <code>exp</code> claim, in accordance with <span>[<a href="#JWT" class="cite xref">JWT</a>]</span> Section 4.1.4;<a href="#section-3.1-2.4" class="pilcrow">¶</a>
 </li>
-          <li id="section-4.1-2.5">
-            <span class="bcp14">MUST</span> submit authorisation requests containing a <code>exp</code> claim that is less than or equal to <code>3600</code>;<a href="#section-4.1-2.5" class="pilcrow">¶</a>
+          <li id="section-3.1-2.5">
+            <span class="bcp14">SHALL</span> submit authorisation requests containing a <code>exp</code> claim that is less than or equal to <code>3600</code>;<a href="#section-3.1-2.5" class="pilcrow">¶</a>
 </li>
-          <li id="section-4.1-2.6">
-            <span class="bcp14">MUST</span> submit authorisation requests containing a <code>nbf</code> claim in accordance with <span>[<a href="#JWT" class="cite xref">JWT</a>]</span> Section 4.1.5<a href="#section-4.1-2.6" class="pilcrow">¶</a>
+          <li id="section-3.1-2.6">
+            <span class="bcp14">SHALL</span> submit authorisation requests containing a <code>nbf</code> claim in accordance with <span>[<a href="#JWT" class="cite xref">JWT</a>]</span> Section 4.1.5<a href="#section-3.1-2.6" class="pilcrow">¶</a>
 </li>
         </ol>
-<p id="section-4.1-3"><em>Note:</em> The form and structure of the consent obtained by the authorisation client is outside the scope of this document.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.1-3"><em>Note:</em> The form and structure of the consent obtained by the authorisation client is outside the scope of this document.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-</section>
-</div>
-<div id="supported-arrangement-types">
-<section id="section-5">
-      <h2 id="name-supported-arrangement-types">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-supported-arrangement-types" class="section-name selfRef">Supported Arrangement Types</a>
-      </h2>
-<p id="section-5-1">Data Holders and Software Products <span class="bcp14">MUST</span> support the following:<a href="#section-5-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-5-2">
-<li id="section-5-2.1">CDR Sharing Arrangement V1 as described in <span>[<a href="#CDRPLUS-INFOSEC-SHARING-V1" class="cite xref">CDRPLUS-INFOSEC-SHARING-V1</a>]</span><a href="#section-5-2.1" class="pilcrow">¶</a>
+<div id="resource-server-1">
+<section id="section-3.2">
+        <h3 id="name-resource-server-2">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-resource-server-2" class="section-name selfRef">Resource Server</a>
+        </h3>
+<p id="section-3.2-1">The resource server <span class="bcp14">SHALL</span> support the provisions specified in clause 6.2.2 of <span>[<a href="#FAPI-1.0-Baseline" class="cite xref">FAPI-1.0-Baseline</a>]</span> with the following sections replaced:<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="compact type-1" id="section-3.2-2">
+<li id="section-3.2-2.1">Section 6.2.2-3: <span class="bcp14">SHALL</span> send the last time the customer logged into the client in the x-fapi-auth-date header where the value is supplied as a HTTP-date as in Section 7.1.1.1 of RFC7231, e.g., x-fapi-auth-date: Tue, 11 Sep 2012 19:43:31 GMT;<a href="#section-3.2-2.1" class="pilcrow">¶</a>
 </li>
-      </ol>
+          <li id="section-3.2-2.2">Section 6.2.2-4: <span class="bcp14">SHALL</span> send the customer’s IP address if this data is available in the x-fapi-customer-ip-address header, e.g., x-fapi-customer-ip-address: 2001:DB8::1893:25c8:1946 or x-fapi-customer-ip-address: 198.51.100.119; and<a href="#section-3.2-2.2" class="pilcrow">¶</a>
+</li>
+        </ol>
+</section>
+</div>
 </section>
 </div>
 <div id="tls-considerations">
-<section id="section-6">
+<section id="section-4">
       <h2 id="name-tls-considerations">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-tls-considerations" class="section-name selfRef">TLS Considerations</a>
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-tls-considerations" class="section-name selfRef">TLS Considerations</a>
       </h2>
-<p id="section-6-1">Section 8.5 of <span>[<a href="#FAPI-1.0-Advanced" class="cite xref">FAPI-1.0-Advanced</a>]</span> <span class="bcp14">SHALL</span> apply.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">In addition:<a href="#section-6-2" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-6-3">
-<li id="section-6-3.1">Use of Mutual TLS is <span class="bcp14">REQUIRED</span> at all Authenticated Resource Server endpoints;<a href="#section-6-3.1" class="pilcrow">¶</a>
+<p id="section-4-1">Section 8.5 of <span>[<a href="#FAPI-1.0-Advanced" class="cite xref">FAPI-1.0-Advanced</a>]</span> <span class="bcp14">SHALL</span> apply.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">In addition:<a href="#section-4-2" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="compact type-1" id="section-4-3">
+<li id="section-4-3.1">Use of Mutual TLS is <span class="bcp14">REQUIRED</span> at all Authenticated Resource Server endpoints except where required for Discovery or Consumer browser access (ie. Authorisation endpoint);<a href="#section-4-3.1" class="pilcrow">¶</a>
 </li>
-        <li id="section-6-3.2">Use of Mutual TLS is <span class="bcp14">REQUIRED</span> at all OAuth2 endpoints except where required for Discovery or Consumer browser access (ie. Authorisation endpoint);<a href="#section-6-3.2" class="pilcrow">¶</a>
-</li>
-        <li id="section-6-3.3">All parties <span class="bcp14">SHALL</span> utilise certificates issued by the Ecosystem Authority<a href="#section-6-3.3" class="pilcrow">¶</a>
+        <li id="section-4-3.2">All parties <span class="bcp14">SHALL</span> apply the certificate management policy requirements of the relevant Ecosystem Authority<a href="#section-4-3.2" class="pilcrow">¶</a>
 </li>
       </ol>
 </section>
 </div>
 <div id="implementation-considerations">
-<section id="section-7">
+<section id="section-5">
       <h2 id="name-implementation-consideratio">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-implementation-consideratio" class="section-name selfRef">Implementation Considerations</a>
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-implementation-consideratio" class="section-name selfRef">Implementation Considerations</a>
       </h2>
-<p id="section-7-1">Claims available via the profile scope will only return the details of the User which may be different to the Consumer.<a href="#section-7-1" class="pilcrow">¶</a></p>
-<p id="section-7-2">Data Holders SHOULD explicitly capture Claims requested by the Data Recipient. If the data cluster or [OIDC] profile scope changes meaning in future this ensures the Data Holder only returns what the Consumer initially authorised to disclose.<a href="#section-7-2" class="pilcrow">¶</a></p>
-<p id="section-7-3">Software Products SHOULD record the following information each time an authorisation flow is executed: username (consumer’s ID at the Data Recipient Software Product), timestamp, IP, consent scopes and duration.<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-5-1">Claims available via the profile scope will only return the details of the User which may be different to the Consumer.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">Providers SHOULD explicitly capture Claims requested by the Initiator. If the data cluster or [OIDC] profile scope changes meaning in future this ensures the Provider only returns what the Consumer initially authorised to disclose.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">Initiators SHOULD record the following information each time an authorisation flow is executed:<a href="#section-5-3" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-5-4.1">User Identifier;<a href="#section-5-4.1" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="section-5-4.2">timestamp;<a href="#section-5-4.2" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="section-5-4.3">IP;<a href="#section-5-4.3" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="section-5-4.4">scopes;<a href="#section-5-4.4" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="section-5-4.5">duration<a href="#section-5-4.5" class="pilcrow">¶</a>
+</li>
+      </ul>
 </section>
 </div>
 <div id="security-considerations">
-<section id="section-8">
+<section id="section-6">
       <h2 id="name-security-considerations">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-8-1">Data Holders SHOULD implement additional controls to minimise the risk of interception of the OTP through the selected delivery mechanism.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">Providers SHOULD implement additional controls to minimise the risk of interception of the OTP through the selected delivery mechanism.<a href="#section-6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="acknowledgement">
-<section id="section-9">
+<section id="section-7">
       <h2 id="name-acknowledgement">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-acknowledgement" class="section-name selfRef">Acknowledgement</a>
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-acknowledgement" class="section-name selfRef">Acknowledgement</a>
       </h2>
-<p id="section-9-1">The following people contributed to this document:<a href="#section-9-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-9-2.1">Stuart Low (Biza.io) - Editor<a href="#section-9-2.1" class="pilcrow">¶</a>
+<p id="section-7-1">The following people contributed to this document:<a href="#section-7-1" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-7-2.1">Stuart Low (Biza.io) - Editor<a href="#section-7-2.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-9-2.2">Ben Kolera (Biza.io)<a href="#section-9-2.2" class="pilcrow">¶</a>
+        <li class="compact" id="section-7-2.2">Ben Kolera (Biza.io)<a href="#section-7-2.2" class="pilcrow">¶</a>
 </li>
       </ul>
-<div id="this-document-relies-heavily-upon-the-cds-and-we-therefore-acknowledge-the-contribution-of-the-following-individuals">
-<section id="section-9.1">
-        <h3 id="name-this-document-relies-heavil">
-<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-this-document-relies-heavil" class="section-name selfRef">This document relies heavily upon the <em class="cite xref">[CDS]</em> and we therefore acknowledge the contribution of the following individuals:</a>
-        </h3>
-<ul class="normal">
-<li class="normal" id="section-9.1-1.1">James Bligh (Data Standards Body) - Lead Architect for the Consumer Data Right<a href="#section-9.1-1.1" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-9.1-1.2">Mark Verstege (Data Standards Body) - Lead Architect, Banking &amp; Information Security for the Consumer Data Right<a href="#section-9.1-1.2" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-9.1-1.3">Ivan Hosgood (Data Standards Body &amp; ACCC) - Solutions Architect<a href="#section-9.1-1.3" class="pilcrow">¶</a>
-</li>
-        </ul>
+<p id="section-7-3">This document relies heavily upon the <span>[<a href="#CDS" class="cite xref">CDS</a>]</span> and we therefore acknowledge the contribution of the following individuals:
+- James Bligh (Data Standards Body) - Lead Architect for the Consumer Data Right
+- Mark Verstege (Data Standards Body) - Lead Architect, Banking &amp; Information Security for the Consumer Data Right
+- Ivan Hosgood (formerly Data Standards Body &amp; ACCC) - Solutions Architect<a href="#section-7-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-</section>
-</div>
-<section id="section-10">
+<section id="section-8">
       <h2 id="name-normative-references">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
       </h2>
 <dl class="references">
-<dt id="CDRPLUS-ADMISSION-CONTROL">[CDRPLUS-ADMISSION-CONTROL]</dt>
-      <dd>
-<span class="refAuthor">Low, S.</span>, <span class="refTitle">"DataRight Plus: Admission Control"</span>, <span>&lt;<a href="https://datarightplus.github.io/datarightplus-admission-control/draft-authors-datarightplus-admission-control.html">https://datarightplus.github.io/datarightplus-admission-control/draft-authors-datarightplus-admission-control.html</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="CDRPLUS-INFOSEC-SHARING-V1">[CDRPLUS-INFOSEC-SHARING-V1]</dt>
-      <dd>
-<span class="refAuthor">Low, S.</span>, <span class="refTitle">"CDR: Sharing Arrangement V1"</span>, <span>&lt;<a href="https://datarightplus.github.io/datarightplus-specs/main/datarightplus-infosec-sharing-v1.html">https://datarightplus.github.io/datarightplus-specs/main/datarightplus-infosec-sharing-v1.html</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="CDS">[CDS]</dt>
       <dd>
 <span class="refAuthor">Data Standards Body (Treasury)</span>, <span class="refTitle">"Consumer Data Standards (CDS)"</span>, <span>&lt;<a href="https://consumerdatastandardsaustralia.github.io/standards">https://consumerdatastandardsaustralia.github.io/standards</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="DATARIGHTPLUS-ROSETTA">[DATARIGHTPLUS-ROSETTA]</dt>
+      <dd>
+<span class="refAuthor">Low, S.</span>, <span class="refTitle">"DataRight+ Rosetta Stone"</span>, <span>&lt;<a href="https://datarightplus.github.io/datarightplus-rosetta/draft-authors-datarightplus-rosetta.html">https://datarightplus.github.io/datarightplus-rosetta/draft-authors-datarightplus-rosetta.html</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="FAPI-1.0-Advanced">[FAPI-1.0-Advanced]</dt>
       <dd>
