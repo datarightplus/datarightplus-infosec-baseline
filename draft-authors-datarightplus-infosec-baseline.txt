@@ -2,7 +2,7 @@
 
 
 
-datarightplus-parity                                              S. Low
+datarightplus                                                     S. Low
 Internet-Draft                                                 B. Kolera
 Intended status: Experimental                                    Biza.io
 Expires: 2 October 2024                                    31 March 2024
