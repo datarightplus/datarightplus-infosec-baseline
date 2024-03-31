@@ -1,7 +1,7 @@
 %%%
-Title = "DataRight+ Security Profile: Baseline"
+title = "DataRight+ Security Profile: Baseline"
 area = "Internet"
-workgroup = "datarightplus-parity"
+workgroup = "datarightplus"
 
 [seriesInfo]
 name = "Internet-Draft"
