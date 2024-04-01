@@ -1,0 +1,302 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2023-08-13T00:03:15.308402+00:00",
+  "repo": "datarightplus/datarightplus-infosec-baseline",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOJv_23M5pGhvB",
+      "title": "ACR Support and Claims Future",
+      "url": "https://github.com/datarightplus/datarightplus-infosec-baseline/issues/2",
+      "state": "OPEN",
+      "author": "perlboy",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "perlboy"
+      ],
+      "labels": [
+        "help wanted"
+      ],
+      "body": "During initial drafting of the specification a reasonable amount of debate arose regarding Authentication Context Class References and their application to the CDR. While the CDR mandates the `acr` claim and ACR values adoption within the ecosystem is tacit at best and long term support is questionable.\r\n\r\nFor now we've opted to provide optional support for the claim while declaring that the LoA values from the CDR must be supported if the claim is supported. Further we have then mandated the `acr` claim within [cdrplus-sharing-arrangement-v1](https://github.com/cdrplus/cdrplus-sharing-arrangement-v1) so that the end result is that, for the existing CDR behaviour, the `acr` claim is mandated but for broader applications it may or may not be.\r\n\r\nThis issue is being created so that we can clarify whether ACR support is expected for all action types and whether the existing values are appropriate.\r\n",
+      "createdAt": "2023-06-19T11:15:14Z",
+      "updatedAt": "2023-06-19T11:15:14Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOJv_23M5t70An",
+      "title": "Party Naming",
+      "url": "https://github.com/datarightplus/datarightplus-infosec-baseline/issues/3",
+      "state": "OPEN",
+      "author": "perlboy",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "There's a discussion ongoing regarding the use of the current terms \"Data Holder\" and \"Data Recipient\". \r\n\r\nThought is that before we get too much further we should ideally abstract away from the CDR defined legalese to more genericised concepts.",
+      "createdAt": "2023-08-10T04:32:37Z",
+      "updatedAt": "2023-08-10T04:34:51Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "perlboy",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Current thoughts are Service Provider and Service Consumer.\r\n",
+          "createdAt": "2023-08-10T04:34:51Z",
+          "updatedAt": "2023-08-10T04:34:51Z"
+        }
+      ]
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOJv_23M5TTvdT",
+      "title": "CDR Plus Go Live Review",
+      "url": "https://github.com/datarightplus/datarightplus-infosec-baseline/pull/1",
+      "state": "MERGED",
+      "author": "perlboy",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "perlboy"
+      ],
+      "labels": [
+        "enhancement"
+      ],
+      "body": "Initial Go Live review merge.",
+      "createdAt": "2023-06-19T07:26:50Z",
+      "updatedAt": "2023-06-19T11:20:08Z",
+      "baseRepository": "datarightplus/datarightplus-infosec-baseline",
+      "baseRefName": "main",
+      "baseRefOid": "3feb3e0ed875582de23b3225056d7d40b6d19849",
+      "headRepository": "datarightplus/datarightplus-infosec-baseline",
+      "headRefName": "feature/initial-release-review",
+      "headRefOid": "97928c72c0fae02cfba8d865000fa588980fe1b2",
+      "closedAt": "2023-06-19T11:20:07Z",
+      "mergedAt": "2023-06-19T11:20:07Z",
+      "mergedBy": "perlboy",
+      "mergeCommit": {
+        "oid": "db47bf1f03265b3f6315e08253dcde89c80d6563"
+      },
+      "comments": [
+        {
+          "author": "benkolera",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "In reviewing, I note that this baseline defines the mandatory requirement for the ACR claim. FAPI 1 Advanced does not force anything to do with ACR. \r\n\r\nhttps://openid.net/specs/openid-financial-api-part-1-1_0.html\r\nhttps://openid.net/specs/openid-financial-api-part-2-1_0.html\r\n\r\nIt makes sense to define the ACRs that the CDR supports somewhere so that we can talk about the minimum level required for each RAR authorisation detail (cdr sharing, cdr_action_x, etc), but I'm not so sure about making the acr claim a SHALL for every RP.\r\n\r\nIt invites the RP to potentially request an ACR as an essential claim value in their request which could be potentially lower than necessary for the operations requested which the OP would then have to go to the trouble rejecting. \r\n\r\nThe only reason for making the claim mandatory for RPs would be if there was a use case for them to request an ACR higher than the minimum required for their request, but doesn't that fail the minimum friction principal? \r\n\r\nI feel like the ACR claim being a SHALL doesn't have a clear future in the AI space and we should move the SHALL to the CDR Sharing V1 to make it easier to ditch later if need. But leave the ACR definitions and their links to TDIF in baseline. Can always move the claim SHALL back if it's useful. :) \r\n\r\nThoughts? ",
+          "createdAt": "2023-06-19T08:42:40Z",
+          "updatedAt": "2023-06-19T08:42:40Z"
+        },
+        {
+          "author": "perlboy",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Yeah ok, so leave it in as SHOULD but declare it as SHALL in Sharing V1 for now. Sounds good to me, can you create the PR on Sharing V1 and push a change on this branch for the SHALL -> SHOULD conversion?",
+          "createdAt": "2023-06-19T08:45:46Z",
+          "updatedAt": "2023-06-19T08:47:40Z"
+        },
+        {
+          "author": "benkolera",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think this omits the CDR restriction of `public clients MUST NOT be supported` where FAPI has them as a MAY support public clients. I'l dig to confirm and do a change.",
+          "createdAt": "2023-06-19T08:52:35Z",
+          "updatedAt": "2023-06-19T08:52:35Z"
+        },
+        {
+          "author": "benkolera",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Also missing: Banning refresh token cycling. I'll add this as well. ",
+          "createdAt": "2023-06-19T08:54:01Z",
+          "updatedAt": "2023-06-19T08:54:01Z"
+        },
+        {
+          "author": "benkolera",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I'm not sure that this baseline is strong enough on the PAR front. FAPI 1 Adv still allows non par request but the latest statements in the CDS for request objects state:\r\n\r\n`Authorisation request data MUST only be accepted using PAR.`\r\n\r\n`Data Recipients MUST ONLY send authorisation request data using [[RFC9126]] and use [[PKCE]] in accordance with [[FAPI-1.0-Advanced]].`\r\n\r\nBut I do note that these transitionary FAPI migration statements were quite tricky and I misinterpreted them more than a few times. :) \r\n\r\nMy current interpretation is that every holder CDR realm should have require_pushed_authorization_requests set to true. \r\n\r\nBut then again the CDS states this elsewhere in the PAR endpoint docs so it's a wee bit inconsistent:\r\n`Data Recipient Software Products MAY send authorisation requests using [[PAR]](https://consumerdatastandardsaustralia.github.io/standards/#nref-PAR) if supported by the Data Holder.`",
+          "createdAt": "2023-06-19T09:09:35Z",
+          "updatedAt": "2023-06-19T09:13:20Z"
+        },
+        {
+          "author": "perlboy",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Ok, this looks good now. Will go create the admission control placeholder and then merge.",
+          "createdAt": "2023-06-19T10:08:25Z",
+          "updatedAt": "2023-06-19T10:08:25Z"
+        },
+        {
+          "author": "perlboy",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Have added some clarification comments regarding ACR values to https://github.com/cdrplus/cdrplus-infosec-baseline/issues/2 and proceeding with merge.",
+          "createdAt": "2023-06-19T11:19:10Z",
+          "updatedAt": "2023-06-19T11:19:10Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJv_23M5YkEFO",
+          "commit": {
+            "abbreviatedOid": "2da0364"
+          },
+          "author": "benkolera",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-19T09:53:39Z",
+          "updatedAt": "2023-06-19T09:53:39Z",
+          "comments": [
+            {
+              "originalPosition": 181,
+              "body": "We should probably create this repo with the template and some coming soon notice. ",
+              "createdAt": "2023-06-19T09:53:39Z",
+              "updatedAt": "2023-06-19T09:53:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJv_23M5YkEYm",
+          "commit": {
+            "abbreviatedOid": "2da0364"
+          },
+          "author": "benkolera",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "LGTM. Made a few little edits that I pushed to the branch from my PR comments. ",
+          "createdAt": "2023-06-19T09:54:21Z",
+          "updatedAt": "2023-06-19T09:54:21Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJv_23M5YkHMV",
+          "commit": {
+            "abbreviatedOid": "2da0364"
+          },
+          "author": "perlboy",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "@benkolera check out comments on changes.",
+          "createdAt": "2023-06-19T10:00:43Z",
+          "updatedAt": "2023-06-19T10:03:20Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "FAPI 1.0 Advanced states in the introduction:\r\n> This profile does not support public clients.\r\n\r\nI don't think it is worthwhile restating this.",
+              "createdAt": "2023-06-19T10:00:43Z",
+              "updatedAt": "2023-06-19T10:03:20Z"
+            },
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\n1. **SHALL NOT** accept authorisation request object passed by value\r\n```\r\nFixing the specific naming of this",
+              "createdAt": "2023-06-19T10:02:41Z",
+              "updatedAt": "2023-06-19T10:03:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJv_23M5YkJsG",
+          "commit": {
+            "abbreviatedOid": "2da0364"
+          },
+          "author": "benkolera",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-19T10:05:51Z",
+          "updatedAt": "2023-06-19T10:05:51Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "Ahhhhh. My mistake. Baseline allows them but advanced doesn't. \r\n\r\nYeah agreed doesn't need restating. That was pebcak sorry.",
+              "createdAt": "2023-06-19T10:05:51Z",
+              "updatedAt": "2023-06-19T10:05:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJv_23M5YkKwZ",
+          "commit": {
+            "abbreviatedOid": "2da0364"
+          },
+          "author": "benkolera",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-19T10:06:50Z",
+          "updatedAt": "2023-06-19T10:06:50Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2023-06-19T10:06:50Z",
+              "updatedAt": "2023-06-19T10:06:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJv_23M5YkhQu",
+          "commit": {
+            "abbreviatedOid": "2da0364"
+          },
+          "author": "perlboy",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-19T11:01:15Z",
+          "updatedAt": "2023-06-19T11:01:16Z",
+          "comments": [
+            {
+              "originalPosition": 181,
+              "body": "Placeholder created and url updated.",
+              "createdAt": "2023-06-19T11:01:15Z",
+              "updatedAt": "2023-06-19T11:01:16Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
