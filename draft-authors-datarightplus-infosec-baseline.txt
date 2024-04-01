@@ -5,7 +5,7 @@
 datarightplus                                                     S. Low
 Internet-Draft                                                 B. Kolera
 Intended status: Experimental                                    Biza.io
-Expires: 2 October 2024                                    31 March 2024
+Expires: 3 October 2024                                     1 April 2024
 
 
                  DataRight+ Security Profile: Baseline
@@ -48,7 +48,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 October 2024.
+   This Internet-Draft will expire on 3 October 2024.
 
 Copyright Notice
 
@@ -59,26 +59,23 @@ Copyright Notice
    Provisions Relating to IETF Documents (https://trustee.ietf.org/
    license-info) in effect on the date of publication of this document.
    Please review these documents carefully, as they describe your rights
-   and restrictions with respect to this document.  Code Components
-   extracted from this document must include Revised BSD License text as
-   described in Section 4.e of the Trust Legal Provisions and are
-   provided without warranty as described in the Revised BSD License.
+   and restrictions with respect to this document.
 
 Table of Contents
 
    1.  Scope
    2.  Terminology
-     2.1.  Authorisation Server
-       2.1.1.  Authorisation Flow
-       2.1.2.  Endpoints
-       2.1.3.  Claims
-     2.2.  Resource Server
-   3.  Initiator
-     3.1.  Authorisation Client
+   3.  Provider
+     3.1.  Authorisation Server
+       3.1.1.  Authorisation Flow
+       3.1.2.  Endpoints
+       3.1.3.  Claims
      3.2.  Resource Server
-   4.  TLS Considerations
-   5.  Implementation Considerations
-   6.  Security Considerations
+   4.  Initiator
+     4.1.  Authorisation Client
+     4.2.  Resource Server
+   5.  TLS Considerations
+   6.  Implementation Considerations
    7.  Acknowledgement
    8.  Normative References
    Authors' Addresses
@@ -108,17 +105,15 @@ Table of Contents
 
    The specification also defines the following terms:
 
-   Access Token:  TODO
-   ID Token:  TODO
-   Issuer  TODO
    Pairwise Pseudonymous Identifier (PPID)  Identifier that identifies
       the Consumer to a Initiator that cannot be correlated with the
       Consumer's PPID at another Initiator.
-   Refresh Token  TODO
    User Identifier  A User Identifier is a unique piece of information,
       typically a username, which identifies the User
 
-2.1.  Authorisation Server
+3.  Provider
+
+3.1.  Authorisation Server
 
    The authorisation server SHALL support the provisions specified in
    clause 5.2.2 of [FAPI-1.0-Advanced] with the following sections
@@ -136,11 +131,11 @@ Table of Contents
    In addition, the authorisation server:
 
    1.   SHALL support the [OIDC-Core] scopes openid and profile;
-   2.   SHALL support signed ID Tokens and MAY support signed and
-        encrypted ID Tokens;
-   3.   SHALL issue Access Tokens with an expiry time of between 2 and
+   2.   SHALL support signed ID tokens and MAY support signed and
+        encrypted ID tokens;
+   3.   SHALL issue access tokens with an expiry time of between 2 and
         10 minutes;
-   4.   SHALL provide the lifetime remaining of an Access Token as an
+   4.   SHALL provide the lifetime remaining of an access token as an
         attribute named expires_in within the token endpoint response;
    5.   SHALL generate the sub as a PPID as described in Section 8 of
         [OIDC-Core];
@@ -153,7 +148,7 @@ Table of Contents
         [OIDC-Core];
    9.   SHALL support a UserInfo Endpoint as specified in Section 5.3 of
         [OIDC-Core];
-   10.  SHALL for each Provider, utilise a different Issuer as specified
+   10.  SHALL for each Provider, utilise a different issuer as specified
         in Section 1.2 of [OIDC-Core];
    11.  SHALL support discovery, as defined in OpenID Connect Discovery
         1.0 [OIDC-Discovery];
@@ -162,9 +157,9 @@ Table of Contents
    13.  SHALL support a revocation endpoint, as defined in [RFC7009];
    14.  SHALL ensure all operations meet at at least the requirements of
         Credential Level CL1 rules of [TDIF];
-   15.  SHALL NOT utilise Refresh Token rotation
+   15.  SHALL NOT utilise refresh token rotation
 
-2.1.1.  Authorisation Flow
+3.1.1.  Authorisation Flow
 
    During the authorisation flow, the authorisation server:
 
@@ -177,9 +172,9 @@ Table of Contents
    5.  SHALL NOT introduce friction designed to make the authorisation
        process more difficult than it needs to be
 
-2.1.2.  Endpoints
+3.1.2.  Endpoints
 
-2.1.2.1.  Discovery Document
+3.1.2.1.  Discovery Document
 
    The discovery document from the authorisation server:
 
@@ -189,23 +184,23 @@ Table of Contents
    2.  SHALL support the require_pushed_authorization_requests parameter
        as described in [RFC9126] at the [RFC8414] endpoint;
 
-2.1.2.2.  Introspection Endpoint
+3.1.2.2.  Introspection Endpoint
 
    The introspection endpoint:
 
-   1.  SHALL NOT support introspection of Access Tokens
+   1.  SHALL NOT support introspection of access tokens
    2.  SHALL include the sub, exp and scope attributes
    3.  SHALL NOT include the username attribute
 
-2.1.2.3.  Revocation Endpoint
+3.1.2.3.  Revocation Endpoint
 
    The revocation endpoint:
 
-   1.  SHALL support revocation of Refresh Tokens
-   2.  SHALL support revocation of Access Tokens
-   3.  MAY support revocation of ID Tokens
+   1.  SHALL support revocation of refresh tokens
+   2.  SHALL support revocation of access tokens
+   3.  MAY support revocation of ID tokens
 
-2.1.3.  Claims
+3.1.3.  Claims
 
    The authorisation server:
 
@@ -217,14 +212,14 @@ Table of Contents
    4.  MAY support the [OIDC-Core] claims of email, email_verified,
        phone_number and phone_number_verified;
 
-2.2.  Resource Server
+3.2.  Resource Server
 
    The resource server provided by Providers: 1.  SHALL support the
    provisions specified in clause 5.2.2 of [FAPI-1.0-Baseline];
 
-3.  Initiator
+4.  Initiator
 
-3.1.  Authorisation Client
+4.1.  Authorisation Client
 
    The Initiators authorisation client:
 
@@ -244,7 +239,7 @@ Table of Contents
    _Note:_ The form and structure of the consent obtained by the
    authorisation client is outside the scope of this document.
 
-3.2.  Resource Server
+4.2.  Resource Server
 
    The resource server SHALL support the provisions specified in clause
    6.2.2 of [FAPI-1.0-Baseline] with the following sections replaced:
@@ -258,7 +253,7 @@ Table of Contents
        x-fapi-customer-ip-address: 2001:DB8::1893:25c8:1946 or x-fapi-
        customer-ip-address: 198.51.100.119; and
 
-4.  TLS Considerations
+5.  TLS Considerations
 
    Section 8.5 of [FAPI-1.0-Advanced] SHALL apply.
 
@@ -270,7 +265,7 @@ Table of Contents
    2.  All parties SHALL apply the certificate management policy
        requirements of the relevant Ecosystem Authority
 
-5.  Implementation Considerations
+6.  Implementation Considerations
 
    Claims available via the profile scope will only return the details
    of the User which may be different to the Consumer.
@@ -289,24 +284,12 @@ Table of Contents
    *  scopes;
    *  duration
 
-6.  Security Considerations
-
-   Providers SHOULD implement additional controls to minimise the risk
-   of interception of the OTP through the selected delivery mechanism.
-
 7.  Acknowledgement
 
    The following people contributed to this document:
 
    *  Stuart Low (Biza.io) - Editor
    *  Ben Kolera (Biza.io)
-
-   This document relies heavily upon the [CDS] and we therefore
-   acknowledge the contribution of the following individuals: - James
-   Bligh (Data Standards Body) - Lead Architect for the Consumer Data
-   Right - Mark Verstege (Data Standards Body) - Lead Architect, Banking
-   & Information Security for the Consumer Data Right - Ivan Hosgood
-   (formerly Data Standards Body & ACCC) - Solutions Architect
 
 8.  Normative References
 
@@ -348,26 +331,30 @@ Table of Contents
               discovery-1_0.html>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels",
-              <https://datatracker.ietf.org/doc/html/rfc2119>.
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
 
-   [RFC7009]  Ed., T. L. and M. Scurtescu, "OAuth 2.0 Token Revocation",
-              <https://datatracker.ietf.org/doc/html/rfc7009>.
+   [RFC7009]  Lodderstedt, T., Ed., Dronia, S., and M. Scurtescu, "OAuth
+              2.0 Token Revocation", RFC 7009, DOI 10.17487/RFC7009,
+              August 2013, <https://www.rfc-editor.org/info/rfc7009>.
 
-   [RFC7662]  Ed., J. R., "OAuth 2.0 Token Introspection", October 2015,
-              <https://datatracker.ietf.org/doc/html/rfc7662>.
+   [RFC7662]  Richer, J., Ed., "OAuth 2.0 Token Introspection",
+              RFC 7662, DOI 10.17487/RFC7662, October 2015,
+              <https://www.rfc-editor.org/info/rfc7662>.
 
    [RFC8414]  Jones, M., Sakimura, N., and J. Bradley, "OAuth 2.0
-              Authorization Server Metadata", June 2018,
-              <https://datatracker.ietf.org/doc/html/rfc8414>.
+              Authorization Server Metadata", RFC 8414,
+              DOI 10.17487/RFC8414, June 2018,
+              <https://www.rfc-editor.org/info/rfc8414>.
 
-   [RFC9126]  Ed., T. L., Campbell, B., Sakimura, N., Tonge, D., and F.
-              Skokan, "OAuth 2.0 Pushed Authorization Requests",
-              September 2021,
-              <https://datatracker.ietf.org/doc/html/rfc9126>.
+   [RFC9126]  Lodderstedt, T., Campbell, B., Sakimura, N., Tonge, D.,
+              and F. Skokan, "OAuth 2.0 Pushed Authorization Requests",
+              RFC 9126, DOI 10.17487/RFC9126, September 2021,
+              <https://www.rfc-editor.org/info/rfc9126>.
 
    [TDIF]     Commonwealth of Australia (Digital Transformation Agency),
-              "Trusted Digital Identity Framework (TDIF)",
+              "Trusted Digital Identity Framework ( TDIF)",
               <https://www.digitalidentity.gov.au>.
 
 Authors' Addresses
