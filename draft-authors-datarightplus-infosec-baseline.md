@@ -1,12 +1,14 @@
 %%%
+
 title = "DataRight+ Security Profile: Baseline"
 area = "Internet"
 workgroup = "datarightplus"
+submissionType = "independent"
 
 [seriesInfo]
 name = "Internet-Draft"
 value = "draft-authors-datarightplus-infosec-baseline-latest"
-stream = "IETF"
+stream = "independent"
 status = "experimental"
 
 date = 2024-02-17T00:00:00Z
@@ -60,24 +62,13 @@ This specification uses the term "JSON Web Token (JWT)" as defined by [@!JWT] an
 
 The specification also defines the following terms:
 
-Access Token:
-: TODO
-
-ID Token:
-: TODO
-
-Issuer
-: TODO
-
 Pairwise Pseudonymous Identifier (PPID)
 : Identifier that identifies the Consumer to a Initiator that cannot be correlated with the Consumer's PPID at another Initiator.
-
-Refresh Token
-: TODO
 
 User Identifier
 : A User Identifier is a unique piece of information, typically a username, which identifies the User
 
+# Provider
 
 ## Authorisation Server
 
@@ -91,20 +82,20 @@ The authorisation server **SHALL** support the provisions specified in clause 5.
 In addition, the authorisation server:
 
 1. **SHALL** support the [@!OIDC-Core] scopes `openid` and `profile`;
-2. **SHALL** support signed ID Tokens and **MAY** support signed and encrypted ID Tokens;
-1. **SHALL** issue Access Tokens with an expiry time of between 2 and 10 minutes;
-1. **SHALL** provide the lifetime remaining of an Access Token as an attribute named `expires_in` within the token endpoint response;
+2. **SHALL** support signed ID tokens and **MAY** support signed and encrypted ID tokens;
+1. **SHALL** issue access tokens with an expiry time of between 2 and 10 minutes;
+1. **SHALL** provide the lifetime remaining of an access token as an attribute named `expires_in` within the token endpoint response;
 1. **SHALL** generate the `sub` as a PPID as described in Section 8 of [@!OIDC-Core];
 1. **SHALL** issue `request_uri` values which are one-time use and expire between 10 seconds and 90 seconds (this overrides [@RFC9126] clause 4);
 1. **SHALL NOT** specify duplicate `kid` parameters within the endpoint advertised at `jwks_uri`;
 1. **SHALL** support a Token End Point as specified in Section 3.1.3 of [@!OIDC-Core];
 1. **SHALL** support a UserInfo Endpoint as specified in Section 5.3 of [@!OIDC-Core];
-1. **SHALL** for each Provider, utilise a different Issuer as specified in Section 1.2 of [@!OIDC-Core];
+1. **SHALL** for each Provider, utilise a different issuer as specified in Section 1.2 of [@!OIDC-Core];
 1. **SHALL** support discovery, as defined in OpenID Connect Discovery 1.0 [@!OIDC-Discovery];
 1. **SHALL** support an introspection endpoint, as defined in [@!RFC7662];
 1. **SHALL** support a revocation endpoint, as defined in [@!RFC7009];
 1. **SHALL** ensure all operations meet at at least the requirements of Credential Level `CL1` rules of [@!TDIF];
-1. **SHALL NOT** utilise Refresh Token rotation
+1. **SHALL NOT** utilise refresh token rotation
 
 ### Authorisation Flow
 
@@ -129,7 +120,7 @@ The discovery document from the authorisation server:
 
 The introspection endpoint:
 
-1. **SHALL NOT** support introspection of Access Tokens
+1. **SHALL NOT** support introspection of access tokens
 1. **SHALL** include the `sub`, `exp` and `scope` attributes
 1. **SHALL NOT** include the `username` attribute
 
@@ -137,9 +128,9 @@ The introspection endpoint:
 
 The revocation endpoint:
 
-1. **SHALL** support revocation of Refresh Tokens
-1. **SHALL** support revocation of Access Tokens
-1. **MAY** support revocation of ID Tokens
+1. **SHALL** support revocation of refresh tokens
+1. **SHALL** support revocation of access tokens
+1. **MAY** support revocation of ID tokens
 
 ### Claims
 
@@ -200,10 +191,6 @@ Initiators SHOULD record the following information each time an authorisation fl
 - scopes;
 - duration
 
-# Security Considerations
-
-Providers SHOULD implement additional controls to minimise the risk of interception of the OTP through the selected delivery mechanism.
-
 # Acknowledgement
 
 The following people contributed to this document:
@@ -211,43 +198,23 @@ The following people contributed to this document:
 - Stuart Low (Biza.io) - Editor
 - Ben Kolera (Biza.io)
 
-This document relies heavily upon the [@!CDS] and we therefore acknowledge the contribution of the following individuals:
-- James Bligh (Data Standards Body) - Lead Architect for the Consumer Data Right
-- Mark Verstege (Data Standards Body) - Lead Architect, Banking & Information Security for the Consumer Data Right
-- Ivan Hosgood (formerly Data Standards Body & ACCC) - Solutions Architect
-
 {backmatter}
+
+<reference anchor="CDS" target="https://consumerdatastandardsaustralia.github.io/standards"><front><title>Consumer Data
+Standards (CDS)</title><author><organization>Data Standards Body (Treasury)</organization></author></front> </reference>
+
+<reference anchor="FAPI-1.0-Baseline" target="https://openid.net/specs/openid-financial-api-part-1-1_0.html"> <front><title abbrev="FAPI 1.0 Baseline">Financial-grade API Security Profile 1.0 - Part 1: Baseline</title><author initials="N." surname="Sakimura" fullname="Nat Sakimura"><organization>Nat Consulting</organization></author><author initials="J." surname="Bradley" fullname="John Bradley"><organization>Yubico</organization></author><author initials="E." surname="Jay" fullname="Illumila"><organization>Illumila</organization></author></front> </reference>
 
 <reference anchor="OIDC-Core" target="http://openid.net/specs/openid-connect-core-1_0.html"> <front> <title>OpenID Connect Core 1.0 incorporating errata set 1</title> <author initials="N." surname="Sakimura" fullname="Nat Sakimura"> <organization>NRI</organization> </author> <author initials="J." surname="Bradley" fullname="John Bradley"> <organization>Ping Identity</organization> </author> <author initials="M." surname="Jones" fullname="Mike Jones"> <organization>Microsoft</organization> </author> <author initials="B." surname="de Medeiros" fullname="Breno de Medeiros"> <organization>Google</organization> </author> <author initials="C." surname="Mortimore" fullname="Chuck Mortimore"> <organization>Salesforce</organization> </author> <date day="8" month="Nov" year="2014"/> </front> </reference>
 
 <reference anchor="OIDC-Discovery" target="https://openid.net/specs/openid-connect-discovery-1_0.html"> <front> <title>OpenID Connect Discovery 1.0 incorporating errata set 1</title> <author initials="N." surname="Sakimura" fullname="Nat Sakimura"> <organization>NRI</organization> </author> <author initials="J." surname="Bradley" fullname="John Bradley"> <organization>Ping Identity</organization> </author> <author initials="M." surname="Jones" fullname="Mike Jones"> <organization>Microsoft</organization> </author> <author initials="E." surname="Jay"> <organization>Illumila</organization> </author><date day="8" month="Nov" year="2014"/> </front> </reference>
 
-<reference anchor="RFC2119" target="https://datatracker.ietf.org/doc/html/rfc2119"> <front> <title>Key words for use in RFCs to Indicate Requirement Levels</title> <author fullname="S. Bradner"> <organization>Harvard University</organization> </author> </front> </reference>
-
-<reference anchor="RFC7009" target="https://datatracker.ietf.org/doc/html/rfc7009"> <front> <title>OAuth 2.0 Token Revocation</title> <author fullname="T. Lodderstedt, Ed."> <organization>Deutsche Telekom AG</organization> </author><author fullname="M. Scurtescu"> <organization>Google</organization> </author> </front> </reference>
+<reference anchor="FAPI-1.0-Advanced" target="https://openid.net/specs/openid-financial-api-part-2-1_0.html"> <front> <title abbrev="FAPI 1.0 Advanced">Financial-grade API Security Profile 1.0 - Part 2: Advanced</title><author initials="N." surname="Sakimura" fullname="Nat Sakimura"><organization>Nat Consulting</organization></author><author initials="J." surname="Bradley" fullname="John Bradley"><organization>Yubico</organization></author> <author initials="E." surname="Jay" fullname="Illumila"><organization>Illumila</organization></author></front> </reference>
 
 <reference anchor="JWT" target="https://datatracker.ietf.org/doc/html/rfc7519"> <front> <title>JSON Web Token (JWT)</title> <author fullname="M. Jones"> <organization>Microsoft</organization> </author> <author initials="J." surname="Bradley" fullname="John Bradley"> <organization>Ping Identity</organization> </author><author fullname="N. Sakimura"> <organization>Nomura Research Institute</organization> </author> <date month="May" year="2015"/></front> </reference>
 
-<reference anchor="RFC7662" target="https://datatracker.ietf.org/doc/html/rfc7662"> <front> <title>OAuth 2.0 Token Introspection
-</title> <author fullname="J. Richer, Ed."> </author> <date month="Oct" year="2015"/></front> </reference>
-
-<reference anchor="RFC8705" target="https://datatracker.ietf.org/doc/html/rfc8705"> <front> <title>OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</title><author fullname="B. Campbell"> <organization>Ping Identity</organization> </author><author initials="J." surname="Bradley" fullname="John Bradley"> <organization>Yubico</organization> </author> <author fullname="N. Sakimura"> <organization>Nomura Research Institute</organization> </author> <author fullname="T. Lodderstedt, Ed."> <organization>YES.com AG</organization> </author><date month="Feb" year="2020"/></front> </reference>
-
-<reference anchor="RFC9126" target="https://datatracker.ietf.org/doc/html/rfc9126"> <front> <title>OAuth 2.0 Pushed Authorization Requests</title> <author fullname="T. Lodderstedt, Ed."> <organization>yes.com</organization> </author><author fullname="B. Campbell"> <organization>Ping Identity</organization> </author><author fullname="N. Sakimura"> <organization>NAT.Consulting</organization> </author> <author fullname="D. Tonge"> <organization>Moneyhub Financial Technology</organization> </author><author fullname="F. Skokan"> <organization>Auth0</organization> </author><date month="Sep" year="2021"/></front> </reference>
-
-<reference anchor="RFC8414" target="https://datatracker.ietf.org/doc/html/rfc8414"> <front> <title>OAuth 2.0 Authorization Server Metadata</title> <author initials="M." surname="Jones" fullname="Mike Jones"> <organization>Microsoft</organization> </author> <author fullname="N. Sakimura"> <organization>NAT.Consulting</organization></author> <author initials="J." surname="Bradley" fullname="John Bradley"> <organization>Yubico</organization> </author><date month="Jun" year="2018"/></front> </reference>
-
-<reference anchor="FAPI-1.0-Advanced" target="https://openid.net/specs/openid-financial-api-part-2-1_0.html"> <front> <title abbrev="FAPI 1.0 Advanced">Financial-grade API Security Profile 1.0 - Part 2: Advanced</title><author initials="N." surname="Sakimura" fullname="Nat Sakimura"><organization>Nat Consulting</organization></author><author initials="J." surname="Bradley" fullname="John Bradley"><organization>Yubico</organization></author> <author initials="E." surname="Jay" fullname="Illumila"><organization>Illumila</organization></author></front> </reference>
-
-<reference anchor="FAPI-1.0-Baseline" target="https://openid.net/specs/openid-financial-api-part-1-1_0.html"> <front><title abbrev="FAPI 1.0 Baseline">Financial-grade API Security Profile 1.0 - Part 1: Baseline</title><author initials="N." surname="Sakimura" fullname="Nat Sakimura"><organization>Nat Consulting</organization></author><author initials="J." surname="Bradley" fullname="John Bradley"><organization>Yubico</organization></author><author initials="E." surname="Jay" fullname="Illumila"><organization>Illumila</organization></author></front> </reference>
-
-<reference anchor="DATARIGHTPLUS-INFOSEC-SHARING-V1" target="https://datarightplus.github.io/datarightplus-specs/main/datarightplus-infosec-sharing-v1.html"> <front><title>CDR: Sharing Arrangement V1</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
-
-<reference anchor="DATARIGHTPLUS-ADMISSION-CONTROL" target="https://datarightplus.github.io/datarightplus-admission-control/draft-authors-datarightplus-admission-control.html"> <front><title>DataRight Plus: Admission Control</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
-
 <reference anchor="DATARIGHTPLUS-ROSETTA" target="https://datarightplus.github.io/datarightplus-rosetta/draft-authors-datarightplus-rosetta.html"> <front><title>DataRight+ Rosetta Stone</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
 
-<reference anchor="CDS" target="https://consumerdatastandardsaustralia.github.io/standards"><front><title>Consumer Data Standards (CDS)</title><author><organization>Data Standards Body (Treasury)</organization></author></front> </reference>
-
-<reference anchor="TDIF" target="https://www.digitalidentity.gov.au"><front><title>Trusted Digital Identity Framework (TDIF)</title><author><organization>Commonwealth of
+<reference anchor="TDIF" target="https://www.digitalidentity.gov.au"><front><title>Trusted Digital Identity Framework (
+TDIF)</title><author><organization>Commonwealth of
 Australia (Digital Transformation Agency)</organization></author></front> </reference>
