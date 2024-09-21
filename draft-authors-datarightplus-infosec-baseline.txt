@@ -5,7 +5,7 @@
 datarightplus                                                     S. Low
 Internet-Draft                                                 B. Kolera
 Intended status: Experimental                                    Biza.io
-Expires: 3 October 2024                                     1 April 2024
+Expires: 25 March 2025                                 21 September 2024
 
 
                  DataRight+ Security Profile: Baseline
@@ -48,7 +48,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 October 2024.
+   This Internet-Draft will expire on 25 March 2025.
 
 Copyright Notice
 
@@ -155,7 +155,7 @@ Table of Contents
    12.  SHALL support an introspection endpoint, as defined in
         [RFC7662];
    13.  SHALL support a revocation endpoint, as defined in [RFC7009];
-   14.  SHALL ensure all operations meet at at least the requirements of
+   14.  SHALL ensure all operations meet at least the requirements of
         Credential Level CL1 rules of [TDIF];
    15.  SHALL NOT utilise refresh token rotation
 
@@ -350,8 +350,8 @@ Table of Contents
 
    [RFC9126]  Lodderstedt, T., Campbell, B., Sakimura, N., Tonge, D.,
               and F. Skokan, "OAuth 2.0 Pushed Authorization Requests",
-              RFC 9126, DOI 10.17487/RFC9126, September 2021,
-              <https://www.rfc-editor.org/info/rfc9126>.
+              September 2021,
+              <https://datatracker.ietf.org/doc/html/rfc9126>.
 
    [TDIF]     Commonwealth of Australia (Digital Transformation Agency),
               "Trusted Digital Identity Framework ( TDIF)",
