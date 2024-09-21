@@ -94,7 +94,7 @@ In addition, the authorisation server:
 1. **SHALL** support discovery, as defined in OpenID Connect Discovery 1.0 [@!OIDC-Discovery];
 1. **SHALL** support an introspection endpoint, as defined in [@!RFC7662];
 1. **SHALL** support a revocation endpoint, as defined in [@!RFC7009];
-1. **SHALL** ensure all operations meet at at least the requirements of Credential Level `CL1` rules of [@!TDIF];
+1. **SHALL** ensure all operations meet at least the requirements of Credential Level `CL1` rules of [@!TDIF];
 1. **SHALL NOT** utilise refresh token rotation
 
 ### Authorisation Flow
@@ -218,3 +218,6 @@ Standards (CDS)</title><author><organization>Data Standards Body (Treasury)</org
 <reference anchor="TDIF" target="https://www.digitalidentity.gov.au"><front><title>Trusted Digital Identity Framework (
 TDIF)</title><author><organization>Commonwealth of
 Australia (Digital Transformation Agency)</organization></author></front> </reference>
+
+<reference anchor="RFC9126" target="https://datatracker.ietf.org/doc/html/rfc9126"> <front> <title>OAuth 2.0 Pushed Authorization Requests</title><author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt"><organization>yes.com</organization></author><author initials="B." surname="Campbell" fullname="Brian Campbell"><organization>Ping Identity</organization></author><author initials="N." surname="Sakimura" fullname="Nat Sakimura"><organization showOnFrontPage="true">NAT.Consulting</organization></author><author initials="D." surname="Tonge" fullname="Dave Tonge"><organization showOnFrontPage="true">Moneyhub Financial Technology</organization></author><author initials="F." surname="Skokan" fullname="Filip Skokan"><organization showOnFrontPage="true">Auth0</organization></author><date month="09" year="2021"/></front></reference>
+

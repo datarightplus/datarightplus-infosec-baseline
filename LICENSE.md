@@ -1,7 +1,7 @@
 The MIT License (MIT)
 =====================
 
-Copyright © 2023 [DataRight Plus Contributors](https://dataright.plus)
+Copyright © 2024 [DataRight Plus Contributors](https://dataright.plus)
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
