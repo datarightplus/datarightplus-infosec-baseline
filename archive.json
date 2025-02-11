@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-08-13T00:03:15.308402+00:00",
+  "timestamp": "2025-02-11T00:12:39.681717+00:00",
   "repo": "datarightplus/datarightplus-infosec-baseline",
   "labels": [
     {
@@ -75,15 +75,15 @@
       "id": "I_kwDOJv_23M5t70An",
       "title": "Party Naming",
       "url": "https://github.com/datarightplus/datarightplus-infosec-baseline/issues/3",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "perlboy",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "There's a discussion ongoing regarding the use of the current terms \"Data Holder\" and \"Data Recipient\". \r\n\r\nThought is that before we get too much further we should ideally abstract away from the CDR defined legalese to more genericised concepts.",
       "createdAt": "2023-08-10T04:32:37Z",
-      "updatedAt": "2023-08-10T04:34:51Z",
-      "closedAt": null,
+      "updatedAt": "2024-04-01T12:48:08Z",
+      "closedAt": "2024-04-01T12:48:08Z",
       "comments": [
         {
           "author": "perlboy",
@@ -91,6 +91,13 @@
           "body": "Current thoughts are Service Provider and Service Consumer.\r\n",
           "createdAt": "2023-08-10T04:34:51Z",
           "updatedAt": "2023-08-10T04:34:51Z"
+        },
+        {
+          "author": "perlboy",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Settled on Provider and Initiator with a structure whereby the ecosystem specific parts are isolated in a profile dedicated for that purpose.",
+          "createdAt": "2024-04-01T12:48:08Z",
+          "updatedAt": "2024-04-01T12:48:08Z"
         }
       ]
     }
@@ -297,6 +304,34 @@
           ]
         }
       ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOJv_23M6KiTJ_",
+      "title": "Upgrade to latest github workflow",
+      "url": "https://github.com/datarightplus/datarightplus-infosec-baseline/pull/4",
+      "state": "MERGED",
+      "author": "perlboy",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-09T00:44:02Z",
+      "updatedAt": "2025-02-09T00:44:09Z",
+      "baseRepository": "datarightplus/datarightplus-infosec-baseline",
+      "baseRefName": "main",
+      "baseRefOid": "935e3d15f3f2a5458b7709bcf47527886ca1095d",
+      "headRepository": "datarightplus/datarightplus-infosec-baseline",
+      "headRefName": "upgrade-github-workflow",
+      "headRefOid": "59d7f69a3cd383f06ba02d859d9a7ee97d164f1a",
+      "closedAt": "2025-02-09T00:44:09Z",
+      "mergedAt": "2025-02-09T00:44:09Z",
+      "mergedBy": "perlboy",
+      "mergeCommit": {
+        "oid": "c0b1229c9710747751d6f70b24138eac52c3c211"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
